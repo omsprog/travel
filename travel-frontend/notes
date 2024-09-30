@@ -1,0 +1,6 @@
+ng g m dashboard --routing
+ng g c dashboard/sidenav --inline-style --skip-tests
+ng g c dashboard/layout --inline-style --skip-tests
+ng g c dashboard/home --inline-style --skip-tests
+ng g c dashboard/flights --inline-style --skip-tests
+ng g c dashboard/hotels --inline-style --skip-tests

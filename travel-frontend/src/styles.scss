@@ -1,0 +1,104 @@
+$primary-color: #050828;
+$secondary-color: #fcc728;
+$primary-font-color: #e9e4e4;
+$selected-item-color: rgba(31, 35, 103, 0.87);
+$primary-background-color: #3b03de;
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: 'Muli', sans-serif;
+}
+
+.full-page {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100%;
+}
+
+// Nav
+nav {
+  display: flex;
+  width: 20%;
+  overflow: hidden;
+  flex-direction: column;
+  height: 100vh;
+  box-shadow: 2px 1px 15px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  background-color: $primary-color;
+  color: $primary-font-color;
+  border-right: 1px solid $primary-font-color;
+
+  .logo {
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding: 20px;
+    font-size: 25px;
+    margin-bottom: 10px;
+    color: $primary-font-color;
+    cursor: pointer;
+  }
+
+  ul li {
+    padding: 20px;
+    margin-bottom: 6px;
+    font-weight: 600;
+    border-left: solid 4px $primary-color;
+    margin-left: 4px;
+    cursor: pointer;
+  }
+
+  li:hover, li.active {
+    border-left: solid 4px $secondary-color;
+    color: $secondary-color;
+    background-color: $selected-item-color;
+  }
+}
+
+//main
+.main {
+  width: 100%;
+  overflow: auto;
+  max-height: 100vh;
+  background-color: $primary-background-color;
+  color: $primary-font-color;
+
+  header {
+    height: 70px;
+    width: 100%;
+    background-color: $primary-color;
+    position: sticky;
+    top: 0px;
+    z-index: 11;
+    border-bottom: 1px solid $primary-font-color;
+
+    i {
+      max-height: 30px;
+      float: right;
+      width: 30px;
+      padding-bottom: 20px;
+      padding-top: 20px;
+      margin-right: 10px;
+    }
+
+    i:hover {
+      cursor: pointer;
+    }
+  }
+
+  h1.title {
+    text-decoration: underline;
+    text-transform: uppercase;
+    font-size: 1.3em;
+    padding-bottom: 20px;
+  }
+
+  .content {
+    padding: 30px 50px;
+    p {
+      padding: 8px 0;
+      font-size: 1.1em;
+    }
+  }
+}
