@@ -1,7 +1,5 @@
 <div class="pagination-container">
-  <span><</span>
-  <span>1</span>
-  <span class="active">2</span>
-  <span>3</span>
-  <span>></span>
+  <span (click)="changePage(currentPage - 1)" *ngIf="!first"><</span>
+  <span (click)="changePage(i)" [ngClass]="{ 'active': currentPage == i }" *ngFor="let number of [].constructor(totalPages); let i = index">{{ i + 1 }}</span>
+  <span (click)="changePage(currentPage + 1)" *ngIf="!last">></span>
 </div>

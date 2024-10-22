@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {PaginationService} from "../../../services/pagination-service.service";
+import {FlightService} from "../../../services/flight-service.service";
 import {FlightPage} from "../../../interfaces/flight.interface";
 
 @Component({
@@ -9,13 +9,27 @@ import {FlightPage} from "../../../interfaces/flight.interface";
 })
 export class FlightListComponent implements OnInit {
   public flightPage? : FlightPage;
+  public currentPage : number = 0;
+  public loading = false;
 
-  constructor(private paginationService: PaginationService) { }
+  constructor(private flightService: FlightService) { }
 
   ngOnInit(): void {
-    this.paginationService.getFlights()
+    this.loading = true;
+    this.flightService.getFlights()
       .subscribe(flight => {
         this.flightPage = flight;
+        this.loading = false;
+      })
+  }
+
+  onChangePage(page: number) {
+    this.currentPage = page;
+    this.loading = true;
+    this.flightService.getFlights(page)
+      .subscribe(flight => {
+        this.flightPage = flight;
+        this.loading = false;
       })
   }
 }

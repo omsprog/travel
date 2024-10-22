@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'dashboard-pagination',
@@ -6,5 +6,22 @@ import { Component } from '@angular/core';
   styles: []
 })
 export class PaginationComponent {
+  @Input()
+  public first! : boolean;
 
+  @Input()
+  public last!: boolean;
+
+  @Input()
+  public currentPage! : number;
+
+  @Input()
+  public totalPages! : number;
+
+  @Output()
+  public onPageChange : EventEmitter<number> = new EventEmitter();
+
+  public changePage(pageNumber : number) {
+    this.onPageChange.emit(pageNumber);
+  }
 }

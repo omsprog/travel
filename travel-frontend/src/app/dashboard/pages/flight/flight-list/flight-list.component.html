@@ -1,18 +1,33 @@
 <div class="content">
   <h1 class="title">List of Flights</h1>
-  <table class="crud-list-table">
-    <thead>
-    <th>#</th>
-    <th>Origin Name</th>
-    <th>Destiny Name</th>
-    </thead>
-    <tbody>
-    <tr *ngFor="let flight of flightPage?.content">
-      <td>1</td>
-      <td>{{ flight.originName }}</td>
-      <td>{{ flight.destinyName }}</td>
-    </tr>
-    </tbody>
-  </table>
-  <dashboard-pagination/>
+  <div *ngIf="loading; else listTable">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+
+  <ng-template #listTable>
+    <table class="crud-list-table">
+      <thead>
+        <th>Id</th>
+        <th>Origin Name</th>
+        <th>Destiny Name</th>
+        <th>Price</th>
+        <th>Aeroline</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let flight of flightPage?.content">
+          <td>{{ flight.id }}</td>
+          <td>{{ flight.originName }}</td>
+          <td>{{ flight.destinyName }}</td>
+          <td>{{ flight.price }}</td>
+          <td>{{ flight.aeroLine }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-template>
+
+  <dashboard-pagination (onPageChange)="onChangePage($event)" *ngIf="flightPage"
+                        [first]="currentPage == 0"
+                        [last]="currentPage == flightPage.totalPages - 1"
+                        [currentPage]="currentPage"
+                        [totalPages]="flightPage.totalPages" />
 </div>
