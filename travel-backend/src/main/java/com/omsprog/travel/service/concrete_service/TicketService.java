@@ -1,12 +1,12 @@
 package com.omsprog.travel.service.concrete_service;
 
 import com.omsprog.travel.dto.request.TicketRequest;
-import com.omsprog.travel.dto.response.FlyResponse;
+import com.omsprog.travel.dto.response.FlightResponse;
 import com.omsprog.travel.dto.response.TicketResponse;
 import com.omsprog.travel.entity.jpa.TicketEntity;
 import com.omsprog.travel.helper.CustomerHelper;
 import com.omsprog.travel.repository.CustomerRepository;
-import com.omsprog.travel.repository.FlyRepository;
+import com.omsprog.travel.repository.FlightRepository;
 import com.omsprog.travel.repository.TicketRepository;
 import com.omsprog.travel.service.abstract_service.ITicketService;
 import com.omsprog.travel.util.TravelUtil;
@@ -25,7 +25,7 @@ import java.util.UUID;
 @Slf4j
 @AllArgsConstructor // Creates the constructor for the dependency injection
 public class TicketService implements ITicketService {
-    private final FlyRepository flyRepository;
+    private final FlightRepository flightRepository;
     private final CustomerRepository customerRepository;
     private final TicketRepository ticketRepository;
     private final CustomerHelper customerHelper;
@@ -34,7 +34,7 @@ public class TicketService implements ITicketService {
 
     @Override
     public TicketResponse create(TicketRequest request) {
-        var fly = flyRepository.findById(request.getIdFly()).orElseThrow();
+        var fly = flightRepository.findById(request.getIdFly()).orElseThrow();
         var customer = customerRepository.findById(request.getIdClient()).orElseThrow();
 
         var ticketToPersist = TicketEntity.builder()
@@ -65,7 +65,7 @@ public class TicketService implements ITicketService {
     @Override
     public TicketResponse update(TicketRequest request, UUID uuid) {
         var ticketToUpdate = ticketRepository.findById(uuid).orElseThrow();
-        var fly = flyRepository.findById(request.getIdFly()).orElseThrow();
+        var fly = flightRepository.findById(request.getIdFly()).orElseThrow();
 
         ticketToUpdate.setFly(fly);
         ticketToUpdate.setPrice(fly.getPrice().add(fly.getPrice().multiply(charge_price_percentage)));
@@ -87,16 +87,16 @@ public class TicketService implements ITicketService {
 
     @Override
     public BigDecimal findPrice(Long idFly) {
-        var fly = this.flyRepository.findById(idFly).orElseThrow();
+        var fly = this.flightRepository.findById(idFly).orElseThrow();
         return fly.getPrice().add(fly.getPrice().multiply(charge_price_percentage));
     }
 
     private TicketResponse entityToResponse(TicketEntity entity) {
         TicketResponse ticketResponse = new TicketResponse();
         BeanUtils.copyProperties(entity, ticketResponse);
-        FlyResponse flyResponse = new FlyResponse();
-        BeanUtils.copyProperties(entity.getFly(), flyResponse);
-        ticketResponse.setFly(flyResponse);
+        FlightResponse flightResponse = new FlightResponse();
+        BeanUtils.copyProperties(entity.getFly(), flightResponse);
+        ticketResponse.setFly(flightResponse);
         return ticketResponse;
     }
 }

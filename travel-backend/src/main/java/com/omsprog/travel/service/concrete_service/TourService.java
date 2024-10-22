@@ -6,7 +6,7 @@ import com.omsprog.travel.entity.jpa.*;
 import com.omsprog.travel.helper.CustomerHelper;
 import com.omsprog.travel.helper.TourHelper;
 import com.omsprog.travel.repository.CustomerRepository;
-import com.omsprog.travel.repository.FlyRepository;
+import com.omsprog.travel.repository.FlightRepository;
 import com.omsprog.travel.repository.HotelRepository;
 import com.omsprog.travel.repository.TourRepository;
 import com.omsprog.travel.service.abstract_service.ITourService;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 public class TourService implements ITourService {
 
     private final TourRepository tourRepository;
-    private final FlyRepository flyRepository;
+    private final FlightRepository flightRepository;
     private final HotelRepository hotelRepository;
     private final CustomerRepository customerRepository;
     private final TourHelper tourHelper;
@@ -38,7 +38,7 @@ public class TourService implements ITourService {
         var customer = customerRepository.findById(request.getCustomerId()).orElseThrow();
         var flights = new HashSet<FlyEntity>();
         request.getFlights().forEach(fly ->
-                flights.add(this.flyRepository.findById(fly.getId()).orElseThrow())
+                flights.add(this.flightRepository.findById(fly.getId()).orElseThrow())
         );
         var hotels = new HashMap<HotelEntity, Integer>();
         request.getHotels().forEach(hotel -> hotels.put(this.hotelRepository.findById(hotel.getId()).orElseThrow(), hotel.getTotalDays()));
@@ -86,7 +86,7 @@ public class TourService implements ITourService {
     @Override
     public UUID addTicket(Long flyId, Long tourId) {
         var tourUpdate = this.tourRepository.findById(tourId).orElseThrow();
-        var fly = this.flyRepository.findById(flyId).orElseThrow();
+        var fly = this.flightRepository.findById(flyId).orElseThrow();
         var ticket = this.tourHelper.createTicket(fly, tourUpdate.getCustomer());
         tourUpdate.addTicket(ticket);
         this.tourRepository.save(tourUpdate);

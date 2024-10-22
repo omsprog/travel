@@ -1,9 +1,9 @@
 package com.omsprog.travel.controller;
 
 import com.omsprog.travel.dto.external_models.DogFactDto;
-import com.omsprog.travel.dto.response.FlyResponse;
+import com.omsprog.travel.dto.response.FlightResponse;
 import com.omsprog.travel.helper.DogFactsHelper;
-import com.omsprog.travel.service.abstract_service.IFlyService;
+import com.omsprog.travel.service.abstract_service.IFlightService;
 import com.omsprog.travel.util.SortType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,11 +17,11 @@ import java.util.Objects;
 import java.util.Set;
 
 @RestController
-@RequestMapping(path="fly")
+@RequestMapping(path="flight")
 @AllArgsConstructor
-@Tag(name = "fly")
-public class FlyController {
-    private final IFlyService flyService;
+@Tag(name = "flight")
+public class FlightController {
+    private final IFlightService flightService;
     private DogFactsHelper dogFactsHelper;
 
     @Operation(summary = "returns facts about dogs")
@@ -31,39 +31,39 @@ public class FlyController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<FlyResponse>> getAll(
+    public ResponseEntity<Page<FlightResponse>> getAll(
             @RequestParam Integer page,
             @RequestParam Integer size,
             @RequestHeader(required = false) SortType sortType
             ) {
         if(Objects.isNull(sortType)) sortType = SortType.NONE;
-        var response = this.flyService.readAll(page, size, sortType);
+        var response = this.flightService.readAll(page, size, sortType);
         return response.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(response);
     }
 
     @GetMapping(path = "less_price")
-    public ResponseEntity<Set<FlyResponse>> getLessPrice(
+    public ResponseEntity<Set<FlightResponse>> getLessPrice(
             @RequestParam BigDecimal price
     ) {
-        var response = this.flyService.readLessPrice(price);
+        var response = this.flightService.readLessPrice(price);
         return response.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(response);
     }
 
     @GetMapping(path = "between_price")
-    public ResponseEntity<Set<FlyResponse>> getBetweenPrice(
+    public ResponseEntity<Set<FlightResponse>> getBetweenPrice(
             @RequestParam BigDecimal min,
             @RequestParam BigDecimal max
     ) {
-        var response = this.flyService.readBetweenPrice(min, max);
+        var response = this.flightService.readBetweenPrice(min, max);
         return response.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(response);
     }
 
     @GetMapping(path = "origin_destination")
-    public ResponseEntity<Set<FlyResponse>> getOriginDesination(
+    public ResponseEntity<Set<FlightResponse>> getOriginDesination(
             @RequestParam String origin,
             @RequestParam String destination
     ) {
-        var response = this.flyService.readByOriginDestination(origin, destination);
+        var response = this.flightService.readByOriginDestination(origin, destination);
         return response.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(response);
     }
 }

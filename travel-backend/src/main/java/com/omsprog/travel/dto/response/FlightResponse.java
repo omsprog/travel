@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Data
 @Builder
-public class FlyResponse {
+public class FlightResponse {
     private Long id;
     private Double originLat;
     private Double originLng;

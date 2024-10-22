@@ -42,7 +42,7 @@ public class HotelService implements IHotelService {
     }
 
     @Override
-    @Cacheable(value = CacheConstants.HOTEL_CACHE_NAME)
+//    @Cacheable(value = CacheConstants.HOTEL_CACHE_NAME)
     public Set<HotelResponse> readGreaterThan(Integer rating) {
         return this.hotelRepository.findByRatingGreaterThan(rating)
                 .stream()
@@ -51,7 +51,7 @@ public class HotelService implements IHotelService {
     }
 
     @Override
-    @Cacheable(value = CacheConstants.HOTEL_CACHE_NAME)
+//    @Cacheable(value = CacheConstants.HOTEL_CACHE_NAME)
     public Set<HotelResponse> readLessPrice(BigDecimal price) {
         return this.hotelRepository.findByPriceLessThan(price)
                 .stream()
@@ -60,7 +60,7 @@ public class HotelService implements IHotelService {
     }
 
     @Override
-    @Cacheable(value = CacheConstants.HOTEL_CACHE_NAME)
+//    @Cacheable(value = CacheConstants.HOTEL_CACHE_NAME)
     public Set<HotelResponse> readBetweenPrice(BigDecimal min, BigDecimal max) {
         return this.hotelRepository.findByPriceIsBetween(min, max)
                 .stream()

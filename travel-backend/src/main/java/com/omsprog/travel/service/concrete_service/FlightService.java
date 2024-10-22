@@ -1,9 +1,9 @@
 package com.omsprog.travel.service.concrete_service;
 
-import com.omsprog.travel.dto.response.FlyResponse;
+import com.omsprog.travel.dto.response.FlightResponse;
 import com.omsprog.travel.entity.jpa.FlyEntity;
-import com.omsprog.travel.repository.FlyRepository;
-import com.omsprog.travel.service.abstract_service.IFlyService;
+import com.omsprog.travel.repository.FlightRepository;
+import com.omsprog.travel.service.abstract_service.IFlightService;
 import com.omsprog.travel.util.CacheConstants;
 import com.omsprog.travel.util.SortType;
 import lombok.AllArgsConstructor;
@@ -24,12 +24,12 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @AllArgsConstructor // Creates the constructor for the dependency injection
-public class FlyService implements IFlyService {
+public class FlightService implements IFlightService {
 
-    private final FlyRepository flyRepository;
+    private final FlightRepository flightRepository;
 
     @Override
-    public Page<FlyResponse> readAll(Integer page, Integer size, SortType sortType) {
+    public Page<FlightResponse> readAll(Integer page, Integer size, SortType sortType) {
         PageRequest pageRequest = null;
 
         switch(sortType) {
@@ -38,38 +38,38 @@ public class FlyService implements IFlyService {
             case UPPER -> pageRequest = PageRequest.of(page, size, Sort.by(FIELD_BY_SORT).descending());
         }
 
-        return this.flyRepository.findAll(pageRequest).map(this::entityToResponse);
+        return this.flightRepository.findAll(pageRequest).map(this::entityToResponse);
     }
 
     @Override
-    @Cacheable(value = CacheConstants.FLY_CACHE_NAME)
-    public Set<FlyResponse> readLessPrice(BigDecimal price) {
-        return this.flyRepository.selectLessPrice(price)
+//    @Cacheable(value = CacheConstants.FLY_CACHE_NAME)
+    public Set<FlightResponse> readLessPrice(BigDecimal price) {
+        return this.flightRepository.selectLessPrice(price)
                 .stream()
                 .map(this::entityToResponse)
                 .collect(Collectors.toSet());
     }
 
     @Override
-    @Cacheable(value = CacheConstants.FLY_CACHE_NAME)
-    public Set<FlyResponse> readBetweenPrice(BigDecimal min, BigDecimal max) {
-        return this.flyRepository.selectBetweenPrice(min, max)
+//    @Cacheable(value = CacheConstants.FLY_CACHE_NAME)
+    public Set<FlightResponse> readBetweenPrice(BigDecimal min, BigDecimal max) {
+        return this.flightRepository.selectBetweenPrice(min, max)
                 .stream()
                 .map(this::entityToResponse)
                 .collect(Collectors.toSet());
     }
 
     @Override
-    @Cacheable(value = CacheConstants.FLY_CACHE_NAME)
-    public Set<FlyResponse> readByOriginDestination(String origin, String destination) {
-        return this.flyRepository.selectOriginDestiny(origin, destination)
+//    @Cacheable(value = CacheConstants.FLY_CACHE_NAME)
+    public Set<FlightResponse> readByOriginDestination(String origin, String destination) {
+        return this.flightRepository.selectOriginDestiny(origin, destination)
                 .stream()
                 .map(this::entityToResponse)
                 .collect(Collectors.toSet());
     }
 
-    private FlyResponse entityToResponse(FlyEntity entity) {
-        FlyResponse response = new FlyResponse();
+    private FlightResponse entityToResponse(FlyEntity entity) {
+        FlightResponse response = new FlightResponse();
         BeanUtils.copyProperties(entity, response);
         return response;
     }

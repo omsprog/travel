@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-public interface FlyRepository extends JpaRepository<FlyEntity, Long> {
+public interface FlightRepository extends JpaRepository<FlyEntity, Long> {
     // JPA Queries
 
     @Query("select f from fly f where f.price < :price")

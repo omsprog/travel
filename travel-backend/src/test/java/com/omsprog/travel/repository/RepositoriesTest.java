@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Slf4j
 class RepositoriesTest {
     @Autowired
-    private FlyRepository flyRepository;
+    private FlightRepository flightRepository;
     @Autowired
     private HotelRepository hotelRepository;
     @Autowired
@@ -31,7 +31,7 @@ class RepositoriesTest {
 
     @Test
     public void select() {
-        var fly = flyRepository.findById(1L).get();
+        var fly = flightRepository.findById(1L).get();
         var hotel = hotelRepository.findById(1L).get();
         var ticket = ticketRepository.findById(UUID.fromString("12345678-1234-5678-2236-567812345678")).get();
         var reservation = reservationRepository.findById(UUID.fromString("12345678-1234-5678-1234-567812345678")).get();
@@ -46,10 +46,10 @@ class RepositoriesTest {
 
     @Test
     public void jpqlMethods() {
-        var fliesLessThan = this.flyRepository.selectLessPrice(BigDecimal.valueOf(15.00));
+        var fliesLessThan = this.flightRepository.selectLessPrice(BigDecimal.valueOf(15.00));
         fliesLessThan.stream().forEach(ele -> assertTrue(ele.getPrice().intValue() < 15));
 
-        var fliesBetween15And20 = this.flyRepository.selectBetweenPrice(BigDecimal.valueOf(15.00), BigDecimal.valueOf(20.00));
+        var fliesBetween15And20 = this.flightRepository.selectBetweenPrice(BigDecimal.valueOf(15.00), BigDecimal.valueOf(20.00));
         fliesBetween15And20.stream().forEach(ele -> assertTrue(ele.getPrice().intValue() >= 15 && ele.getPrice().intValue() <= 20));
     }
 
@@ -88,7 +88,7 @@ class RepositoriesTest {
 
         // 2 ADD TICKET TO A TOUR
 
-        FlyEntity fly = this.flyRepository.findById(11L).get();
+        FlyEntity fly = this.flightRepository.findById(11L).get();
 
         TicketEntity ticketToBeCreated = TicketEntity
                 .builder()
