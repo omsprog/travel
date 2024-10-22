@@ -3,6 +3,7 @@ $secondary-color: #fcc728;
 $primary-font-color: #e9e4e4;
 $selected-item-color: rgba(31, 35, 103, 0.87);
 $primary-background-color: #3b03de;
+$pagination-bg: #828181;
 
 * {
   padding: 0;
@@ -100,5 +101,31 @@ nav {
       padding: 8px 0;
       font-size: 1.1em;
     }
+  }
+}
+
+.pagination-container {
+  span {
+    background-color: $pagination-bg;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+  }
+
+  span.active, span:hover {
+    background-color: $primary-color;
+    color: #fff;
+  }
+}
+
+table.crud-list-table {
+  margin-bottom: 2rem;
+  border: 1px solid $primary-font-color;
+  th {
+    padding: 0.7rem;
+  }
+
+  td {
+    padding: 0.7rem;
+    text-align: center;
   }
 }
