@@ -3,7 +3,7 @@ import {FlightService} from "../../../services/flight-service.service";
 import {FlightPage} from "../../../interfaces/flight.interface";
 
 @Component({
-  selector: 'app-flight-list',
+  selector: 'dashboard-flight-list',
   templateUrl: './flight-list.component.html',
   styles: []
 })

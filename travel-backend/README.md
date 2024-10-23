@@ -2,6 +2,7 @@
 
 `cd travel-backend`  
 `docker compose up`  
+`mvn spring-boot:run`    
 
 ## Endpoints
 

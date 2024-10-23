@@ -8,6 +8,7 @@ import {HomeComponent} from './home/home.component';
 import {HotelsComponent} from './hotels/hotels.component';
 import {PaginationComponent} from './pagination/pagination.component';
 import { FlightListComponent } from './pages/flight/flight-list/flight-list.component';
+import { HotelListComponent } from './pages/hotel/hotel-list/hotel-list.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { FlightListComponent } from './pages/flight/flight-list/flight-list.comp
     HotelsComponent,
     PaginationComponent,
     FlightListComponent,
+    HotelListComponent,
   ],
   imports: [
     CommonModule,

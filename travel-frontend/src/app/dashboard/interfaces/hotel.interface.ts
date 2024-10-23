@@ -1,7 +1,7 @@
 import {Pageable, Sort} from "./pageable.interface";
 
-export interface FlightPage {
-  content:          Flight[];
+export interface HotelPage {
+  content:          Hotel[];
   pageable:         Pageable;
   last:             boolean;
   totalPages:       number;
@@ -14,14 +14,10 @@ export interface FlightPage {
   empty:            boolean;
 }
 
-export interface Flight {
-  id:          number;
-  originLat:   number;
-  originLng:   number;
-  destinyLat:  number;
-  destinyLng:  number;
-  originName:  string;
-  destinyName: string;
-  price:       number;
-  aeroLine:    string;
+export interface Hotel {
+  id:      number;
+  name:    string;
+  address: string;
+  rating:  number;
+  price:   number;
 }

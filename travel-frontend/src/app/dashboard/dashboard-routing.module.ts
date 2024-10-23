@@ -2,8 +2,8 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LayoutComponent} from "./layout/layout.component";
 import {HomeComponent} from "./home/home.component";
-import {HotelsComponent} from "./hotels/hotels.component";
 import {FlightListComponent} from "./pages/flight/flight-list/flight-list.component";
+import {HotelListComponent} from "./pages/hotel/hotel-list/hotel-list.component";
 
 const routes: Routes = [
   {
@@ -20,7 +20,7 @@ const routes: Routes = [
       },
       {
         path: 'hotels',
-        component: HotelsComponent
+        component: HotelListComponent
       }
     ]
   }
