@@ -14,6 +14,7 @@ import {HotelEditComponent} from './pages/hotel/hotel-edit/hotel-edit.component'
 import {HotelCreateComponent} from './pages/hotel/hotel-create/hotel-create.component';
 import {FlightCreateComponent} from './pages/flight/flight-create/flight-create.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { CustomerListComponent } from './pages/customer/customer-list/customer-list.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     HotelEditComponent,
     HotelCreateComponent,
     FlightCreateComponent,
+    CustomerListComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,36 @@
+<div class="content">
+  <h1 class="title">List of Customers</h1>
+  <div *ngIf="loading; else listTable">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+
+  <ng-template #listTable>
+    <table class="crud-list-table">
+      <thead>
+        <th>DNI</th>
+        <th>Full name</th>
+        <th>Phone number</th>
+        <th>Total flights</th>
+        <th>Total lodgings</th>
+        <th>Total tours</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of customerPage?.content">
+          <td>{{ customer.dni }}</td>
+          <td>{{ customer.fullName }}</td>
+          <td>{{ customer.phoneNumber }}</td>
+          <td>{{ customer.totalFlights }}</td>
+          <td>{{ customer.totalLodgings }}</td>
+          <td>{{ customer.totalTours }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-template>
+  <div class="pagination">
+    <dashboard-pagination (onPageChange)="onChangePage($event)" *ngIf="customerPage"
+                          [first]="currentPage == 0"
+                          [last]="currentPage == customerPage.totalPages - 1"
+                          [currentPage]="currentPage"
+                          [totalPages]="customerPage.totalPages" />
+  </div>
+</div>

@@ -9,6 +9,7 @@ import {FlightEditComponent} from "./pages/flight/flight-edit/flight-edit.compon
 import {HotelEditComponent} from "./pages/hotel/hotel-edit/hotel-edit.component";
 import {FlightCreateComponent} from "./pages/flight/flight-create/flight-create.component";
 import {HotelCreateComponent} from "./pages/hotel/hotel-create/hotel-create.component";
+import {CustomerListComponent} from "./pages/customer/customer-list/customer-list.component";
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
       {
         path: 'hotels/:id/edit',
         component: HotelEditComponent
+      },
+      {
+        path: 'customers',
+        component: CustomerListComponent
       }
     ]
   }
