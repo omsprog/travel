@@ -1,5 +1,8 @@
 <div class="content">
   <h1 class="title">List of Hotels</h1>
+  <div class="create-element-link">
+    <button routerLink="/dashboard/hotels/create" class="crud-action-button-create">New</button>
+  </div>
   <div *ngIf="loading; else listTable">
     <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
   </div>
@@ -7,20 +10,25 @@
   <ng-template #listTable>
     <table class="crud-list-table">
       <thead>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Address</th>
-      <th>Rating</th>
-      <th>Price</th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Rating</th>
+        <th>Price</th>
+        <th></th>
       </thead>
       <tbody>
-      <tr *ngFor="let hotel of hotelPage?.content">
-        <td>{{ hotel.id }}</td>
-        <td>{{ hotel.name }}</td>
-        <td>{{ hotel.address }}</td>
-        <td>{{ hotel.rating }}</td>
-        <td>{{ hotel.price }}</td>
-      </tr>
+        <tr *ngFor="let hotel of hotelPage?.content">
+          <td>{{ hotel.id }}</td>
+          <td>{{ hotel.name }}</td>
+          <td>{{ hotel.address }}</td>
+          <td>{{ hotel.rating }}</td>
+          <td>{{ hotel.price }}</td>
+          <td class="crud-action-buttons">
+            <button class="crud-action-button-view" [routerLink]="'/dashboard/hotels/' + hotel.id + '/view'">View</button>
+            <button class="crud-action-button-edit" [routerLink]="'/dashboard/hotels/' + hotel.id + '/edit'">Edit</button>
+          </td>
+        </tr>
       </tbody>
     </table>
   </ng-template>

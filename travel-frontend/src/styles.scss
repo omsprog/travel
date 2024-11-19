@@ -4,6 +4,10 @@ $primary-font-color: #e9e4e4;
 $selected-item-color: rgba(31, 35, 103, 0.87);
 $primary-background-color: #3b03de;
 $pagination-bg: #828181;
+$button-crud-create: #125059;
+$button-crud-view: #077d08;
+$button-crud-edit: #6d7401;
+$button-crud-delete: #9f0920;
 
 * {
   padding: 0;
@@ -179,5 +183,44 @@ table.crud-list-table {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+.crud-action-buttons {
+
+  display: flex;
+  justify-content: space-around;
+
+  button {
+    padding: 8px 10px;
+    color: $primary-font-color;
+    border: 1px solid $primary-color;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .crud-action-button-view {
+    background-color: $button-crud-view;
+  }
+
+  .crud-action-button-edit {
+    background-color: $button-crud-edit;
+  }
+
+
+}
+
+.create-element-link {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 1rem;
+
+  button.crud-action-button-create {
+    background-color: $button-crud-create;
+    padding: 10px;
+    color: $primary-font-color;
+    border: 1px solid $primary-color;
+    border-radius: 5px;
+    cursor: pointer;
   }
 }
