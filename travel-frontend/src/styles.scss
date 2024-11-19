@@ -197,6 +197,7 @@ table.crud-list-table {
     border: 1px solid $primary-color;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
   }
 
   .crud-action-button-view {
@@ -226,6 +227,7 @@ table.crud-list-table {
     border: 1px solid $primary-color;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
   }
 }
 
@@ -258,5 +260,14 @@ form#crud-form {
     border: 1px solid $primary-color;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
   }
+}
+
+a.back-link {
+  display: block;
+  text-decoration: none;
+  color: $secondary-color;
+  margin-bottom: 1em;
+  font-weight: bold;
 }

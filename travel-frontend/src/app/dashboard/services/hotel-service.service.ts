@@ -28,4 +28,8 @@ export class HotelService {
     if ( !hotel.id ) throw Error('Hotel id is required');
     return this.http.put<Hotel>(`${this.hotelBaseUrl}/${hotel.id}`, hotel);
   }
+
+  addHotel(hotel : Hotel) : Observable<Hotel> {
+    return this.http.post<Hotel>(`${this.hotelBaseUrl}`, hotel);
+  }
 }

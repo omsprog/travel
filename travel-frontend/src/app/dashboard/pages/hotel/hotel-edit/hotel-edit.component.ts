@@ -28,7 +28,7 @@ export class HotelEditComponent implements OnInit {
       .subscribe(
         hotel => {
           if(!hotel){
-            return this.router.navigateByUrl('/');
+            return this.router.navigateByUrl('/dashboard/hotels');
           }
 
           this.hotelForm.reset(hotel)
