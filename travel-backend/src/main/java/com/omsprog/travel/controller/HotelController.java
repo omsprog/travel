@@ -1,9 +1,11 @@
 package com.omsprog.travel.controller;
 
+import com.omsprog.travel.dto.request.HotelRequest;
 import com.omsprog.travel.dto.response.HotelResponse;
 import com.omsprog.travel.service.abstract_service.IHotelService;
 import com.omsprog.travel.util.SortType;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,24 @@ public class HotelController {
         if(Objects.isNull(sortType)) sortType = SortType.NONE;
         var response = this.hotelService.readAll(page, size, sortType);
         return response.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(response);
+    }
+
+    @GetMapping(path="{id}")
+    public ResponseEntity<HotelResponse> get(@PathVariable Long id) {
+        return ResponseEntity.ok(hotelService.read(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<HotelResponse> create(@Valid @RequestBody HotelRequest hotelRequest) {
+        return ResponseEntity.ok(hotelService.create(hotelRequest));
+    }
+
+    @PutMapping(path = "{id}")
+    public ResponseEntity<HotelResponse> put(
+            @PathVariable Long id,
+            @Valid @RequestBody HotelRequest hotelRequest
+    ) {
+        return ResponseEntity.ok(hotelService.update(hotelRequest, id));
     }
 
     @GetMapping(path = "less_price")

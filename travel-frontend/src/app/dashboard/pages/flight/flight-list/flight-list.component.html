@@ -32,10 +32,11 @@
       </tbody>
     </table>
   </ng-template>
-
-  <dashboard-pagination (onPageChange)="onChangePage($event)" *ngIf="flightPage"
-                        [first]="currentPage == 0"
-                        [last]="currentPage == flightPage.totalPages - 1"
-                        [currentPage]="currentPage"
-                        [totalPages]="flightPage.totalPages" />
+  <div class="pagination">
+    <dashboard-pagination (onPageChange)="onChangePage($event)" *ngIf="flightPage"
+                          [first]="currentPage == 0"
+                          [last]="currentPage == flightPage.totalPages - 1"
+                          [currentPage]="currentPage"
+                          [totalPages]="flightPage.totalPages" />
+  </div>
 </div>

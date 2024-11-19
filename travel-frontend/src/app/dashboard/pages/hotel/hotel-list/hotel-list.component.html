@@ -32,10 +32,11 @@
       </tbody>
     </table>
   </ng-template>
-
-  <dashboard-pagination (onPageChange)="onChangePage($event)" *ngIf="hotelPage"
-                        [first]="currentPage == 0"
-                        [last]="currentPage == hotelPage.totalPages - 1"
-                        [currentPage]="currentPage"
-                        [totalPages]="hotelPage.totalPages" />
+  <div class="pagination">
+    <dashboard-pagination (onPageChange)="onChangePage($event)" *ngIf="hotelPage"
+                          [first]="currentPage == 0"
+                          [last]="currentPage == hotelPage.totalPages - 1"
+                          [currentPage]="currentPage"
+                          [totalPages]="hotelPage.totalPages" />
+  </div>
 </div>

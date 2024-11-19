@@ -207,7 +207,11 @@ table.crud-list-table {
     background-color: $button-crud-edit;
   }
 
+}
 
+.pagination {
+  display: flex;
+  justify-content: center;
 }
 
 .create-element-link {
