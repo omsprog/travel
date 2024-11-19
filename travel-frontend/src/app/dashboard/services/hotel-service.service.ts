@@ -7,6 +7,7 @@ import {Hotel, HotelPage} from "../interfaces/hotel.interface";
   providedIn: 'root'
 })
 export class HotelService {
+
   private PAGE_SIZE = 5;
   private hotelBaseUrl : string = `http://localhost:8080/travel/hotel`;
 

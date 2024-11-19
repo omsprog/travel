@@ -23,8 +23,7 @@ export class HotelCreateComponent {
   })
 
   get currentHotel() : Hotel {
-    const hotel = this.hotelForm.value as Hotel;
-    return hotel
+    return this.hotelForm.value as Hotel;
   }
 
   onSubmit() {
