@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {HotelPage} from "../interfaces/hotel.interface";
+import {catchError, Observable, of} from "rxjs";
+import {Hotel, HotelPage} from "../interfaces/hotel.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +15,17 @@ export class HotelService {
   getHotels(currentPage = 0) : Observable<HotelPage> {
     let getHotelsUrl = `${this.hotelBaseUrl}?page=${currentPage}&size=${this.PAGE_SIZE}`;
     return this.http.get<HotelPage>(getHotelsUrl);
+  }
+
+  getHotelById(id : string) : Observable<Hotel | undefined> {
+    return this.http.get<Hotel>(`${this.hotelBaseUrl}/${id}`)
+      .pipe(
+        catchError(error => of(undefined))
+      );
+  }
+
+  updateHotel(hotel : Hotel) : Observable<Hotel> {
+    if ( !hotel.id ) throw Error('Hotel id is required');
+    return this.http.put<Hotel>(`${this.hotelBaseUrl}/${hotel.id}`, hotel);
   }
 }

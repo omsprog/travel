@@ -7,7 +7,6 @@ import {HotelListComponent} from "./pages/hotel/hotel-list/hotel-list.component"
 import {FlightViewComponent} from "./pages/flight/flight-view/flight-view.component";
 import {FlightEditComponent} from "./pages/flight/flight-edit/flight-edit.component";
 import {HotelEditComponent} from "./pages/hotel/hotel-edit/hotel-edit.component";
-import {HotelViewComponent} from "./pages/hotel/hotel-view/hotel-view.component";
 import {FlightCreateComponent} from "./pages/flight/flight-create/flight-create.component";
 import {HotelCreateComponent} from "./pages/hotel/hotel-create/hotel-create.component";
 
@@ -43,10 +42,6 @@ const routes: Routes = [
       {
         path: 'hotels/create',
         component: HotelCreateComponent
-      },
-      {
-        path: 'hotels/:id/view',
-        component: HotelViewComponent
       },
       {
         path: 'hotels/:id/edit',
