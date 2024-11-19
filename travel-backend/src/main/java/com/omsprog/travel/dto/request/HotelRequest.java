@@ -16,10 +16,10 @@ import java.math.BigDecimal;
 @Builder
 public class HotelRequest {
     @NotNull(message = "name is mandatory")
-    @Size(min = 5, max = 30, message = "Name should be between 5 an 30 characters")
+    @Size(min = 4, max = 30, message = "Name should be between 4 an 30 characters")
     private String name;
     @NotNull(message = "address is mandatory")
-    @Size(min = 5, max = 30, message = "Address should be between 5 an 30 characters")
+    @Size(min = 4, max = 30, message = "Address should be between 4 an 30 characters")
     private String address;
     @NotNull(message = "rating is mandatory")
     @Positive(message = "rating should be positive")
