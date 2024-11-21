@@ -1,4 +1,7 @@
 <div class="content">
+  <div *ngIf="message" class="alert alert-success">
+    {{ message }}
+  </div>
   <h1 class="title">List of Hotels</h1>
   <div class="create-element-link">
     <button routerLink="/dashboard/hotels/create" class="crud-action-button-create">New</button>

@@ -32,7 +32,11 @@ export class HotelCreateComponent {
     // Adding
     this.hotelService.addHotel(this.currentHotel)
       .subscribe(hotel => {
-        this.router.navigateByUrl('/dashboard/hotels');
+        this.router.navigate(['/dashboard/hotels'], {
+          state: {
+            message: 'Hotel added successfully!'
+          }
+        });
     })
   }
 }

@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {switchMap} from "rxjs";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Flight} from "../../../interfaces/flight.interface";
+import {AEROLINES} from "../../../constants/aerolines";
 
 @Component({
   selector: 'app-flight-edit',
@@ -12,7 +13,7 @@ import {Flight} from "../../../interfaces/flight.interface";
 })
 export class FlightEditComponent implements OnInit {
   public loading = false;
-  public aerolineOptions = ['aero_gold', 'blue_sky']
+  public aerolineOptions = AEROLINES
 
   constructor(private flightService: FlightService,
               private activatedRoute: ActivatedRoute,
@@ -63,7 +64,11 @@ export class FlightEditComponent implements OnInit {
     if(this.currentFlight.id) {
       this.flightService.updateFlight(this.currentFlight)
         .subscribe(flight => {
-          this.router.navigateByUrl('/dashboard/flights');
+          this.router.navigate(['/dashboard/flights'], {
+            state: {
+              message: 'Flight updated successfully!'
+            }
+          });
         })
       return;
     }

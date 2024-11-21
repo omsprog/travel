@@ -58,7 +58,11 @@ export class HotelEditComponent implements OnInit {
     if(this.currentHotel.id) {
       this.hotelService.updateHotel(this.currentHotel)
         .subscribe(hero => {
-          this.router.navigateByUrl('/dashboard/hotels');
+          this.router.navigate(['/dashboard/hotels'], {
+            state: {
+              message: 'Hotel updated successfully!'
+            }
+          });
         })
       return;
     }

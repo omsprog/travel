@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {FlightService} from "../../../services/flight-service.service";
 import {Flight} from "../../../interfaces/flight.interface";
+import {AEROLINES} from "../../../constants/aerolines";
 
 @Component({
   selector: 'app-flight-create',
@@ -11,21 +12,21 @@ import {Flight} from "../../../interfaces/flight.interface";
 })
 export class FlightCreateComponent {
   constructor(private router: Router,
-              private flightService: FlightService,
+              private flightService: FlightService
   ) { }
 
-  public aerolineOptions = ['aero_gold', 'blue_sky']
-
-  public flightForm = new FormGroup({
-    id:     new FormControl<number>(0),
-    originLat:   new FormControl<number>(0),
-    originLng:  new FormControl<number>(0),
-    destinyLat:  new FormControl<number>(0),
-    destinyLng: new FormControl<number>(0),
-    originName: new FormControl<string>(''),
-    destinyName: new FormControl<string>(''),
-    price: new FormControl<number>(0),
-    aeroLine: new FormControl<string>(''),
+  public aerolineOptions = AEROLINES
+  private fb: FormBuilder = new FormBuilder();
+  public flightForm : FormGroup = this.fb.group({
+    id:           [0],
+    originLat:    [0],
+    originLng:    [0],
+    destinyLat:   [0],
+    destinyLng:   [0],
+    originName:   [''],
+    destinyName:  [''],
+    price:        [0],
+    aeroLine:     [''],
   })
 
   get currentFlight() : Flight {
@@ -38,7 +39,11 @@ export class FlightCreateComponent {
     // Adding
     this.flightService.addFlight(this.currentFlight)
       .subscribe(flight => {
-        this.router.navigateByUrl('/dashboard/flights');
+        this.router.navigate(['/dashboard/flights'], {
+          state: {
+            message: 'Flight added successfully!'
+          }
+        });
       })
   }
 }

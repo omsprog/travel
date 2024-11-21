@@ -8,6 +8,7 @@ $button-crud-create: #125059;
 $button-crud-view: #077d08;
 $button-crud-edit: #6d7401;
 $button-crud-delete: #9f0920;
+$success-color: #09740d;
 
 * {
   padding: 0;
@@ -270,4 +271,14 @@ a.back-link {
   color: $secondary-color;
   margin-bottom: 1em;
   font-weight: bold;
+}
+
+.alert {
+  padding: 1em;
+  margin-bottom: 2em;
+  border: 2px solid #000000;
+}
+
+.alert.alert-success {
+  background-color: $success-color;
 }
