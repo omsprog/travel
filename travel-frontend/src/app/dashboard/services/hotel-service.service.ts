@@ -9,7 +9,7 @@ import {Hotel, HotelPage} from "../interfaces/hotel.interface";
 export class HotelService {
 
   private PAGE_SIZE = 5;
-  private hotelBaseUrl : string = `http://localhost:8080/travel/hotel`;
+  private hotelBaseUrl : string = `http://localhost:8080/travel/hotels`;
 
   constructor(private http: HttpClient) { }
 

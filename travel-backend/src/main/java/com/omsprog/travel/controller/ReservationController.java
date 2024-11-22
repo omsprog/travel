@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +20,21 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path="reservation")
+@RequestMapping(path="reservations")
 @AllArgsConstructor
 @Tag(name = "reservation")
 public class ReservationController {
 
     private final IReservationService reservationService;
+
+    @GetMapping
+    public ResponseEntity<Page<ReservationResponse>> getAll(
+            @RequestParam Integer page,
+            @RequestParam Integer size
+    ) {
+        var response = this.reservationService.readAll(page, size);
+        return response.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(response);
+    }
 
     @GetMapping(path="{id}")
     public ResponseEntity<ReservationResponse> get(
@@ -63,7 +73,7 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping
+    @GetMapping("/price")
     public ResponseEntity<Map<String, BigDecimal>> getHotelPrice(
             @RequestParam Long hotelId
     ) {

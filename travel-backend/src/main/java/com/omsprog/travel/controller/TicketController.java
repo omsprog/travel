@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path="ticket")
+@RequestMapping(path="tickets")
 @AllArgsConstructor
 @Tag(name = "ticket")
 public class TicketController {

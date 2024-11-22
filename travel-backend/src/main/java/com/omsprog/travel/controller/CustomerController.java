@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Objects;
 
 @RestController
-@RequestMapping(path="customer")
+@RequestMapping(path="customers")
 @AllArgsConstructor
 @Tag(name = "customer")
 public class CustomerController {

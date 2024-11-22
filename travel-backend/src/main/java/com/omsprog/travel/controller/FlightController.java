@@ -19,7 +19,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @RestController
-@RequestMapping(path="flight")
+@RequestMapping(path="flights")
 @AllArgsConstructor
 @Tag(name = "flight")
 public class FlightController {

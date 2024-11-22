@@ -13,6 +13,8 @@ import com.omsprog.travel.service.abstract_service.IReservationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +34,12 @@ public class ReservationService implements IReservationService {
     private final CustomerHelper customerHelper;
 
     public static final BigDecimal charge_price_percentage = BigDecimal.valueOf(0.2);
+
+    @Override
+    public Page<ReservationResponse> readAll(Integer page, Integer size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return this.reservationRepository.findAll(pageRequest).map(this::entityToResponse);
+    }
 
     @Override
     public ReservationResponse create(ReservationRequest request) {

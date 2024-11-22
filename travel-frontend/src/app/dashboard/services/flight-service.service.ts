@@ -9,7 +9,7 @@ import {catchError, Observable, of} from "rxjs";
 export class FlightService {
 
   private PAGE_SIZE = 5;
-  private flightBaseUrl : string = `http://localhost:8080/travel/flight`;
+  private flightBaseUrl : string = `http://localhost:8080/travel/flights`;
 
   constructor(private http: HttpClient) { }
 

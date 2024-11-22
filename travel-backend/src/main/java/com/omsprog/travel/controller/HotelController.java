@@ -16,7 +16,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @RestController
-@RequestMapping(path="hotel")
+@RequestMapping(path="hotels")
 @AllArgsConstructor
 @Tag(name = "hotel")
 public class HotelController {
