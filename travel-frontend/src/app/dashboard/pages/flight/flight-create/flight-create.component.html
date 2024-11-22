@@ -7,30 +7,65 @@
     <div>
       <label for="originLat">Origin latitude</label>
       <input id="originLat" type="number" formControlName="originLat" value="" placeholder="Origin latitude">
+      <div *ngIf="isValidField('originLat')" class="validation-errors">
+        <span class="crud-form-validation-error">
+          {{ getFieldError('originLat') }}
+        </span>
+      </div>
     </div>
     <div>
       <label for="originLng">Origin longitude</label>
       <input id="originLng" type="number" formControlName="originLng" value="" placeholder="Origin longitude">
+      <div *ngIf="isValidField('originLng')" class="validation-errors">
+        <span class="crud-form-validation-error">
+          {{ getFieldError('originLng') }}
+        </span>
+      </div>
     </div>
     <div>
       <label for="destinyLat">Destiny latitude</label>
       <input id="destinyLat" type="number" formControlName="destinyLat" value="" placeholder="Destiny latitude">
+      <div *ngIf="isValidField('destinyLat')" class="validation-errors">
+        <span class="crud-form-validation-error">
+          {{ getFieldError('destinyLat') }}
+        </span>
+      </div>
     </div>
     <div>
       <label for="destinyLng">Destiny longitude</label>
       <input id="destinyLng" type="number" formControlName="destinyLng" value="" placeholder="Destiny longitude">
+      <div *ngIf="isValidField('destinyLng')" class="validation-errors">
+        <span class="crud-form-validation-error">
+          {{ getFieldError('destinyLng') }}
+        </span>
+      </div>
     </div>
     <div>
       <label for="originName">Origin name</label>
       <input id="originName" type="text" formControlName="originName" value="" placeholder="Origin name">
+      <div *ngIf="isValidField('originName')" class="validation-errors">
+        <span class="crud-form-validation-error">
+          {{ getFieldError('originName') }}
+        </span>
+      </div>
     </div>
     <div>
       <label for="destinyName">Destiny name</label>
       <input id="destinyName" type="text" formControlName="destinyName" value="" placeholder="Destiny name">
+      <div *ngIf="isValidField('destinyName')" class="validation-errors">
+        <span class="crud-form-validation-error">
+          {{ getFieldError('destinyName') }}
+        </span>
+      </div>
     </div>
     <div>
       <label for="price">Price</label>
       <input id="price" type="text" formControlName="price" value="" placeholder="Price">
+      <div *ngIf="isValidField('price')" class="validation-errors">
+        <span class="crud-form-validation-error">
+          {{ getFieldError('price') }}
+        </span>
+      </div>
     </div>
     <div>
       <label for="aeroLine">Aeroline</label>
@@ -39,6 +74,11 @@
           {{ option }}
         </option>
       </select>
+      <div *ngIf="isValidField('aeroLine')" class="validation-errors">
+        <span class="crud-form-validation-error">
+          {{ getFieldError('aeroLine') }}
+        </span>
+      </div>
     </div>
     <div>
       <button (click)="onSubmit()">

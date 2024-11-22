@@ -37,7 +37,7 @@ public class FlightController {
             @RequestParam Integer page,
             @RequestParam Integer size,
             @RequestHeader(required = false) SortType sortType
-            ) {
+    ) {
         if(Objects.isNull(sortType)) sortType = SortType.NONE;
         var response = this.flightService.readAll(page, size, sortType);
         return response.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(response);

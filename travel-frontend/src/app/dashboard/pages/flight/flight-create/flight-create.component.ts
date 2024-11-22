@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {FlightService} from "../../../services/flight-service.service";
 import {Flight} from "../../../interfaces/flight.interface";
@@ -19,22 +19,52 @@ export class FlightCreateComponent {
   private fb: FormBuilder = new FormBuilder();
   public flightForm : FormGroup = this.fb.group({
     id:           [0],
-    originLat:    [0],
-    originLng:    [0],
-    destinyLat:   [0],
-    destinyLng:   [0],
-    originName:   [''],
-    destinyName:  [''],
-    price:        [0],
-    aeroLine:     [''],
+    originLat:    [null, [Validators.required, Validators.min(-90), Validators.max(90)]],
+    originLng:    [null, [Validators.required, Validators.min(-180), Validators.max(180)]],
+    destinyLat:   [null, [Validators.required, Validators.min(-90), Validators.max(90)]],
+    destinyLng:   [null, [Validators.required, Validators.min(-180), Validators.max(180)]],
+    originName:   ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
+    destinyName:  ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
+    price:        [null, [Validators.required, Validators.min(100)]],
+    aeroLine:     ['', [Validators.required]],
   })
+
+  isValidField(field : string) {
+    return this.flightForm.controls[field].errors
+      && this.flightForm.controls[field].touched;
+  }
+
+  getFieldError(field : string) {
+    if(!this.flightForm.controls[field])
+      return null
+
+    const errors = this.flightForm.controls[field].errors || {};
+
+    for(const key of Object.keys(errors)) {
+      switch(key) {
+        case 'required':
+          return 'Field is required';
+        case 'min':
+        case 'max':
+          return 'Must be between -90 and 90';
+        case 'minlength':
+        case 'maxlength':
+          return 'Must be between 4 an 30 characters';
+      }
+    }
+
+    return null
+  }
 
   get currentFlight() : Flight {
     return this.flightForm.value as Flight;
   }
 
   onSubmit() {
-    if(this.flightForm.invalid) return
+    if(this.flightForm.invalid) {
+      this.flightForm.markAllAsTouched()
+      return;
+    }
 
     // Adding
     this.flightService.addFlight(this.currentFlight)

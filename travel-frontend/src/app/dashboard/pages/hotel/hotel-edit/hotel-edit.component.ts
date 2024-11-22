@@ -32,7 +32,6 @@ export class HotelEditComponent implements OnInit {
           }
 
           this.hotelForm.reset(hotel)
-          console.log(hotel);
           this.loading = false;
           return;
         }

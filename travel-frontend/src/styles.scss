@@ -75,7 +75,7 @@ nav {
     width: 100%;
     background-color: $primary-color;
     position: sticky;
-    top: 0px;
+    top: 0;
     z-index: 11;
     border-bottom: 1px solid $primary-font-color;
 
@@ -262,6 +262,11 @@ form#crud-form {
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
+  }
+
+  .crud-form-validation-error {
+    color: #e79604;
+    font-size: 0.8em;
   }
 }
 
