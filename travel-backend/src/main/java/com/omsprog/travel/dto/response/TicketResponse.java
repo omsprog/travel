@@ -24,5 +24,5 @@ public class TicketResponse {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate purchaseDate;
     private BigDecimal price;
-    private FlightResponse fly;
+    private FlightResponse flight;
 }

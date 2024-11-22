@@ -10,7 +10,7 @@ CREATE TABLE customer
     CONSTRAINT pk_customer PRIMARY KEY ( dni )
 );
 
-CREATE TABLE fly
+CREATE TABLE flight
 (
     "id"           bigserial NOT NULL,
     origin_lat   decimal NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE fly
     destiny_name varchar(20) NOT NULL,
     aero_line varchar(20) NOT NULL,
     price double precision NOT NULL,
-    CONSTRAINT pk_fly PRIMARY KEY ( "id" )
+    CONSTRAINT pk_flight PRIMARY KEY ( "id" )
 );
 
 
@@ -65,14 +65,14 @@ CREATE TABLE ticket
 (
     "id"           uuid NOT NULL,
     price          double precision NOT NULL,
-    fly_id         bigint NOT NULL,
+    flight_id      bigint NOT NULL,
     customer_id    varchar(20) NOT NULL,
     departure_date timestamp NOT NULL,
     arrival_date   timestamp NOT NULL,
     purchase_date  timestamp NOT NULL,
     tour_id   bigint,
     CONSTRAINT pk_ticket PRIMARY KEY ( "id" ),
-    CONSTRAINT fk_customer_t FOREIGN KEY ( customer_id ) REFERENCES customer ( dni )ON DELETE NO ACTION,
-    CONSTRAINT fk_fly_t FOREIGN KEY ( fly_id ) REFERENCES fly ( "id" ) ON DELETE NO ACTION,
+    CONSTRAINT fk_customer_t FOREIGN KEY ( customer_id ) REFERENCES customer ( dni ) ON DELETE NO ACTION,
+    CONSTRAINT fk_flight_t FOREIGN KEY ( flight_id ) REFERENCES flight ( "id" ) ON DELETE NO ACTION,
     CONSTRAINT fk_tour_t FOREIGN KEY ( tour_id ) REFERENCES tour ( "id" ) ON DELETE CASCADE
 );

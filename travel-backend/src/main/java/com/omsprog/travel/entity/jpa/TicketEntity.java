@@ -24,8 +24,8 @@ public class TicketEntity {
 
     // RELATIONSHIPS
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fly_id")
-    private FlyEntity fly;
+    @JoinColumn(name = "flight_id")
+    private FlightEntity flight;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tour_id", nullable = true)

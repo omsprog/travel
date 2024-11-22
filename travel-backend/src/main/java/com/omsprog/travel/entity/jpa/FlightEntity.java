@@ -7,12 +7,12 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.util.Set;
 
-@Entity(name = "fly")
+@Entity(name = "flight")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class FlyEntity {
+public class FlightEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +36,7 @@ public class FlyEntity {
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             orphanRemoval = true,
-            mappedBy = "fly"  // Is mapped by the "fly" property of TICKET entity
+            mappedBy = "flight"  // Is mapped by the "flight" property of TICKET entity
     )
     private Set<TicketEntity> tickets;
 }

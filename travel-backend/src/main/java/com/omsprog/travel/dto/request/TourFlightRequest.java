@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class TourFlyRequest {
+public class TourFlightRequest {
     public Long id;
 }

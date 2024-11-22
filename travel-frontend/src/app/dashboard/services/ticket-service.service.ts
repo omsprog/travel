@@ -13,8 +13,8 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
-  getTickets(currentPage = 0) : Observable<TicketPage> {
-    let getHotelsUrl = `${this.hotelBaseUrl}?page=${currentPage}&size=${this.PAGE_SIZE}`;
-    return this.http.get<HotelPage>(getHotelsUrl);
-  }
+  // getTickets(currentPage = 0) : Observable<TicketPage> {
+  //   let getHotelsUrl = `${this.hotelBaseUrl}?page=${currentPage}&size=${this.PAGE_SIZE}`;
+  //   return this.http.get<HotelPage>(getHotelsUrl);
+  // }
 }

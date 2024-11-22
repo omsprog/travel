@@ -31,13 +31,13 @@ class RepositoriesTest {
 
     @Test
     public void select() {
-        var fly = flightRepository.findById(1L).get();
+        var flight = flightRepository.findById(1L).get();
         var hotel = hotelRepository.findById(1L).get();
         var ticket = ticketRepository.findById(UUID.fromString("12345678-1234-5678-2236-567812345678")).get();
         var reservation = reservationRepository.findById(UUID.fromString("12345678-1234-5678-1234-567812345678")).get();
         var customer = customerRepository.findById("BBMB771012HMCRR022").get();
 
-        assertEquals("Mexico", fly.getOriginName());
+        assertEquals("Mexico", flight.getOriginName());
         assertEquals("El dorado", hotel.getName());
         assertEquals("330.05", ticket.getPrice().toString());
         assertEquals("77", reservation.getPrice().toString());
@@ -46,11 +46,11 @@ class RepositoriesTest {
 
     @Test
     public void jpqlMethods() {
-        var fliesLessThan = this.flightRepository.selectLessPrice(BigDecimal.valueOf(15.00));
-        fliesLessThan.stream().forEach(ele -> assertTrue(ele.getPrice().intValue() < 15));
+        var flightsLessThan = this.flightRepository.selectLessPrice(BigDecimal.valueOf(15.00));
+        flightsLessThan.stream().forEach(ele -> assertTrue(ele.getPrice().intValue() < 15));
 
-        var fliesBetween15And20 = this.flightRepository.selectBetweenPrice(BigDecimal.valueOf(15.00), BigDecimal.valueOf(20.00));
-        fliesBetween15And20.stream().forEach(ele -> assertTrue(ele.getPrice().intValue() >= 15 && ele.getPrice().intValue() <= 20));
+        var flightsBetween15And20 = this.flightRepository.selectBetweenPrice(BigDecimal.valueOf(15.00), BigDecimal.valueOf(20.00));
+        flightsBetween15And20.stream().forEach(ele -> assertTrue(ele.getPrice().intValue() >= 15 && ele.getPrice().intValue() <= 20));
     }
 
     @Test
@@ -88,18 +88,18 @@ class RepositoriesTest {
 
         // 2 ADD TICKET TO A TOUR
 
-        FlyEntity fly = this.flightRepository.findById(11L).get();
+        FlightEntity flight = this.flightRepository.findById(11L).get();
 
         TicketEntity ticketToBeCreated = TicketEntity
                 .builder()
                 .id(UUID.randomUUID())
-                .price(fly.getPrice().multiply(BigDecimal.TEN))
+                .price(flight.getPrice().multiply(BigDecimal.TEN))
                 .arrivalDate(LocalDateTime.now())
                 .departureDate(LocalDateTime.now())
                 .purchaseDate(LocalDate.now())
                 .customer(customer)
                 .tour(tourToBeCreated)
-                .fly(fly)
+                .flight(flight)
                 .build();
 
         tourToBeCreated.addTicket(ticketToBeCreated);

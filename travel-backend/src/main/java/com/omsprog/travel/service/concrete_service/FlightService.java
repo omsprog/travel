@@ -2,16 +2,14 @@ package com.omsprog.travel.service.concrete_service;
 
 import com.omsprog.travel.dto.request.FlightRequest;
 import com.omsprog.travel.dto.response.FlightResponse;
-import com.omsprog.travel.entity.jpa.FlyEntity;
+import com.omsprog.travel.entity.jpa.FlightEntity;
 import com.omsprog.travel.exception.IdNotFoundException;
 import com.omsprog.travel.repository.FlightRepository;
 import com.omsprog.travel.service.abstract_service.IFlightService;
-import com.omsprog.travel.util.CacheConstants;
 import com.omsprog.travel.util.SortType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -43,7 +41,7 @@ public class FlightService implements IFlightService {
     }
 
     @Override
-//    @Cacheable(value = CacheConstants.FLY_CACHE_NAME)
+//    @Cacheable(value = CacheConstants.FLIGHT_CACHE_NAME)
     public Set<FlightResponse> readLessPrice(BigDecimal price) {
         return this.flightRepository.selectLessPrice(price)
                 .stream()
@@ -52,7 +50,7 @@ public class FlightService implements IFlightService {
     }
 
     @Override
-//    @Cacheable(value = CacheConstants.FLY_CACHE_NAME)
+//    @Cacheable(value = CacheConstants.FLIGHT_CACHE_NAME)
     public Set<FlightResponse> readBetweenPrice(BigDecimal min, BigDecimal max) {
         return this.flightRepository.selectBetweenPrice(min, max)
                 .stream()
@@ -61,7 +59,7 @@ public class FlightService implements IFlightService {
     }
 
     @Override
-//    @Cacheable(value = CacheConstants.FLY_CACHE_NAME)
+//    @Cacheable(value = CacheConstants.FLIGHT_CACHE_NAME)
     public Set<FlightResponse> readByOriginDestination(String origin, String destination) {
         return this.flightRepository.selectOriginDestiny(origin, destination)
                 .stream()
@@ -71,7 +69,7 @@ public class FlightService implements IFlightService {
 
     @Override
     public FlightResponse create(FlightRequest request) {
-        FlyEntity entityToBePersisted = FlyEntity.builder()
+        FlightEntity entityToBePersisted = FlightEntity.builder()
                 .originLat(request.getOriginLat())
                 .originLng(request.getOriginLng())
                 .destinyLat(request.getDestinyLat())
@@ -106,7 +104,7 @@ public class FlightService implements IFlightService {
         return this.entityToResponse(flightUpdated);
     }
 
-    private FlightResponse entityToResponse(FlyEntity entity) {
+    private FlightResponse entityToResponse(FlightEntity entity) {
         FlightResponse response = new FlightResponse();
         BeanUtils.copyProperties(entity, response);
         return response;

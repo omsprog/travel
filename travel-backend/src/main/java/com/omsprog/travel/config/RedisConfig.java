@@ -10,13 +10,10 @@ import org.redisson.spring.cache.RedissonSpringCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.Map;
 
@@ -44,7 +41,7 @@ public class RedisConfig {
     @Autowired
     public CacheManager cacheManager(RedissonClient redissonClient) {
         var configs = Map.of(
-                CacheConstants.FLY_CACHE_NAME, new CacheConfig(),
+                CacheConstants.FLIGHT_CACHE_NAME, new CacheConfig(),
                 CacheConstants.HOTEL_CACHE_NAME, new CacheConfig()
         );
         return new RedissonSpringCacheManager(redissonClient, configs);
@@ -54,7 +51,7 @@ public class RedisConfig {
 //    @Async
 //    @CacheEvict(cacheNames = {
 //            CacheConstants.HOTEL_CACHE_NAME,
-//            CacheConstants.FLY_CACHE_NAME
+//            CacheConstants.FLIGHT_CACHE_NAME
 //    }, allEntries = true)
 //    public void deleteCache() {
 //        log.info("Cleaning cache ...");

@@ -14,6 +14,6 @@ import java.util.Set;
 public class TourRequest {
     public String customerId;
     public String name;
-    public Set<TourFlyRequest> flights;
+    public Set<TourFlightRequest> flights;
     public Set<TourHotelRequest> hotels;
 }

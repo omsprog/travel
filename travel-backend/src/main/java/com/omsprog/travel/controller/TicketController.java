@@ -74,9 +74,9 @@ public class TicketController {
     }
 
     @GetMapping("/price")
-    public ResponseEntity<Map<String, BigDecimal>> getFlyPrice(
-            @RequestParam Long flyId
+    public ResponseEntity<Map<String, BigDecimal>> getFlightPrice(
+            @RequestParam Long flightId
     ) {
-        return ResponseEntity.ok(Collections.singletonMap("flyPrice", this.ticketService.findPrice(flyId)));
+        return ResponseEntity.ok(Collections.singletonMap("flightPrice", this.ticketService.findPrice(flightId)));
     }
 }

@@ -1,9 +1,7 @@
 package com.omsprog.travel.service.concrete_service;
 
 import com.omsprog.travel.dto.response.CustomerResponse;
-import com.omsprog.travel.dto.response.FlightResponse;
 import com.omsprog.travel.entity.jpa.CustomerEntity;
-import com.omsprog.travel.entity.jpa.FlyEntity;
 import com.omsprog.travel.repository.CustomerRepository;
 import com.omsprog.travel.service.abstract_service.ICustomerService;
 import com.omsprog.travel.util.SortType;

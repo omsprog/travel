@@ -24,14 +24,14 @@ public class TourHelper {
     private final TicketRepository ticketRepository;
     private final ReservationRepository reservationRepository;
 
-    public Set<TicketEntity> createTickets(Set<FlyEntity> flights, CustomerEntity customer) {
+    public Set<TicketEntity> createTickets(Set<FlightEntity> flights, CustomerEntity customer) {
         var response = new HashSet<TicketEntity>(flights.size());
-        flights.forEach(fly -> {
+        flights.forEach(flight -> {
             var ticketToPersist = TicketEntity.builder()
                     .id(UUID.randomUUID())
-                    .fly(fly)
+                    .flight(flight)
                     .customer(customer)
-                    .price(fly.getPrice().add(fly.getPrice().multiply(TicketService.charge_price_percentage)))
+                    .price(flight.getPrice().add(flight.getPrice().multiply(TicketService.charge_price_percentage)))
                     .purchaseDate(LocalDate.now())
                     .departureDate(TravelUtil.getRandomSoon())
                     .arrivalDate(TravelUtil.getRandomLatter())
@@ -60,12 +60,12 @@ public class TourHelper {
         return response;
     }
 
-    public TicketEntity createTicket(FlyEntity fly, CustomerEntity customer) {
+    public TicketEntity createTicket(FlightEntity flight, CustomerEntity customer) {
         var ticketToPersist = TicketEntity.builder()
                 .id(UUID.randomUUID())
-                .fly(fly)
+                .flight(flight)
                 .customer(customer)
-                .price(fly.getPrice().add(fly.getPrice().multiply(TicketService.charge_price_percentage)))
+                .price(flight.getPrice().add(flight.getPrice().multiply(TicketService.charge_price_percentage)))
                 .purchaseDate(LocalDate.now())
                 .departureDate(TravelUtil.getRandomSoon())
                 .arrivalDate(TravelUtil.getRandomLatter())

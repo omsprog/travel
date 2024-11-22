@@ -38,9 +38,9 @@ public class TourService implements ITourService {
     @Override
     public TourResponse create(TourRequest request) {
         var customer = customerRepository.findById(request.getCustomerId()).orElseThrow();
-        var flights = new HashSet<FlyEntity>();
-        request.getFlights().forEach(fly ->
-                flights.add(this.flightRepository.findById(fly.getId()).orElseThrow())
+        var flights = new HashSet<FlightEntity>();
+        request.getFlights().forEach(flight ->
+                flights.add(this.flightRepository.findById(flight.getId()).orElseThrow())
         );
         var hotels = new HashMap<HotelEntity, Integer>();
         request.getHotels().forEach(hotel -> hotels.put(this.hotelRepository.findById(hotel.getId()).orElseThrow(), hotel.getTotalDays()));
@@ -79,10 +79,10 @@ public class TourService implements ITourService {
     }
 
     @Override
-    public UUID addTicket(Long flyId, Long tourId) {
+    public UUID addTicket(Long flightId, Long tourId) {
         var tourUpdate = this.tourRepository.findById(tourId).orElseThrow();
-        var fly = this.flightRepository.findById(flyId).orElseThrow();
-        var ticket = this.tourHelper.createTicket(fly, tourUpdate.getCustomer());
+        var flight = this.flightRepository.findById(flightId).orElseThrow();
+        var ticket = this.tourHelper.createTicket(flight, tourUpdate.getCustomer());
         tourUpdate.addTicket(ticket);
         this.tourRepository.save(tourUpdate);
 

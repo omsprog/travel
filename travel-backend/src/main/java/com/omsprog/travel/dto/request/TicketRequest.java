@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class TicketRequest {
     private String idClient;
-    private Long idFly;
+    private Long idFlight;
 }

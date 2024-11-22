@@ -94,8 +94,8 @@ public class ReservationService implements IReservationService {
     }
 
     @Override
-    public BigDecimal findPrice(Long idFly) {
-        var hotel = this.hotelRepository.findById(idFly).orElseThrow(() -> new IdNotFoundException("hotel"));
+    public BigDecimal findPrice(Long idFlight) {
+        var hotel = this.hotelRepository.findById(idFlight).orElseThrow(() -> new IdNotFoundException("hotel"));
         return hotel.getPrice().add(hotel.getPrice().multiply(charge_price_percentage));
     }
 

@@ -43,12 +43,12 @@ public class TicketService implements ITicketService {
 
     @Override
     public TicketResponse create(TicketRequest request) {
-        var flight = flightRepository.findById(request.getIdFly()).orElseThrow(() -> new IdNotFoundException("flight"));
+        var flight = flightRepository.findById(request.getIdFlight()).orElseThrow(() -> new IdNotFoundException("flight"));
         var customer = customerRepository.findById(request.getIdClient()).orElseThrow(() -> new IdNotFoundException("customer"));
 
         var ticketToPersist = TicketEntity.builder()
                 .id(UUID.randomUUID())
-                .fly(flight)
+                .flight(flight)
                 .customer(customer)
                 .price(flight.getPrice().add(flight.getPrice().multiply(charge_price_percentage)))
                 .purchaseDate(LocalDate.now())
@@ -74,10 +74,10 @@ public class TicketService implements ITicketService {
     @Override
     public TicketResponse update(TicketRequest request, UUID uuid) {
         var ticketToUpdate = ticketRepository.findById(uuid).orElseThrow();
-        var fly = flightRepository.findById(request.getIdFly()).orElseThrow();
+        var flight = flightRepository.findById(request.getIdFlight()).orElseThrow();
 
-        ticketToUpdate.setFly(fly);
-        ticketToUpdate.setPrice(fly.getPrice().add(fly.getPrice().multiply(charge_price_percentage)));
+        ticketToUpdate.setFlight(flight);
+        ticketToUpdate.setPrice(flight.getPrice().add(flight.getPrice().multiply(charge_price_percentage)));
         ticketToUpdate.setDepartureDate(TravelUtil.getRandomSoon());
         ticketToUpdate.setArrivalDate(TravelUtil.getRandomLatter());
 
@@ -95,17 +95,17 @@ public class TicketService implements ITicketService {
     }
 
     @Override
-    public BigDecimal findPrice(Long idFly) {
-        var fly = this.flightRepository.findById(idFly).orElseThrow();
-        return fly.getPrice().add(fly.getPrice().multiply(charge_price_percentage));
+    public BigDecimal findPrice(Long idFlight) {
+        var flight = this.flightRepository.findById(idFlight).orElseThrow();
+        return flight.getPrice().add(flight.getPrice().multiply(charge_price_percentage));
     }
 
     private TicketResponse entityToResponse(TicketEntity entity) {
         TicketResponse ticketResponse = new TicketResponse();
         BeanUtils.copyProperties(entity, ticketResponse);
         FlightResponse flightResponse = new FlightResponse();
-        BeanUtils.copyProperties(entity.getFly(), flightResponse);
-        ticketResponse.setFly(flightResponse);
+        BeanUtils.copyProperties(entity.getFlight(), flightResponse);
+        ticketResponse.setFlight(flightResponse);
         return ticketResponse;
     }
 }

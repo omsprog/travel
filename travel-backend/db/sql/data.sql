@@ -18,7 +18,7 @@ INSERT INTO hotel (name, address, rating, price) VALUES
                                                      ('Cascade', 'Canada 89', 4, 22.99),
                                                      ('Pino', 'Canada 38', 4, 99.42);
 
-insert into fly (origin_lat, origin_lng, destiny_lng, destiny_lat, origin_name, destiny_name, aero_line, price) VALUES
+insert into flight (origin_lat, origin_lng, destiny_lng, destiny_lat, origin_name, destiny_name, aero_line, price) VALUES
                                                                                                                     (65.9999, -35.8888, 11.1111, 22.2222, 'Mexico', 'Greece', 'aero_gold', 43.00),
                                                                                                                     (11.1111, 22.2222, 10.9999, -14.8888, 'Greece', 'Mexico','aero_gold', 33.33),
                                                                                                                     (13.9999, 46.8888, 58.8888, 77.7777, 'Mexico', 'Iceland', 'aero_gold', 48.70),
@@ -54,7 +54,7 @@ insert into reservation (id, date_reservation,  hotel_id, customer_id, date_star
                                                                                                                     ('62345678-1234-5678-1234-567812345678', now(), 5, 'WAKT771012HMCRG472', '2024-08-01', '2024-10-01', 4, 160.00),
                                                                                                                     ('72345678-1234-5678-1234-567812345678', now(), 5, 'KEMI771012HMCRG004', '2024-08-01', '2024-10-01', 4, 600.00);
 
-insert into ticket (id, price, fly_id, customer_id, departure_date, arrival_date, purchase_date) VALUES
+insert into ticket (id, price, flight_id, customer_id, departure_date, arrival_date, purchase_date) VALUES
                                                                                                      ('12345678-1234-5678-2236-567812345678', 330.05, 1, 'WAKT771012HMCRG472', '2024-08-01 14:00:00', '2024-08-01 16:00:00',now()),
                                                                                                      ('22345678-1234-5678-3235-567812345678', 220.33, 1, 'KEMI771012HMCRG004', '2024-08-01 14:00:00', '2024-08-01 16:00:00', now()),
                                                                                                      ('32345678-1234-5678-4234-567812345678', 320.00, 4, 'KEMI771012HMCRG004', '2024-08-01 12:00:00', '2024-08-01 15:00:00', now()),
@@ -69,7 +69,7 @@ insert into tour(id_customer, name) VALUES
                                         ('KHXH771012HMRGR663', 'Honey Moon'),
                                         ('CRMA625312UTSGE531', 'Magical Tour');
 
-insert into ticket (id, price, fly_id, customer_id, departure_date, arrival_date, purchase_date, tour_id) VALUES
+insert into ticket (id, price, flight_id, customer_id, departure_date, arrival_date, purchase_date, tour_id) VALUES
                                                                                                     ('92345678-1234-5678-2236-567812345678', 320.24, 10, 'KHXH771012HMRGR663', '2024-06-07 14:00:00', '2024-06-07 16:00:00', now(), 1),
                                                                                                     ('90345678-1234-5678-3235-567812345679', 243.64, 11, 'KHXH771012HMRGR663', '2024-06-07 14:00:00', '2024-06-07 16:00:00', now(), 1),
                                                                                                     ('91345678-1234-5678-2236-567812345680', 230.80, 12, 'CRMA625312UTSGE531', '2024-06-07 14:00:00', '2024-06-07 16:00:00', now(), 2),

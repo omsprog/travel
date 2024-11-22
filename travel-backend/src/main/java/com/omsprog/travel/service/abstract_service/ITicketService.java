@@ -8,6 +8,6 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 public interface ITicketService extends CrudService<TicketRequest, TicketResponse, UUID> {
-    BigDecimal findPrice(Long flyId);
+    BigDecimal findPrice(Long flightId);
     Page<TicketResponse> readAll(Integer page, Integer size);
 }
