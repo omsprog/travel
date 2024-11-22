@@ -4,12 +4,7 @@
 `docker compose up`  
 `mvn spring-boot:run`    
 
-## Endpoints
+## TODO
 
-### Flight
-
-localhost:8080/travel/flight/less_price?price=15  
-
-### Hotel 
-
-localhost:8080/travel/hotel?page=0&size=5   
+- Unit Testing
+- Add Created_at and Updated_at columns, use those columns to sort the results

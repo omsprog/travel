@@ -11,5 +11,5 @@ public interface CatalogService<R> {
     Set<R> readLessPrice(BigDecimal price);
     Set<R> readBetweenPrice(BigDecimal min, BigDecimal max);
 
-    String FIELD_BY_SORT = "price";
+    String FIELD_BY_SORT = "id";
 }

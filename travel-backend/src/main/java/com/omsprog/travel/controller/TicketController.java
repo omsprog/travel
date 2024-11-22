@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,15 @@ import java.util.UUID;
 @Tag(name = "ticket")
 public class TicketController {
     private final ITicketService ticketService;
+
+    @GetMapping
+    public ResponseEntity<Page<TicketResponse>> getAll(
+            @RequestParam Integer page,
+            @RequestParam Integer size
+    ) {
+        var response = this.ticketService.readAll(page, size);
+        return response.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(response);
+    }
 
     @ApiResponse(
             responseCode = "400",
@@ -63,7 +73,7 @@ public class TicketController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping
+    @GetMapping("/price")
     public ResponseEntity<Map<String, BigDecimal>> getFlyPrice(
             @RequestParam Long flyId
     ) {

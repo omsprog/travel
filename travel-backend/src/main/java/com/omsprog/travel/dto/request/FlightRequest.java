@@ -37,7 +37,7 @@ public class FlightRequest {
     @Size(min = 4, max = 30, message = "Destiny Name should be between 4 an 30 characters")
     private String destinyName;
     @NotNull(message = "price is mandatory")
-    @Min(values="100", message = "price should be positive")
+    @Min(value=40, message = "price should be bigger than 40")
     private BigDecimal price;
     @NotNull(message = "Aeroline is mandatory")
     private AeroLine aeroLine;

@@ -25,7 +25,7 @@ export class FlightCreateComponent {
     destinyLng:   [null, [Validators.required, Validators.min(-180), Validators.max(180)]],
     originName:   ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
     destinyName:  ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
-    price:        [null, [Validators.required, Validators.min(100)]],
+    price:        [null, [Validators.required, Validators.min(40)]],
     aeroLine:     ['', [Validators.required]],
   })
 

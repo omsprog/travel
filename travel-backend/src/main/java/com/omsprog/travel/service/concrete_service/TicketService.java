@@ -4,6 +4,7 @@ import com.omsprog.travel.dto.request.TicketRequest;
 import com.omsprog.travel.dto.response.FlightResponse;
 import com.omsprog.travel.dto.response.TicketResponse;
 import com.omsprog.travel.entity.jpa.TicketEntity;
+import com.omsprog.travel.exception.IdNotFoundException;
 import com.omsprog.travel.helper.CustomerHelper;
 import com.omsprog.travel.repository.CustomerRepository;
 import com.omsprog.travel.repository.FlightRepository;
@@ -13,6 +14,8 @@ import com.omsprog.travel.util.TravelUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,15 +36,21 @@ public class TicketService implements ITicketService {
     public static final BigDecimal charge_price_percentage = BigDecimal.valueOf(0.25);
 
     @Override
+    public Page<TicketResponse> readAll(Integer page, Integer size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return this.ticketRepository.findAll(pageRequest).map(this::entityToResponse);
+    }
+
+    @Override
     public TicketResponse create(TicketRequest request) {
-        var fly = flightRepository.findById(request.getIdFly()).orElseThrow();
-        var customer = customerRepository.findById(request.getIdClient()).orElseThrow();
+        var flight = flightRepository.findById(request.getIdFly()).orElseThrow(() -> new IdNotFoundException("flight"));
+        var customer = customerRepository.findById(request.getIdClient()).orElseThrow(() -> new IdNotFoundException("customer"));
 
         var ticketToPersist = TicketEntity.builder()
                 .id(UUID.randomUUID())
-                .fly(fly)
+                .fly(flight)
                 .customer(customer)
-                .price(fly.getPrice().add(fly.getPrice().multiply(charge_price_percentage)))
+                .price(flight.getPrice().add(flight.getPrice().multiply(charge_price_percentage)))
                 .purchaseDate(LocalDate.now())
                 .departureDate(TravelUtil.getRandomSoon())
                 .arrivalDate(TravelUtil.getRandomLatter())
@@ -58,7 +67,7 @@ public class TicketService implements ITicketService {
 
     @Override
     public TicketResponse read(UUID uuid) {
-        var ticketFromDB = this.ticketRepository.findById(uuid).orElseThrow();
+        var ticketFromDB = this.ticketRepository.findById(uuid).orElseThrow(() -> new IdNotFoundException("ticket"));
         return this.entityToResponse(ticketFromDB);
     }
 

@@ -35,8 +35,7 @@ public class HotelService implements IHotelService {
         PageRequest pageRequest = null;
 
         switch(sortType) {
-            case NONE -> pageRequest = PageRequest.of(page, size);
-            case LOWER -> pageRequest = PageRequest.of(page, size, Sort.by(FIELD_BY_SORT).ascending());
+            case NONE, LOWER -> pageRequest = PageRequest.of(page, size, Sort.by(FIELD_BY_SORT).ascending());
             case UPPER -> pageRequest = PageRequest.of(page, size, Sort.by(FIELD_BY_SORT).descending());
         }
 
