@@ -15,6 +15,7 @@ import {HotelCreateComponent} from './pages/hotel/hotel-create/hotel-create.comp
 import {FlightCreateComponent} from './pages/flight/flight-create/flight-create.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { CustomerListComponent } from './pages/customer/customer-list/customer-list.component';
+import { TicketListComponent } from './pages/ticket/ticket-list/ticket-list.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { CustomerListComponent } from './pages/customer/customer-list/customer-l
     HotelCreateComponent,
     FlightCreateComponent,
     CustomerListComponent,
+    TicketListComponent,
   ],
   imports: [
     CommonModule,

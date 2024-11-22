@@ -14,6 +14,8 @@ import java.util.UUID;
 @Builder
 public class TourResponse {
     public Long id;
-    public Set<UUID> ticketIds;
-    private Set<UUID> reservationIds;
+    public String name;
+    public CustomerResponse customer;
+    public Set<UUID> tickets;
+    private Set<UUID> reservations;
 }

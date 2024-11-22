@@ -13,6 +13,7 @@ import java.util.Set;
 @Builder
 public class TourRequest {
     public String customerId;
+    public String name;
     public Set<TourFlyRequest> flights;
     public Set<TourHotelRequest> hotels;
 }

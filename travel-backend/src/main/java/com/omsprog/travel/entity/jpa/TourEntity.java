@@ -18,6 +18,7 @@ public class TourEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
 
     // RELATIONSHIPS
     @ToString.Exclude
@@ -40,6 +41,7 @@ public class TourEntity {
     )
     private Set<TicketEntity> tickets;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "id_customer")
     private CustomerEntity customer;
