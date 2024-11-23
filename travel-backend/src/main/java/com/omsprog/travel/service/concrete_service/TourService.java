@@ -3,6 +3,7 @@ package com.omsprog.travel.service.concrete_service;
 import com.omsprog.travel.dto.request.TourRequest;
 import com.omsprog.travel.dto.response.CustomerResponse;
 import com.omsprog.travel.dto.response.TourResponse;
+import com.omsprog.travel.dto.response.TourSummaryResponse;
 import com.omsprog.travel.entity.jpa.*;
 import com.omsprog.travel.helper.CustomerHelper;
 import com.omsprog.travel.helper.TourHelper;
@@ -38,9 +39,9 @@ public class TourService implements ITourService {
     private final CustomerHelper customerHelper;
 
     @Override
-    public Page<TourResponse> readAll(Integer page, Integer size) {
+    public Page<TourSummaryResponse> readAll(Integer page, Integer size) {
         PageRequest pageRequest = PageRequest.of(page, size);
-        return this.tourRepository.findAll(pageRequest).map(this::entityToResponse);
+        return this.tourRepository.findTourSummary(pageRequest);
     }
 
     @Override

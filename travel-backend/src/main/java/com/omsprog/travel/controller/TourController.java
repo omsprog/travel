@@ -2,6 +2,7 @@ package com.omsprog.travel.controller;
 
 import com.omsprog.travel.dto.request.TourRequest;
 import com.omsprog.travel.dto.response.TourResponse;
+import com.omsprog.travel.dto.response.TourSummaryResponse;
 import com.omsprog.travel.error_handler.ErrorsResponse;
 import com.omsprog.travel.service.abstract_service.ITourService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +28,7 @@ public class TourController {
     private final ITourService tourService;
 
     @GetMapping
-    public ResponseEntity<Page<TourResponse>> getAll(
+    public ResponseEntity<Page<TourSummaryResponse>> getAll(
             @RequestParam Integer page,
             @RequestParam Integer size
     ) {

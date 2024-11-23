@@ -1,4 +1,3 @@
-import {Customer} from "./customer.interface";
 import {Pageable, Sort} from "./pageable.interface";
 
 export interface TourPage {
@@ -16,9 +15,9 @@ export interface TourPage {
 }
 
 export interface Tour {
-    id:           number;
-    name:         string;
-    customer:     Customer;
-    tickets:      string[];
-    reservations: string[];
+    id:               number;
+    name:             string;
+    customerName:     string;
+    ticketCount:      number;
+    reservationCount: number;
 }

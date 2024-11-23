@@ -21,9 +21,9 @@
       <tr *ngFor="let tour of tourPage?.content">
         <td>{{ tour.id }}</td>
         <td>{{ tour.name }}</td>
-        <td>{{ tour.customer.fullName }}</td>
-        <td>{{ tour.tickets.length }}</td>
-        <td>{{ tour.reservations.length }}</td>
+        <td>{{ tour.customerName }}</td>
+        <td>{{ tour.ticketCount }}</td>
+        <td>{{ tour.reservationCount }}</td>
       </tr>
       </tbody>
     </table>
