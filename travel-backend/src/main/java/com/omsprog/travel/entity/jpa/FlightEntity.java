@@ -34,7 +34,7 @@ public class FlightEntity {
     @EqualsAndHashCode.Exclude
     @OneToMany(
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             orphanRemoval = true,
             mappedBy = "flight"  // Is mapped by the "flight" property of TICKET entity
     )

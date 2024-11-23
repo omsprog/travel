@@ -28,9 +28,9 @@ public class HotelEntity {
     @EqualsAndHashCode.Exclude
     @OneToMany(
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             orphanRemoval = true,
             mappedBy = "hotel"
     )
-    private Set<ReservationEntity> reservation;
+    private Set<ReservationEntity> reservations;
 }
