@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {HotelPage} from "../interfaces/hotel.interface";
+import {TicketPage} from "../interfaces/ticket.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +13,8 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
-  // getTickets(currentPage = 0) : Observable<TicketPage> {
-  //   let getHotelsUrl = `${this.hotelBaseUrl}?page=${currentPage}&size=${this.PAGE_SIZE}`;
-  //   return this.http.get<HotelPage>(getHotelsUrl);
-  // }
+  getTickets(currentPage = 0) : Observable<TicketPage> {
+    let getTicketsUrl = `${this.ticketBaseUrl}?page=${currentPage}&size=${this.PAGE_SIZE}`;
+    return this.http.get<TicketPage>(getTicketsUrl);
+  }
 }

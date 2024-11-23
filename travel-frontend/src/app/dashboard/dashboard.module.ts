@@ -16,6 +16,8 @@ import {FlightCreateComponent} from './pages/flight/flight-create/flight-create.
 import {ReactiveFormsModule} from "@angular/forms";
 import { CustomerListComponent } from './pages/customer/customer-list/customer-list.component';
 import { TicketListComponent } from './pages/ticket/ticket-list/ticket-list.component';
+import { ReservationListComponent } from './pages/reservation/reservation-list/reservation-list.component';
+import { TourListComponent } from './pages/tour/tour-list/tour-list.component';
 
 
 @NgModule({
@@ -33,6 +35,8 @@ import { TicketListComponent } from './pages/ticket/ticket-list/ticket-list.comp
     FlightCreateComponent,
     CustomerListComponent,
     TicketListComponent,
+    ReservationListComponent,
+    TourListComponent,
   ],
   imports: [
     CommonModule,

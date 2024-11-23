@@ -1,19 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {TicketPage} from "../../../interfaces/ticket.interface";
-import {TicketService} from "../../../services/ticket-service.service";
+import {TourPage} from "../../../interfaces/tour.interface";
+import {TourService} from "../../../services/tour-service.service";
 
 @Component({
-  selector: 'app-ticket-list',
-  templateUrl: './ticket-list.component.html',
+  selector: 'app-tour-list',
+  templateUrl: './tour-list.component.html',
   styles: []
 })
-export class TicketListComponent implements OnInit {
-  public ticketPage? : TicketPage;
+export class TourListComponent implements OnInit{
+  public tourPage? : TourPage;
   public currentPage : number = 0;
   public loading = false;
   public message : string | null = null;
 
-  constructor(private ticketService: TicketService) { }
+  constructor(private tourService: TourService) { }
 
   ngOnInit(): void {
     const state = window.history.state;
@@ -26,9 +26,9 @@ export class TicketListComponent implements OnInit {
     }
 
     this.loading = true;
-    this.ticketService.getTickets()
-      .subscribe(ticket => {
-        this.ticketPage = ticket;
+    this.tourService.getTours()
+      .subscribe(tour => {
+        this.tourPage = tour;
         this.loading = false;
       })
   }
@@ -36,9 +36,9 @@ export class TicketListComponent implements OnInit {
   onChangePage(page: number) {
     this.currentPage = page;
     this.loading = true;
-    this.ticketService.getTickets(page)
-      .subscribe(ticket => {
-        this.ticketPage = ticket;
+    this.tourService.getTours(page)
+      .subscribe(tour => {
+        this.tourPage = tour;
         this.loading = false;
       })
   }

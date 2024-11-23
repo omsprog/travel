@@ -1,0 +1,38 @@
+<div class="content">
+  <div *ngIf="message" class="alert alert-success">
+    {{ message }}
+  </div>
+  <h1 class="title">List of Tickets</h1>
+
+  <div *ngIf="loading; else listTable">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+
+  <ng-template #listTable>
+    <table class="crud-list-table">
+      <thead>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Customer</th>
+        <th># Tickets</th>
+        <th># Reservations</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let tour of tourPage?.content">
+        <td>{{ tour.id }}</td>
+        <td>{{ tour.name }}</td>
+        <td>{{ tour.customer.fullName }}</td>
+        <td>{{ tour.tickets.length }}</td>
+        <td>{{ tour.reservations.length }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </ng-template>
+  <div class="pagination">
+    <dashboard-pagination (onPageChange)="onChangePage($event)" *ngIf="tourPage"
+                          [first]="currentPage == 0"
+                          [last]="currentPage == tourPage.totalPages - 1"
+                          [currentPage]="currentPage"
+                          [totalPages]="tourPage.totalPages" />
+  </div>
+</div>

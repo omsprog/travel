@@ -14,6 +14,8 @@ import com.omsprog.travel.service.abstract_service.ITourService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +36,12 @@ public class TourService implements ITourService {
     private final CustomerRepository customerRepository;
     private final TourHelper tourHelper;
     private final CustomerHelper customerHelper;
+
+    @Override
+    public Page<TourResponse> readAll(Integer page, Integer size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return this.tourRepository.findAll(pageRequest).map(this::entityToResponse);
+    }
 
     @Override
     public TourResponse create(TourRequest request) {

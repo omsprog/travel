@@ -10,6 +10,9 @@ import {HotelEditComponent} from "./pages/hotel/hotel-edit/hotel-edit.component"
 import {FlightCreateComponent} from "./pages/flight/flight-create/flight-create.component";
 import {HotelCreateComponent} from "./pages/hotel/hotel-create/hotel-create.component";
 import {CustomerListComponent} from "./pages/customer/customer-list/customer-list.component";
+import {TicketListComponent} from "./pages/ticket/ticket-list/ticket-list.component";
+import {ReservationListComponent} from "./pages/reservation/reservation-list/reservation-list.component";
+import {TourListComponent} from "./pages/tour/tour-list/tour-list.component";
 
 const routes: Routes = [
   {
@@ -51,6 +54,18 @@ const routes: Routes = [
       {
         path: 'customers',
         component: CustomerListComponent
+      },
+      {
+        path: 'tickets',
+        component: TicketListComponent
+      },
+      {
+        path: 'reservations',
+        component: ReservationListComponent
+      },
+      {
+        path: 'tours',
+        component: TourListComponent
       }
     ]
   }

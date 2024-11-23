@@ -1,1 +1,40 @@
-<p>ticket-list works!</p>
+<div class="content">
+  <div *ngIf="message" class="alert alert-success">
+    {{ message }}
+  </div>
+  <h1 class="title">List of Tickets</h1>
+
+  <div *ngIf="loading; else listTable">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+
+  <ng-template #listTable>
+    <table class="crud-list-table">
+      <thead>
+        <th>Id</th>
+        <th>Origin name</th>
+        <th>Destiny name</th>
+        <th>Departure date</th>
+        <th>Arrival date</th>
+        <th>Price</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let ticket of ticketPage?.content">
+        <td>{{ ticket.id }}</td>
+        <td>{{ ticket.flight.originName }}</td>
+        <td>{{ ticket.flight.destinyName }}</td>
+        <td>{{ ticket.departureDate }}</td>
+        <td>{{ ticket.arrivalDate }}</td>
+        <td>{{ ticket.price }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </ng-template>
+  <div class="pagination">
+    <dashboard-pagination (onPageChange)="onChangePage($event)" *ngIf="ticketPage"
+                          [first]="currentPage == 0"
+                          [last]="currentPage == ticketPage.totalPages - 1"
+                          [currentPage]="currentPage"
+                          [totalPages]="ticketPage.totalPages" />
+  </div>
+</div>

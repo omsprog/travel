@@ -1,0 +1,40 @@
+<div class="content">
+  <div *ngIf="message" class="alert alert-success">
+    {{ message }}
+  </div>
+  <h1 class="title">List of Reservations</h1>
+
+  <div *ngIf="loading; else listTable">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+
+  <ng-template #listTable>
+    <table class="crud-list-table">
+      <thead>
+        <th>Id</th>
+        <th>Hotel</th>
+        <th>Total days</th>
+        <th>Price</th>
+        <th>Date start</th>
+        <th>Date end</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let reservation of reservationPage?.content">
+        <td>{{ reservation.id }}</td>
+        <td>{{ reservation.hotel.name }}</td>
+        <td>{{ reservation.totalDays }}</td>
+        <td>{{ reservation.price }}</td>
+        <td>{{ reservation.dateStart }}</td>
+        <td>{{ reservation.dateEnd }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </ng-template>
+  <div class="pagination">
+    <dashboard-pagination (onPageChange)="onChangePage($event)" *ngIf="reservationPage"
+                          [first]="currentPage == 0"
+                          [last]="currentPage == reservationPage.totalPages - 1"
+                          [currentPage]="currentPage"
+                          [totalPages]="reservationPage.totalPages" />
+  </div>
+</div>

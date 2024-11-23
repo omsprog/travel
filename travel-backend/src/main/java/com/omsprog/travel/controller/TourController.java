@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,15 @@ import java.util.UUID;
 public class TourController {
 
     private final ITourService tourService;
+
+    @GetMapping
+    public ResponseEntity<Page<TourResponse>> getAll(
+            @RequestParam Integer page,
+            @RequestParam Integer size
+    ) {
+        var response = this.tourService.readAll(page, size);
+        return response.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(response);
+    }
 
     @Operation(summary = "Saves a tour based on list of hotels and flights")
     @ApiResponse(
