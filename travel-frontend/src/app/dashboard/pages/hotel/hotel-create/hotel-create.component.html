@@ -7,18 +7,38 @@
     <div>
       <label for="name">Name</label>
       <input id="name" type="text" formControlName="name" value="" placeholder="hotel name">
+      <div *ngIf="isValidField('name')" class="validation-errors">
+        <span class="crud-form-validation-error">
+          {{ getFieldError('name') }}
+        </span>
+      </div>
     </div>
     <div>
       <label for="address">Address</label>
       <input id="address" type="text" formControlName="address" value="" placeholder="address">
+      <div *ngIf="isValidField('address')" class="validation-errors">
+        <span class="crud-form-validation-error">
+          {{ getFieldError('address') }}
+        </span>
+      </div>
     </div>
     <div>
       <label for="rating">Rating</label>
       <input id="rating" type="number" formControlName="rating" value="" placeholder="number">
+      <div *ngIf="isValidField('rating')" class="validation-errors">
+        <span class="crud-form-validation-error">
+          {{ getFieldError('rating') }}
+        </span>
+      </div>
     </div>
     <div>
       <label for="price">Price</label>
       <input id="price" type="number" formControlName="price" value="" placeholder="number">
+      <div *ngIf="isValidField('price')" class="validation-errors">
+        <span class="crud-form-validation-error">
+          {{ getFieldError('price') }}
+        </span>
+      </div>
     </div>
     <div>
       <button (click)="onSubmit()">
