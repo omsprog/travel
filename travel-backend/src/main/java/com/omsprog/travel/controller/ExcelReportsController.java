@@ -22,7 +22,7 @@ public class ExcelReportsController {
     private static final MediaType FORCE_DOWNLOAD = new MediaType("application", "force-download");
     private static final String FORCE_DOWNLOAD_HEADER_VALUE = "attachment; filename=report.xlsx";
 
-    @GetMapping
+    @GetMapping("/sales-summary")
     public ResponseEntity<Resource> get() {
         var headers = new HttpHeaders();
         headers.setContentType(FORCE_DOWNLOAD);

@@ -36,14 +36,14 @@ insert into flight (origin_lat, origin_lng, destiny_lng, destiny_lat, origin_nam
                                                                                                                     (11.1111, 22.2222, 54.4444, 55.5555, 'Mexico', 'Canada', 'blue_sky', 14.65);
 
 insert into customer (dni, full_name, credit_card, total_flights, total_lodgings, total_tours, phone_number) VALUES
-                                                                                                                 ('KEMI771012HMCRG004', 'Kenan Michel', '6473-9486-9372-0921', 0, 0, 0, '33-74-58-43'),
-                                                                                                                 ('GUFL781012HCRGR426', 'Gunter Fl', '2146-3458-3590-7508', 0, 0, 0, '55-33-66-26'),
-                                                                                                                 ('WAKT771012HMCRG472', 'Walt Knut', '4463-4566-9456-3217', 0, 0, 0, '55-85-31-73'),
-                                                                                                                 ('RKKA771012HMCRR118', 'Karen RK', '4463-3326-4760-4014', 0, 0, 0, '55-27-27-78'),
-                                                                                                                 ('WIKA771012HCRGR980', 'Kathy Williamson', '6677-5244-94572-0165', 0, 0, 0, '33-24-41-54'),
-                                                                                                                 ('MASK771012HCRGR426', 'Masada K', '2211-9378-93511-9276', 0, 0, 0, '23-92-94-58'),
-                                                                                                                 ('KHXH771012HMRGR663', 'Khal Xu', '6766-9484-9442-0222', 0, 0, 0, '55-78-33-11'),
-                                                                                                                 ('CRMA625312UTSGE531', 'Marcel Craig', '0924-8871-4821-9726', 0, 0, 0, '24-78-85-63');
+                                                                                                                 ('KEMI771012HMCRG004', 'Kenan Michel', '6473-9486-9372-0921', 2, 1, 0, '33-74-58-43'),
+                                                                                                                 ('GUFL781012HCRGR426', 'Gunter Fl', '2146-3458-3590-7508', 0, 2, 0, '55-33-66-26'),
+                                                                                                                 ('WAKT771012HMCRG472', 'Walt Knut', '4463-4566-9456-3217', 1, 1, 0, '55-85-31-73'),
+                                                                                                                 ('RKKA771012HMCRR118', 'Karen RK', '4463-3326-4760-4014', 4, 1, 0, '55-27-27-78'),
+                                                                                                                 ('WIKA771012HCRGR980', 'Kathy Williamson', '6677-5244-94572-0165', 0, 2, 0, '33-24-41-54'),
+                                                                                                                 ('MASK771012HCRGR426', 'Masada K', '2211-9378-93511-9276', 1, 1, 0, '23-92-94-58'),
+                                                                                                                 ('KHXH771012HMRGR663', 'Khal Xu', '6766-9484-9442-0222', 2, 1, 1, '55-78-33-11'),
+                                                                                                                 ('CRMA625312UTSGE531', 'Marcel Craig', '0924-8871-4821-9726', 2, 1, 1, '24-78-85-63');
 
 insert into reservation (id, date_reservation,  hotel_id, customer_id, date_start, date_end, total_days, price) VALUES
                                                                                                                     ('12345678-1234-5678-1234-567812345678', now(), 1, 'WIKA771012HCRGR980', '2024-08-01', '2024-09-07', 7, 77.00),

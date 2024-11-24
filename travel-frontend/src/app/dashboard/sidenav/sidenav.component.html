@@ -8,8 +8,8 @@
   <li routerLink="/dashboard/tickets" routerLinkActive="active">Tickets</li>
   <li routerLink="/dashboard/reservations" routerLinkActive="active">Reservations</li>
   <li routerLink="/dashboard/tours" routerLinkActive="active">Tours</li>
-  <!-- <li>Widgets<i class="fas fa-chevron-right flecha"></i></li>
-  <ul class="subboton">
-    <li>Desk</li>
-  </ul> -->
+  <li (click)="onClickOpenReports()">Reports <i [class]="isReportsSectionActive ? 'fas fa-chevron-down' : 'fas fa-chevron-right'"></i></li>
+  <ul [class.reportOpen]="isReportsSectionActive" class="reportsLinks">
+    <li (click)="onDownloadSalesSummary()">Sales Summary</li>
+  </ul>
 </ul>

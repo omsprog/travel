@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {DownloadReportsService} from "../services/download-reports.service";
 
 @Component({
   selector: 'dashboard-sidenav',
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styles: []
 })
 export class SidenavComponent {
+  isReportsSectionActive = false;
 
+  constructor(private downloadReportsService: DownloadReportsService) { }
+
+  onClickOpenReports() : void {
+    this.isReportsSectionActive = !this.isReportsSectionActive;
+  }
+
+  onDownloadSalesSummary() : void {
+    this.downloadReportsService.downloadSalesSummary()
+  }
 }

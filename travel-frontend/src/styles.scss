@@ -287,3 +287,17 @@ a.back-link {
 .alert.alert-success {
   background-color: $success-color;
 }
+
+ul.reportsLinks {
+  padding: 0;
+  list-style: none;
+  height: 0;
+  overflow: hidden;
+  transition: all 0.3s;
+  max-height: 100%;
+}
+
+ul.reportOpen {
+  transition: height 0.3s;
+  height: auto;
+}

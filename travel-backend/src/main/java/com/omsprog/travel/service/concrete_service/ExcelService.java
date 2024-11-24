@@ -106,7 +106,7 @@ public class ExcelService implements IReportService {
             workbook.write(outputStream);
             workbook.close();
         } catch (IOException e) {
-            log.error("Cant create Excel", e);
+            log.error("Error while creating Excel file", e);
             throw new RuntimeException();
         }
     }
