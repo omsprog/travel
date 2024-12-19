@@ -1,12 +1,9 @@
 package com.omsprog.travel.controller;
 
-import com.omsprog.travel.dto.external_models.DogFactDto;
 import com.omsprog.travel.dto.request.FlightRequest;
 import com.omsprog.travel.dto.response.FlightResponse;
-import com.omsprog.travel.helper.DogFactsHelper;
 import com.omsprog.travel.service.abstract_service.IFlightService;
 import com.omsprog.travel.util.SortType;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -24,13 +21,6 @@ import java.util.Set;
 @Tag(name = "flight")
 public class FlightController {
     private final IFlightService flightService;
-    private DogFactsHelper dogFactsHelper;
-
-    @Operation(summary = "returns facts about dogs")
-    @GetMapping(path = "random_dog_service")
-    public DogFactDto randomDogService() {
-        return this.dogFactsHelper.getDogFacts();
-    }
 
     @GetMapping
     public ResponseEntity<Page<FlightResponse>> getAll(
