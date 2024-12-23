@@ -6,16 +6,15 @@ import com.omsprog.travel.util.AeroLine;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.http.*;
 
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -26,6 +25,7 @@ class FlightControllerIntegrationTest {
 
     @Test
     @DisplayName("Flight can be created")
+    @Order(1)
     void validFlight_whenCreateFlight_returnsCreatedFlight() throws JSONException {
         // Arrange
         JSONObject validFlightRequestJson = new JSONObject();
@@ -60,6 +60,7 @@ class FlightControllerIntegrationTest {
 
     @Test
     @DisplayName("List of flights works")
+    @Order(2)
     void validGetRequest_whenGetFlights_returnsListOfFlights() {
         // Arrange
         HttpHeaders headers = new HttpHeaders();
@@ -80,5 +81,6 @@ class FlightControllerIntegrationTest {
             fail();
         assertEquals(HttpStatus.OK, pageOfFlightsResponseEntity.getStatusCode());
         assertEquals(pageSize, pageOfFlights.getContent().size());
+        assertFalse(pageOfFlights.isLast());
     }
 }
