@@ -15,7 +15,7 @@
       <thead>
         <th>Id</th>
         <th>Origin Name</th>
-        <th>Destiny Name</th>
+        <th>Destination Name</th>
         <th>Price</th>
         <th>Aeroline</th>
         <th></th>
@@ -24,7 +24,7 @@
         <tr *ngFor="let flight of flightPage?.content">
           <td>{{ flight.id }}</td>
           <td>{{ flight.originName }}</td>
-          <td>{{ flight.destinyName }}</td>
+          <td>{{ flight.destinationName }}</td>
           <td>{{ flight.price }}</td>
           <td>{{ flight.aeroLine }}</td>
           <td class="crud-action-buttons">

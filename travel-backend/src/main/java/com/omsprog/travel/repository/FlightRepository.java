@@ -18,8 +18,8 @@ public interface FlightRepository extends JpaRepository<FlightEntity, Long> {
     @Query("select f from flight f where f.price between :min and :max")
     Set<FlightEntity> selectBetweenPrice(BigDecimal min, BigDecimal max);
 
-    @Query("select f from flight f where f.originName = :origin and f.destinyName = :destiny")
-    Set<FlightEntity> selectOriginDestiny(String origin, String destiny);
+    @Query("select f from flight f where f.originName = :origin and f.destinationName = :destination")
+    Set<FlightEntity> selectOriginDestination(String origin, String destination);
 
     @Query("select f from flight f join fetch f.tickets t where t.id = :id")
     Optional<FlightEntity> findByTicketId(UUID id);

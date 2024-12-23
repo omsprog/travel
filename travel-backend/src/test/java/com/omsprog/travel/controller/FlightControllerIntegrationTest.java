@@ -31,10 +31,10 @@ class FlightControllerIntegrationTest {
         JSONObject validFlightRequestJson = new JSONObject();
         validFlightRequestJson.put("originLat", 80.9999);
         validFlightRequestJson.put("originLng", 88.8888);
-        validFlightRequestJson.put("destinyLat", 22.2222);
-        validFlightRequestJson.put("destinyLng", 11.1111);
+        validFlightRequestJson.put("destinationLat", 22.2222);
+        validFlightRequestJson.put("destinationLng", 11.1111);
         validFlightRequestJson.put("originName", "Mexico");
-        validFlightRequestJson.put("destinyName", "Russia");
+        validFlightRequestJson.put("destinationName", "Russia");
         validFlightRequestJson.put("price", 90);
         validFlightRequestJson.put("aeroLine", AeroLine.aero_gold.toString());
 

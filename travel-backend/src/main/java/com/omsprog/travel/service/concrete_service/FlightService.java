@@ -61,7 +61,7 @@ public class FlightService implements IFlightService {
     @Override
 //    @Cacheable(value = CacheConstants.FLIGHT_CACHE_NAME)
     public Set<FlightResponse> readByOriginDestination(String origin, String destination) {
-        return this.flightRepository.selectOriginDestiny(origin, destination)
+        return this.flightRepository.selectOriginDestination(origin, destination)
                 .stream()
                 .map(this::entityToResponse)
                 .collect(Collectors.toSet());
@@ -72,10 +72,10 @@ public class FlightService implements IFlightService {
         FlightEntity entityToBePersisted = FlightEntity.builder()
                 .originLat(request.getOriginLat())
                 .originLng(request.getOriginLng())
-                .destinyLat(request.getDestinyLat())
-                .destinyLng(request.getDestinyLng())
+                .destinationLat(request.getDestinationLat())
+                .destinationLng(request.getDestinationLng())
                 .originName(request.getOriginName())
-                .destinyName(request.getDestinyName())
+                .destinationName(request.getDestinationName())
                 .price(request.getPrice())
                 .aeroLine(request.getAeroLine())
                 .build();
@@ -93,10 +93,10 @@ public class FlightService implements IFlightService {
 
         flightToUpdate.setOriginLat(request.getOriginLat());
         flightToUpdate.setOriginLng(request.getOriginLng());
-        flightToUpdate.setDestinyLat(request.getDestinyLat());
-        flightToUpdate.setDestinyLng(request.getDestinyLng());
+        flightToUpdate.setDestinationLat(request.getDestinationLat());
+        flightToUpdate.setDestinationLng(request.getDestinationLng());
         flightToUpdate.setOriginName(request.getOriginName());
-        flightToUpdate.setDestinyName(request.getDestinyName());
+        flightToUpdate.setDestinationName(request.getDestinationName());
         flightToUpdate.setPrice(request.getPrice());
         flightToUpdate.setAeroLine(request.getAeroLine());
 

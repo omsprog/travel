@@ -2,7 +2,6 @@ package com.omsprog.travel.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omsprog.travel.dto.request.FlightRequest;
-import com.omsprog.travel.dto.request.HotelRequest;
 import com.omsprog.travel.dto.response.FlightResponse;
 import com.omsprog.travel.error_handler.ErrorsResponse;
 import com.omsprog.travel.service.concrete_service.FlightService;
@@ -42,10 +41,10 @@ class FlightControllerWebLayerTest {
         return FlightRequest.builder()
                 .originLat(80.9999)
                 .originLng(88.8888)
-                .destinyLat(22.2222)
-                .destinyLng(11.1111)
+                .destinationLat(22.2222)
+                .destinationLng(11.1111)
                 .originName("Mexico")
-                .destinyName("Russia")
+                .destinationName("Russia")
                 .price(BigDecimal.valueOf(90))
                 .aeroLine(AeroLine.aero_gold)
                 .build();
@@ -61,10 +60,10 @@ class FlightControllerWebLayerTest {
                 .id(16L)
                 .originLat(80.9999)
                 .originLng(88.8888)
-                .destinyLat(22.2222)
-                .destinyLng(11.1111)
+                .destinationLat(22.2222)
+                .destinationLng(11.1111)
                 .originName("Mexico")
-                .destinyName("Russia")
+                .destinationName("Russia")
                 .price(BigDecimal.valueOf(90))
                 .aeroLine(AeroLine.aero_gold)
                 .build();
@@ -88,10 +87,10 @@ class FlightControllerWebLayerTest {
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus(), "Controller returns 200 Status Code");
         assertEquals(flightRequest.getOriginLat(), createdFlight.getOriginLat());
         assertEquals(flightRequest.getOriginLng(), createdFlight.getOriginLng());
-        assertEquals(flightRequest.getDestinyLat(), createdFlight.getDestinyLat());
-        assertEquals(flightRequest.getDestinyLng(), createdFlight.getDestinyLng());
+        assertEquals(flightRequest.getDestinationLat(), createdFlight.getDestinationLat());
+        assertEquals(flightRequest.getDestinationLng(), createdFlight.getDestinationLng());
         assertEquals(flightRequest.getOriginName(), createdFlight.getOriginName());
-        assertEquals(flightRequest.getDestinyName(), createdFlight.getDestinyName());
+        assertEquals(flightRequest.getDestinationName(), createdFlight.getDestinationName());
         assertEquals(flightRequest.getPrice(), createdFlight.getPrice());
         assertEquals(flightRequest.getAeroLine(), createdFlight.getAeroLine());
     }
@@ -105,16 +104,16 @@ class FlightControllerWebLayerTest {
         FlightRequest flightRequestOriginNameLengthValidation = getValidFlightRequest();
         flightRequestOriginNameLengthValidation.setOriginName("");
 
-        FlightRequest flightRequestDestinyNameRequiredValidation = getValidFlightRequest();
-        flightRequestDestinyNameRequiredValidation.setDestinyName(null);
-        FlightRequest flightRequestDestinyNameLengthValidation = getValidFlightRequest();
-        flightRequestDestinyNameLengthValidation.setDestinyName("Mia");
+        FlightRequest flightRequestDestinationNameRequiredValidation = getValidFlightRequest();
+        flightRequestDestinationNameRequiredValidation.setDestinationName(null);
+        FlightRequest flightRequestDestinationNameLengthValidation = getValidFlightRequest();
+        flightRequestDestinationNameLengthValidation.setDestinationName("Mia");
 
         // Act & Assert
         validateBadRequest(flightRequestOriginNameRequiredValidation, "Origin Name is mandatory");
         validateBadRequest(flightRequestOriginNameLengthValidation, "Origin Name should be between 4 an 30 characters");
-        validateBadRequest(flightRequestDestinyNameRequiredValidation, "Destiny Name is mandatory");
-        validateBadRequest(flightRequestDestinyNameLengthValidation, "Destiny Name should be between 4 an 30 characters");
+        validateBadRequest(flightRequestDestinationNameRequiredValidation, "Destination Name is mandatory");
+        validateBadRequest(flightRequestDestinationNameLengthValidation, "Destination Name should be between 4 an 30 characters");
     }
 
     private void validateBadRequest(FlightRequest hotelRequest, String expectedErrorMessage) throws Exception {

@@ -15,10 +15,10 @@ CREATE TABLE flight
     "id"           bigserial NOT NULL,
     origin_lat   decimal NOT NULL,
     origin_lng   decimal NOT NULL,
-    destiny_lng  decimal NOT NULL,
-    destiny_lat  decimal NOT NULL,
+    destination_lng  decimal NOT NULL,
+    destination_lat  decimal NOT NULL,
     origin_name  varchar(20) NOT NULL,
-    destiny_name varchar(20) NOT NULL,
+    destination_name varchar(20) NOT NULL,
     aero_line varchar(20) NOT NULL,
     price double precision NOT NULL,
     CONSTRAINT pk_flight PRIMARY KEY ( "id" )

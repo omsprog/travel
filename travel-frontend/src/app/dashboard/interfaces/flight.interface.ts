@@ -18,10 +18,10 @@ export interface Flight {
   id:          number;
   originLat:   number;
   originLng:   number;
-  destinyLat:  number;
-  destinyLng:  number;
+  destinationLat:  number;
+  destinationLng:  number;
   originName:  string;
-  destinyName: string;
+  destinationName: string;
   price:       number;
   aeroLine:    string;
 }

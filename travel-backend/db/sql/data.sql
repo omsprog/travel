@@ -18,7 +18,7 @@ INSERT INTO hotel (name, address, rating, price) VALUES
                                                      ('Cascade', 'Canada 89', 4, 22.99),
                                                      ('Pino', 'Canada 38', 4, 99.42);
 
-insert into flight (origin_lat, origin_lng, destiny_lng, destiny_lat, origin_name, destiny_name, aero_line, price) VALUES
+insert into flight (origin_lat, origin_lng, destination_lng, destination_lat, origin_name, destination_name, aero_line, price) VALUES
                                                                                                                     (65.9999, -35.8888, 11.1111, 22.2222, 'Mexico', 'Greece', 'aero_gold', 43.00),
                                                                                                                     (11.1111, 22.2222, 10.9999, -14.8888, 'Greece', 'Mexico','aero_gold', 33.33),
                                                                                                                     (13.9999, 46.8888, 58.8888, 77.7777, 'Mexico', 'Iceland', 'aero_gold', 48.70),

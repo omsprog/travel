@@ -16,10 +16,10 @@ public class FlightResponse {
     private Long id;
     private Double originLat;
     private Double originLng;
-    private Double destinyLat;
-    private Double destinyLng;
+    private Double destinationLat;
+    private Double destinationLng;
     private String originName;
-    private String destinyName;
+    private String destinationName;
     private BigDecimal price;
     private AeroLine aeroLine;
 }

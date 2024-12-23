@@ -21,10 +21,10 @@ export class FlightCreateComponent {
     id:           [0],
     originLat:    [null, [Validators.required, Validators.min(-90), Validators.max(90)]],
     originLng:    [null, [Validators.required, Validators.min(-180), Validators.max(180)]],
-    destinyLat:   [null, [Validators.required, Validators.min(-90), Validators.max(90)]],
-    destinyLng:   [null, [Validators.required, Validators.min(-180), Validators.max(180)]],
+    destinationLat:   [null, [Validators.required, Validators.min(-90), Validators.max(90)]],
+    destinationLng:   [null, [Validators.required, Validators.min(-180), Validators.max(180)]],
     originName:   ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
-    destinyName:  ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
+    destinationName:  ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
     price:        [null, [Validators.required, Validators.min(40)]],
     aeroLine:     ['', [Validators.required]],
   })

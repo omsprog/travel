@@ -44,10 +44,10 @@ export class FlightEditComponent implements OnInit {
     id:           [0],
     originLat:    [0],
     originLng:    [0],
-    destinyLat:   [0],
-    destinyLng:   [0],
+    destinationLat:   [0],
+    destinationLng:   [0],
     originName:   [''],
-    destinyName:  [''],
+    destinationName:  [''],
     price:        [0],
     aeroLine:     [''],
   })

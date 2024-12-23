@@ -19,12 +19,12 @@ public class FlightEntity {
     private Long id;
     private Double originLat;
     private Double originLng;
-    private Double destinyLat;
-    private Double destinyLng;
+    private Double destinationLat;
+    private Double destinationLng;
     @Column(length = 20)
     private String originName;
     @Column(length = 20)
-    private String destinyName;
+    private String destinationName;
     private BigDecimal price;
     @Enumerated(EnumType.STRING)
     private AeroLine aeroLine;
