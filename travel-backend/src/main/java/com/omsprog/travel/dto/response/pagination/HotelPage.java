@@ -1,6 +1,6 @@
 package com.omsprog.travel.dto.response.pagination;
 
-import com.omsprog.travel.dto.response.FlightResponse;
+import com.omsprog.travel.dto.response.HotelResponse;
 import lombok.*;
 
 import java.util.List;
@@ -9,6 +9,6 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class FlightPage extends CommonPage {
-    private List<FlightResponse> content;
+public class HotelPage extends CommonPage {
+    private List<HotelResponse> content;
 }
