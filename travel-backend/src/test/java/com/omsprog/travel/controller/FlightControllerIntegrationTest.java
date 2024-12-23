@@ -1,6 +1,7 @@
 package com.omsprog.travel.controller;
 
 import com.omsprog.travel.dto.response.FlightResponse;
+import com.omsprog.travel.dto.response.pagination.FlightPage;
 import com.omsprog.travel.util.AeroLine;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,6 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.*;
 
 import java.util.List;
@@ -46,11 +50,35 @@ class FlightControllerIntegrationTest {
 
         FlightResponse createdFlight = createdFlightResponseEntity.getBody();
 
+        // Assert
         if(createdFlight == null)
             fail();
 
-        // Assert
         assertEquals(HttpStatus.OK, createdFlightResponseEntity.getStatusCode());
         assertEquals(validFlightRequestJson.getString("originName"), createdFlight.getOriginName());
+    }
+
+    @Test
+    @DisplayName("List of flights works")
+    void validGetRequest_whenGetFlights_returnsListOfFlights() {
+        // Arrange
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+
+        HttpEntity<Void> request = new HttpEntity<>(headers);
+        final int pageSize = 5;
+
+        // Act
+        ResponseEntity<FlightPage> pageOfFlightsResponseEntity = testRestTemplate
+                .exchange(String.format("/flights?page=0&size=%s", pageSize), HttpMethod.GET, request, FlightPage.class);
+
+        FlightPage pageOfFlights = pageOfFlightsResponseEntity.getBody();
+
+        // Assert
+        if(pageOfFlights == null)
+            fail();
+        assertEquals(HttpStatus.OK, pageOfFlightsResponseEntity.getStatusCode());
+        assertEquals(pageSize, pageOfFlights.getContent().size());
     }
 }
