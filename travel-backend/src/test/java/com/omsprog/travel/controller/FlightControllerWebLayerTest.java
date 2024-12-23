@@ -2,6 +2,7 @@ package com.omsprog.travel.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omsprog.travel.dto.request.FlightRequest;
+import com.omsprog.travel.dto.request.HotelRequest;
 import com.omsprog.travel.dto.response.FlightResponse;
 import com.omsprog.travel.error_handler.ErrorsResponse;
 import com.omsprog.travel.service.concrete_service.FlightService;
@@ -34,6 +35,8 @@ class FlightControllerWebLayerTest {
 
     @MockBean
     FlightService flightService;
+
+    private final static String flightsUrl = "/flights";
 
     static FlightRequest getValidFlightRequest() {
         return FlightRequest.builder()
@@ -94,52 +97,42 @@ class FlightControllerWebLayerTest {
     }
 
     @Test
-    @DisplayName("Origin Name should not be Empty")
-    void originNameIsEmpty_whenCreateFlight_returns400AndValidationMessage() throws Exception {
+    @DisplayName("Flight Controller validation requests")
+    void invalidFlightRequests_whenCreateFlight_returns400AndValidationMessages() throws Exception {
         // Arrange
-        FlightRequest flightRequest = getValidFlightRequest();
-        flightRequest.setOriginName("");
+        FlightRequest flightRequestOriginNameRequiredValidation = getValidFlightRequest();
+        flightRequestOriginNameRequiredValidation.setOriginName(null);
+        FlightRequest flightRequestOriginNameLengthValidation = getValidFlightRequest();
+        flightRequestOriginNameLengthValidation.setOriginName("");
 
-        RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("/flights")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(flightRequest));
+        FlightRequest flightRequestDestinyNameRequiredValidation = getValidFlightRequest();
+        flightRequestDestinyNameRequiredValidation.setDestinyName(null);
+        FlightRequest flightRequestDestinyNameLengthValidation = getValidFlightRequest();
+        flightRequestDestinyNameLengthValidation.setDestinyName("Mia");
 
-        // Act
-        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
-        String responseBodyAsString = mvcResult.getResponse().getContentAsString();
-        ErrorsResponse errorsResponse = new ObjectMapper()
-                .readValue(responseBodyAsString, ErrorsResponse.class);
-
-        // Assert
-        assertEquals(HttpStatus.BAD_REQUEST.value(), mvcResult.getResponse().getStatus());
-        assertEquals(1, errorsResponse.getErrors().size());
-        assertEquals("Origin Name should be between 4 an 30 characters", errorsResponse.getErrors().get(0));
+        // Act & Assert
+        validateBadRequest(flightRequestOriginNameRequiredValidation, "Origin Name is mandatory");
+        validateBadRequest(flightRequestOriginNameLengthValidation, "Origin Name should be between 4 an 30 characters");
+        validateBadRequest(flightRequestDestinyNameRequiredValidation, "Destiny Name is mandatory");
+        validateBadRequest(flightRequestDestinyNameLengthValidation, "Destiny Name should be between 4 an 30 characters");
     }
 
-    @Test
-    @DisplayName("Destiny Name should not be Empty")
-    void destinyNameIsEmpty_whenCreateFlight_returns400AndValidationMessage() throws Exception {
-        // Arrange
-        FlightRequest flightRequest = getValidFlightRequest();
-        flightRequest.setDestinyName("");
-
+    private void validateBadRequest(FlightRequest hotelRequest, String expectedErrorMessage) throws Exception {
+        // Prepare request
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("/flights")
+                .post(flightsUrl)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(flightRequest));
+                .content(new ObjectMapper().writeValueAsString(hotelRequest));
 
-        // Act
+        // Execute request
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
-        String responseBodyAsString = mvcResult.getResponse().getContentAsString();
-        ErrorsResponse errorsResponse = new ObjectMapper()
-                .readValue(responseBodyAsString, ErrorsResponse.class);
+        String responseBody = mvcResult.getResponse().getContentAsString();
+        ErrorsResponse errorsResponse = new ObjectMapper().readValue(responseBody, ErrorsResponse.class);
 
-        // Assert
+        // Validate response
         assertEquals(HttpStatus.BAD_REQUEST.value(), mvcResult.getResponse().getStatus());
         assertEquals(1, errorsResponse.getErrors().size());
-        assertEquals("Destiny Name should be between 4 an 30 characters", errorsResponse.getErrors().get(0));
+        assertEquals(expectedErrorMessage, errorsResponse.getErrors().get(0));
     }
 }

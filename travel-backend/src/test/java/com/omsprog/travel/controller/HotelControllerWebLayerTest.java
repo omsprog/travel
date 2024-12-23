@@ -94,10 +94,10 @@ class HotelControllerWebLayerTest {
         hotelRequestAddressRequiredValidation.setAddress(null);
 
         // Act & Assert
-        validateBadRequest(hotelRequestNameLengthValidation, "Hotel name should be between 4 and 30 characters");
         validateBadRequest(hotelRequestNameRequiredValidation, "Hotel name is mandatory");
-        validateBadRequest(hotelRequestAddressLengthValidation, "Hotel address should be between 4 and 30 characters");
+        validateBadRequest(hotelRequestNameLengthValidation, "Hotel name should be between 4 and 30 characters");
         validateBadRequest(hotelRequestAddressRequiredValidation, "Hotel address is mandatory");
+        validateBadRequest(hotelRequestAddressLengthValidation, "Hotel address should be between 4 and 30 characters");
     }
 
     private void validateBadRequest(HotelRequest hotelRequest, String expectedErrorMessage) throws Exception {
