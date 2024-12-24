@@ -1,6 +1,7 @@
-package com.omsprog.travel.controller;
+package com.omsprog.travel.controller.weblayer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.omsprog.travel.controller.HotelController;
 import com.omsprog.travel.dto.request.HotelRequest;
 import com.omsprog.travel.dto.response.HotelResponse;
 import com.omsprog.travel.error_handler.ErrorsResponse;

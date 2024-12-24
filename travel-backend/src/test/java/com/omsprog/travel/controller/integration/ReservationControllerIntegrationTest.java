@@ -1,6 +1,6 @@
-package com.omsprog.travel.controller;
+package com.omsprog.travel.controller.integration;
 
-import com.omsprog.travel.dto.response.pagination.TicketPage;
+import com.omsprog.travel.dto.response.pagination.ReservationPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +13,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class TicketControllerIntegrationTest {
+class ReservationControllerIntegrationTest {
 
     @Autowired
     private TestRestTemplate testRestTemplate;
 
     @Test
-    @DisplayName("List of tickets works")
-    void validGetRequest_whenGetTickets_returnsListOfTickets() {
+    @DisplayName("List of reservations works")
+    void validGetRequest_whenGetReservations_returnsListOfReservations() {
         // Arrange
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -30,16 +30,16 @@ class TicketControllerIntegrationTest {
         final int pageSize = 5;
 
         // Act
-        ResponseEntity<TicketPage> pageOfTicketsResponseEntity = testRestTemplate
-                .exchange(String.format("/tickets?page=0&size=%s", pageSize), HttpMethod.GET, request, TicketPage.class);
+        ResponseEntity<ReservationPage> pageOfReservationsResponseEntity = testRestTemplate
+                .exchange(String.format("/reservations?page=0&size=%s", pageSize), HttpMethod.GET, request, ReservationPage.class);
 
-        TicketPage pageOfTickets = pageOfTicketsResponseEntity.getBody();
+        ReservationPage pageOfReservations = pageOfReservationsResponseEntity.getBody();
 
         // Assert
-        if(pageOfTickets == null)
+        if(pageOfReservations == null)
             fail();
-        assertEquals(HttpStatus.OK, pageOfTicketsResponseEntity.getStatusCode());
-        assertEquals(pageSize, pageOfTickets.getContent().size());
-        assertFalse(pageOfTickets.isLast());
+        assertEquals(HttpStatus.OK, pageOfReservationsResponseEntity.getStatusCode());
+        assertEquals(pageSize, pageOfReservations.getContent().size());
+        assertFalse(pageOfReservations.isLast());
     }
 }
