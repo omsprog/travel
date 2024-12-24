@@ -59,7 +59,7 @@ class CustomerControllerIntegrationTest {
 
         // Clean up
         var customerToBeDeleted = customerRepository.findByDni(createdCustomer.getDni()).get();
-//        customerRepository.delete(customerToBeDeleted);
+        customerRepository.delete(customerToBeDeleted);
     }
 
     @Test
