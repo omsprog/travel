@@ -31,7 +31,7 @@ class CustomerControllerIntegrationTest {
 
         // Act
         ResponseEntity<CustomerPage> pageOfFlightsResponseEntity = testRestTemplate
-                .exchange(String.format("/customers?page=0&size=%s", pageSize), HttpMethod.GET, request, CustomerPage.class);
+                .exchange(String.format("/users?page=0&size=%s", pageSize), HttpMethod.GET, request, CustomerPage.class);
 
         CustomerPage pageOfCustomers = pageOfFlightsResponseEntity.getBody();
 

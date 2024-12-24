@@ -1,5 +1,6 @@
 package com.omsprog.travel.error_handler;
 
+import com.omsprog.travel.exception.CustomValidationException;
 import com.omsprog.travel.exception.IdNotFoundException;
 import com.omsprog.travel.exception.UsernameNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -14,8 +15,8 @@ import java.util.ArrayList;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class BadRequestController {
 
-    @ExceptionHandler({IdNotFoundException.class, UsernameNotFoundException.class})
-    public BaseErrorResponse handleIdNotFound(RuntimeException exception) {
+    @ExceptionHandler({IdNotFoundException.class, UsernameNotFoundException.class, CustomValidationException.class})
+    public BaseErrorResponse handleValidationExceptions(RuntimeException exception) {
         return ErrorResponse.builder()
             .error(exception.getMessage())
             .status(HttpStatus.BAD_REQUEST.name())
@@ -24,7 +25,7 @@ public class BadRequestController {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public BaseErrorResponse handleInvalidField(MethodArgumentNotValidException exception) {
+    public BaseErrorResponse handleInvalidFieldException(MethodArgumentNotValidException exception) {
         var errors = new ArrayList<String>();
         exception.getAllErrors()
                 .forEach(error -> errors.add(error.getDefaultMessage()));

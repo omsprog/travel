@@ -1,7 +1,9 @@
 package com.omsprog.travel.service.concrete_service;
 
+import com.omsprog.travel.dto.request.CustomerRequest;
 import com.omsprog.travel.dto.response.CustomerResponse;
 import com.omsprog.travel.entity.jpa.CustomerEntity;
+import com.omsprog.travel.exception.CustomValidationException;
 import com.omsprog.travel.repository.CustomerRepository;
 import com.omsprog.travel.service.abstract_service.ICustomerService;
 import com.omsprog.travel.util.SortType;
@@ -33,6 +35,27 @@ public class CustomerService implements ICustomerService {
         }
 
         return this.customerRepository.findAll(pageRequest).map(this::entityToResponse);
+    }
+
+    @Override
+    public CustomerResponse create(CustomerRequest request) {
+        if(customerRepository.findByDni(request.getDni()).isPresent()) {
+            throw new CustomValidationException("Dni is already in use");
+        }
+
+        if(customerRepository.findByEmail(request.getEmail()).isPresent())
+            throw new CustomValidationException("Email already exists");
+
+        CustomerEntity entityToBePersisted = CustomerEntity.builder()
+                .dni(request.getDni())
+                .fullName(request.getFullName())
+                .email(request.getEmail())
+                .phoneNumber(request.getPhoneNumber())
+                .totalFlights(0)
+                .totalLodgings(0)
+                .totalTours(0)
+                .build();
+        return this.entityToResponse(customerRepository.save(entityToBePersisted));
     }
 
     private CustomerResponse entityToResponse(CustomerEntity entity) {
