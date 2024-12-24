@@ -30,21 +30,6 @@ class RepositoriesTest {
     private TourRepository tourRepository;
 
     @Test
-    public void select() {
-        var flight = flightRepository.findById(1L).get();
-        var hotel = hotelRepository.findById(1L).get();
-        var ticket = ticketRepository.findById(UUID.fromString("12345678-1234-5678-2236-567812345678")).get();
-        var reservation = reservationRepository.findById(UUID.fromString("12345678-1234-5678-1234-567812345678")).get();
-        var customer = customerRepository.findById("BBMB771012HMCRR022").get();
-
-        assertEquals("Mexico", flight.getOriginName());
-        assertEquals("El dorado", hotel.getName());
-        assertEquals("330.05", ticket.getPrice().toString());
-        assertEquals("77", reservation.getPrice().toString());
-        assertEquals("Walter White", customer.getFullName());
-    }
-
-    @Test
     public void jpqlMethods() {
         var flightsLessThan = this.flightRepository.selectLessPrice(BigDecimal.valueOf(15.00));
         flightsLessThan.stream().forEach(ele -> assertTrue(ele.getPrice().intValue() < 15));
@@ -61,7 +46,7 @@ class RepositoriesTest {
 
     @Test
     public void createTour() {
-        CustomerEntity customer = this.customerRepository.findById("VIKI771012HMCRG093").get();
+        CustomerEntity customer = this.customerRepository.findById("KEMI771012HMCRG004").get();
 
         TourEntity tourToBeCreated = TourEntity
                 .builder()

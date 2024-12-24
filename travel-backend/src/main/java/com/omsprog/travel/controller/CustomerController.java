@@ -28,5 +28,4 @@ public class CustomerController {
         var response = this.customerService.readAll(page, size, sortType);
         return response.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(response);
     }
-
 }
