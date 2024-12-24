@@ -9,6 +9,7 @@
       <thead>
         <th>DNI</th>
         <th>Full name</th>
+        <th>Email</th>
         <th>Phone number</th>
         <th>Total flights</th>
         <th>Total lodgings</th>
@@ -18,6 +19,7 @@
         <tr *ngFor="let customer of customerPage?.content">
           <td>{{ customer.dni }}</td>
           <td>{{ customer.fullName }}</td>
+          <td>{{ customer.email }}</td>
           <td>{{ customer.phoneNumber }}</td>
           <td>{{ customer.totalFlights }}</td>
           <td>{{ customer.totalLodgings }}</td>

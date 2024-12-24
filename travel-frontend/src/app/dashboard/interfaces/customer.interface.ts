@@ -17,7 +17,7 @@ export interface CustomerPage {
 export interface Customer {
   dni:           string;
   fullName:      string;
-  creditCard:    string;
+  email:         string;
   phoneNumber:   string;
   totalFlights:  number;
   totalLodgings: number;

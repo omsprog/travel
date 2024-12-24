@@ -16,13 +16,12 @@ public class CustomerEntity {
     private String dni;
     @Column(length = 50)
     private String fullName;
-    @Column(length = 20)
-    private String creditCard;
     @Column(length = 12)
     private String phoneNumber;
     private Integer totalFlights;
     private Integer totalLodgings;
     private Integer totalTours;
+    private String email;
 
     // RELATIONSHIPS
     @ToString.Exclude
