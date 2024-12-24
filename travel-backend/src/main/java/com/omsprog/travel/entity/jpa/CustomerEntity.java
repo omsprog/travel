@@ -22,6 +22,7 @@ public class CustomerEntity {
     private Integer totalLodgings;
     private Integer totalTours;
     private String email;
+    private String password;
 
     // RELATIONSHIPS
     @ToString.Exclude

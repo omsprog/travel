@@ -41,6 +41,7 @@ class CustomerControllerWebLayerTest {
                 .fullName("Craig Willer")
                 .phoneNumber("5889816789")
                 .email("craig@gmail.com")
+                .password("userPass")
                 .build();
     }
 
@@ -97,11 +98,18 @@ class CustomerControllerWebLayerTest {
         CustomerRequest customerRequestFullNameLengthValidation = getValidUserRequest();
         customerRequestFullNameLengthValidation.setFullName("Wil");
 
+        CustomerRequest customerRequestEmailRequiredValidation = getValidUserRequest();
+        customerRequestEmailRequiredValidation.setEmail(null);
+        CustomerRequest customerRequestInvalidEmailValidation = getValidUserRequest();
+        customerRequestInvalidEmailValidation.setEmail("yusyu7");
+
         // Act & Assert
         validateBadRequest(customerRequestDniRequiredValidation, "DNI is mandatory");
         validateBadRequest(customerRequestDniNameLengthValidation, "DNI should be 18 characters long");
         validateBadRequest(customerRequestFullNameRequiredValidation, "Full Name is mandatory");
         validateBadRequest(customerRequestFullNameLengthValidation, "Full Name should be between 4 an 30 characters");
+        validateBadRequest(customerRequestEmailRequiredValidation, "Email is mandatory");
+        validateBadRequest(customerRequestInvalidEmailValidation, "Not a valid email");
     }
 
     private void validateBadRequest(CustomerRequest customerRequest, String expectedErrorMessage) throws Exception {

@@ -13,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CustomerService implements ICustomerService {
 
     private final CustomerRepository customerRepository;
+    private final PasswordEncoder encoder;
 
     @Override
     public Page<CustomerResponse> readAll(Integer page, Integer size, SortType sortType) {
@@ -54,6 +56,7 @@ public class CustomerService implements ICustomerService {
                 .totalFlights(0)
                 .totalLodgings(0)
                 .totalTours(0)
+                .password(encoder.encode(request.getPassword()))
                 .build();
         return this.entityToResponse(customerRepository.save(entityToBePersisted));
     }

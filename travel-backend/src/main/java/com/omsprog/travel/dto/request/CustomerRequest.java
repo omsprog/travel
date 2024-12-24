@@ -25,4 +25,7 @@ public class CustomerRequest {
     @NotNull(message = "Email is mandatory")
     @Email(message = "Not a valid email")
     private String email;
+    @NotNull(message = "Password is mandatory")
+    @Size(min = 6, max = 20, message = "Password should be between 6 and 20 characters")
+    private String password;
 }

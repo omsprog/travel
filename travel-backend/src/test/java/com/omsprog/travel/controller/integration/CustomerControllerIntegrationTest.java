@@ -36,6 +36,7 @@ class CustomerControllerIntegrationTest {
         validUserRequestJson.put("fullName", "Craig Willer");
         validUserRequestJson.put("phoneNumber", "5889816789");
         validUserRequestJson.put("email", "craig@gmail.com");
+        validUserRequestJson.put("password", "userPass");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -58,7 +59,7 @@ class CustomerControllerIntegrationTest {
 
         // Clean up
         var customerToBeDeleted = customerRepository.findByDni(createdCustomer.getDni()).get();
-        customerRepository.delete(customerToBeDeleted);
+//        customerRepository.delete(customerToBeDeleted);
     }
 
     @Test
