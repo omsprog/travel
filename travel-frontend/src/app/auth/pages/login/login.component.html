@@ -1,0 +1,10 @@
+<form [formGroup]="signInForm">
+  <input type="text"     formControlName="email"    value="" placeholder="email"/>
+  <input type="password" formControlName="password" value="" placeholder="password"/>
+  <button
+    (click)="onSubmit()"
+  >
+    Sign In
+  </button>
+  <p class="msg">Not registered? <a routerLink="/auth/register">Create an account</a></p>
+</form>

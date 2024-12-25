@@ -19,7 +19,6 @@ public class CustomerRequest {
     @NotNull(message = "Full Name is mandatory")
     @Size(min = 4, max = 20, message = "Full Name should be between 4 an 30 characters")
     private String fullName;
-    @NotNull(message = "Phone number is mandatory")
     @Size(min = 10, max = 10, message = "Phone number should be 10 character long")
     private String phoneNumber;
     @NotNull(message = "Email is mandatory")
