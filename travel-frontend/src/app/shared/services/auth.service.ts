@@ -20,9 +20,10 @@ export class AuthService {
   signIn(signIn : SingInRequest) {
     return this.http.post<SignInResponse>(`${this.authBaseUrl}/signin`, signIn).pipe(
       map(response => {
+        console.log('Saving JWT in local storage ...')
         console.log(response.jwtToken);
-        // localStorage.setItem('jwtToken', response.jwtToken);
-        // this.isLoggedInSubject.next(true);
+        localStorage.setItem('jwtToken', response.jwtToken);
+        this.isLoggedInSubject.next(true);
         return response;
       })
     );
