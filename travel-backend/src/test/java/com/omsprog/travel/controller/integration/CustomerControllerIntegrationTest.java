@@ -1,6 +1,6 @@
 package com.omsprog.travel.controller.integration;
 
-import com.omsprog.travel.controller.testutil.JwtTestUtil;
+import com.omsprog.travel.testutil.JwtTestUtil;
 import com.omsprog.travel.dto.response.CustomerResponse;
 import com.omsprog.travel.dto.response.pagination.CustomerPage;
 import com.omsprog.travel.repository.CustomerRepository;

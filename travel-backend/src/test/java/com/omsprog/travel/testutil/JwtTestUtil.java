@@ -1,4 +1,4 @@
-package com.omsprog.travel.controller.testutil;
+package com.omsprog.travel.testutil;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;

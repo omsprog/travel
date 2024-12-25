@@ -1,6 +1,6 @@
 package com.omsprog.travel.controller.integration;
 
-import com.omsprog.travel.controller.testutil.JwtTestUtil;
+import com.omsprog.travel.testutil.JwtTestUtil;
 import com.omsprog.travel.dto.response.TourSummaryResponse;
 import com.omsprog.travel.dto.response.pagination.TourSummaryPage;
 import org.junit.jupiter.api.BeforeAll;

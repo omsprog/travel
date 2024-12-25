@@ -357,4 +357,10 @@ ul.reportOpen {
       text-decoration: none;
     }
   }
+
+  .error {
+    margin-bottom: 1rem;
+    color: $button-crud-delete;
+    font-size: 14px;
+  }
 }

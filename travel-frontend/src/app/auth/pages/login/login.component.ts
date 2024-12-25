@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {AuthService} from "../../../shared/services/auth.service";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {SingInRequest} from "../../interfaces/signIn.interface";
+import {SignInRequest} from "../../interfaces/signIn.interface";
 
 @Component({
   selector: 'app-login',
@@ -15,13 +15,14 @@ export class LoginComponent {
   ) { }
 
   private fb: FormBuilder = new FormBuilder();
+  public errorMessage: string = '';
   public signInForm : FormGroup = this.fb.group({
     email: [null],
     password: [null]
   });
 
-  get currentSignIn() : SingInRequest {
-    return this.signInForm.value as SingInRequest;
+  get currentSignIn() : SignInRequest {
+    return this.signInForm.value as SignInRequest;
   }
 
   onSubmit() {
@@ -33,7 +34,9 @@ export class LoginComponent {
     this.authService.signIn(this.currentSignIn)
       .subscribe({
         next: () => this.router.navigate(['/dashboard']),
-        error: error => alert('Login failed!')
+        error: (error : Error) => {
+          this.errorMessage = error.message;
+        }
       });
   }
 }

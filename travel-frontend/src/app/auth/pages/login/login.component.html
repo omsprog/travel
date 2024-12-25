@@ -1,4 +1,7 @@
 <form [formGroup]="signInForm">
+  <p *ngIf="errorMessage.length != 0" class="error">
+    {{ errorMessage }}
+  </p>
   <input type="text"     formControlName="email"    value="" placeholder="email"/>
   <input type="password" formControlName="password" value="" placeholder="password"/>
   <button
