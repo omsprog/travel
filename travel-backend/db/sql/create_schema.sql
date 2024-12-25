@@ -6,7 +6,7 @@ CREATE TABLE customer
     total_flights   int NOT NULL,
     total_lodgings  int NOT NULL,
     total_tours     int NOT NULL,
-    email           varchar(20) NOT NULL,
+    email           varchar(30) NOT NULL,
     password        varchar(120) NOT NULL,
     CONSTRAINT pk_customer PRIMARY KEY ( dni )
 );

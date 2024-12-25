@@ -36,6 +36,7 @@ insert into flight (origin_lat, origin_lng, destination_lng, destination_lat, or
                                         (11.1111, 22.2222, 54.4444, 55.5555, 'Mexico', 'Canada', 'blue_sky', 14.65);
 
 insert into customer (dni, full_name, password, total_flights, total_lodgings, total_tours, phone_number, email) VALUES
+                                        ('TSAU967823OYONE740', 'Test Automation', '$2a$10$X88KU02yETEg7Qzt2huoHuxeXmlgJbKrXkE6XbSQze5C6QUznvbUW', 0, 0, 0, '5567390326', 'testautomation@gmail.com'),
                                         ('CHJF982241TXFEV672', 'Chris Jeff', '$2a$10$ZFSPZ5w6unTbZWjC5uk9he1s3Es958oc5VV/Vz45Jwmx/fbKos8bC', 0, 0, 0, '7724124532', 'jeffch@travel.com'),
                                         ('RLMY932893CAFEV730', 'Riley Thomas', '$2a$10$ZFSPZ5w6unTbZWjC5uk9he1s3Es958oc5VV/Vz45Jwmx/fbKos8bC', 0, 0, 0, '4423565634', 'rileyt@travel.com'),
                                         ('KEMI771012EUMRG004', 'Kenan Michel', '$2a$10$/R0h29fK1dAlB6Mmlq1A.e7If9Y5zKeTkNxqoO4ovZA2nRP/rcKZG', 2, 1, 0, '3437458433', 'kmichel@gmail.com'),

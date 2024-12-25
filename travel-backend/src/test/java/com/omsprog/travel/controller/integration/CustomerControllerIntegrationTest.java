@@ -1,10 +1,12 @@
 package com.omsprog.travel.controller.integration;
 
+import com.omsprog.travel.dto.request.LoginResponse;
 import com.omsprog.travel.dto.response.CustomerResponse;
 import com.omsprog.travel.dto.response.pagination.CustomerPage;
 import com.omsprog.travel.repository.CustomerRepository;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -20,11 +22,36 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CustomerControllerIntegrationTest {
 
+    private static String jwtToken;
+
     @Autowired
     private TestRestTemplate testRestTemplate;
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @BeforeAll
+    static void setup(@Autowired TestRestTemplate restTemplate) throws JSONException {
+        JSONObject loginRequestJson = new JSONObject();
+        loginRequestJson.put("email", "testautomation@gmail.com");
+        loginRequestJson.put("password", "automationPass");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+
+        HttpEntity<String> request = new HttpEntity<>(loginRequestJson.toString(), headers);
+
+        ResponseEntity<LoginResponse> loginResponseResponseEntity = restTemplate
+                .postForEntity("/users/signin", request, LoginResponse.class);
+
+        LoginResponse loginResponse = loginResponseResponseEntity.getBody();
+
+        if(loginResponse == null)
+            fail();
+
+        jwtToken = loginResponse.getJwtToken();
+    }
 
     @Test
     @DisplayName("User can be created")
@@ -70,6 +97,7 @@ class CustomerControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        headers.add("Authorization", "Bearer " + jwtToken);
 
         HttpEntity<Void> request = new HttpEntity<>(headers);
         final int pageSize = 5;
