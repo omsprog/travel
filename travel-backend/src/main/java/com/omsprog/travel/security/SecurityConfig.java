@@ -36,6 +36,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(requests
                     -> requests
                         .requestMatchers("/users/signup").permitAll()
+                        .requestMatchers("/users/signin").permitAll()
                         .anyRequest().authenticated()
             );
         http.exceptionHandling(ex -> ex.authenticationEntryPoint(unauthorizedHandler));

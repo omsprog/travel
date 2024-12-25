@@ -1,6 +1,8 @@
 package com.omsprog.travel.controller;
 
 import com.omsprog.travel.dto.request.CustomerRequest;
+import com.omsprog.travel.dto.request.LoginRequest;
+import com.omsprog.travel.dto.request.LoginResponse;
 import com.omsprog.travel.dto.response.CustomerResponse;
 import com.omsprog.travel.service.abstract_service.ICustomerService;
 import com.omsprog.travel.util.SortType;
@@ -32,7 +34,12 @@ public class CustomerController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<CustomerResponse> signIn(@Valid @RequestBody CustomerRequest customerRequest) {
+    public ResponseEntity<CustomerResponse> signUp(@Valid @RequestBody CustomerRequest customerRequest) {
         return ResponseEntity.ok(customerService.create(customerRequest));
+    }
+
+    @PostMapping("/signin")
+    public ResponseEntity<LoginResponse> singIn(@Valid @RequestBody LoginRequest loginRequest) {
+        return ResponseEntity.ok(customerService.signIn(loginRequest));
     }
 }
