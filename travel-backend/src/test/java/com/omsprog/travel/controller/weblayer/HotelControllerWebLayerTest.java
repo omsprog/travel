@@ -5,8 +5,11 @@ import com.omsprog.travel.controller.HotelController;
 import com.omsprog.travel.dto.request.HotelRequest;
 import com.omsprog.travel.dto.response.HotelResponse;
 import com.omsprog.travel.error_handler.ErrorsResponse;
+import com.omsprog.travel.security.UserDetailsServiceImpl;
+import com.omsprog.travel.security.jwt.JwtUtils;
 import com.omsprog.travel.service.concrete_service.HotelService;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -14,12 +17,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -34,6 +39,10 @@ class HotelControllerWebLayerTest {
 
     @MockBean
     HotelService hotelService;
+    @MockBean
+    JwtUtils jwtUtils;
+    @MockBean
+    UserDetailsServiceImpl userDetailsService;
 
     private final static String hotelsUrl = "/hotels";
 
@@ -48,6 +57,7 @@ class HotelControllerWebLayerTest {
 
     @Test
     @DisplayName("Hotel can be created")
+    @Order(1)
     void validHotelRequest_whenCreateHotel_returnsCreatedHotel() throws Exception {
         // Arrange
         HotelRequest hotelRequest = getValidHotelRequest();
@@ -62,6 +72,21 @@ class HotelControllerWebLayerTest {
 
         when(hotelService.create(any(HotelRequest.class)))
                 .thenReturn(hotelResponse);
+        when(jwtUtils.validateJwtToken(any()))
+                .thenReturn(true);
+        when(jwtUtils.getUserNameFromJwtToken(any()))
+                .thenReturn("testautomation@gmail.com");
+        when(userDetailsService.loadUserByUsername(any()))
+                .thenReturn(
+                        new User(
+                                "testautomation@gmail.com",
+                                "automationPass",
+                                true,
+                                true,
+                                true,
+                                true,
+                                Collections.emptyList())
+                );
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post(hotelsUrl)
@@ -82,6 +107,7 @@ class HotelControllerWebLayerTest {
 
     @Test
     @DisplayName("Hotel Controller validation requests")
+    @Order(2)
     void invalidHotelRequests_whenCreateHotel_returns400AndValidationMessages() throws Exception {
         // Arrange
         HotelRequest hotelRequestNameLengthValidation = getValidHotelRequest();

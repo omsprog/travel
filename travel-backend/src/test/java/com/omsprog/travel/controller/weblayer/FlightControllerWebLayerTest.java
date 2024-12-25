@@ -5,9 +5,12 @@ import com.omsprog.travel.controller.FlightController;
 import com.omsprog.travel.dto.request.FlightRequest;
 import com.omsprog.travel.dto.response.FlightResponse;
 import com.omsprog.travel.error_handler.ErrorsResponse;
+import com.omsprog.travel.security.UserDetailsServiceImpl;
+import com.omsprog.travel.security.jwt.JwtUtils;
 import com.omsprog.travel.service.concrete_service.FlightService;
 import com.omsprog.travel.util.AeroLine;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,12 +18,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.any;
@@ -35,6 +40,10 @@ class FlightControllerWebLayerTest {
 
     @MockBean
     FlightService flightService;
+    @MockBean
+    JwtUtils jwtUtils;
+    @MockBean
+    UserDetailsServiceImpl userDetailsService;
 
     private final static String flightsUrl = "/flights";
 
@@ -53,6 +62,7 @@ class FlightControllerWebLayerTest {
 
     @Test
     @DisplayName("Flight can be created")
+    @Order(1)
     void validFlight_whenCreateFlight_returnsCreatedFlight() throws Exception {
         // Arrange
         FlightRequest flightRequest = getValidFlightRequest();
@@ -71,6 +81,21 @@ class FlightControllerWebLayerTest {
 
         when(flightService.create(any(FlightRequest.class)))
                 .thenReturn(flightResponse);
+        when(jwtUtils.validateJwtToken(any()))
+                .thenReturn(true);
+        when(jwtUtils.getUserNameFromJwtToken(any()))
+                .thenReturn("testautomation@gmail.com");
+        when(userDetailsService.loadUserByUsername(any()))
+                .thenReturn(
+                        new User(
+                                "testautomation@gmail.com",
+                                "automationPass",
+                                true,
+                                true,
+                                true,
+                                true,
+                                Collections.emptyList())
+                );
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/flights")
@@ -98,6 +123,7 @@ class FlightControllerWebLayerTest {
 
     @Test
     @DisplayName("Flight Controller validation requests")
+    @Order(2)
     void invalidFlightRequests_whenCreateFlight_returns400AndValidationMessages() throws Exception {
         // Arrange
         FlightRequest flightRequestOriginNameRequiredValidation = getValidFlightRequest();

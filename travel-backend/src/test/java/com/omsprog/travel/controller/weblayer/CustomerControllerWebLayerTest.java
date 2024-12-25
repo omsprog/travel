@@ -5,8 +5,11 @@ import com.omsprog.travel.controller.CustomerController;
 import com.omsprog.travel.dto.request.CustomerRequest;
 import com.omsprog.travel.dto.response.CustomerResponse;
 import com.omsprog.travel.error_handler.ErrorsResponse;
+import com.omsprog.travel.security.UserDetailsServiceImpl;
+import com.omsprog.travel.security.jwt.JwtUtils;
 import com.omsprog.travel.service.concrete_service.CustomerService;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -14,10 +17,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.any;
@@ -32,37 +38,57 @@ class CustomerControllerWebLayerTest {
 
     @MockBean
     CustomerService customerService;
+    @MockBean
+    JwtUtils jwtUtils;
+    @MockBean
+    UserDetailsServiceImpl userDetailsService;
 
     private final static String signUpUrl = "/users/signup";
 
     static CustomerRequest getValidUserRequest() {
         return CustomerRequest.builder()
-                .dni("WICR970328OPEBR891")
-                .fullName("Craig Willer")
-                .phoneNumber("5889816789")
-                .email("craig@gmail.com")
-                .password("userPass")
+                .dni("TSAU967823OYONE740")
+                .fullName("Test Automation")
+                .phoneNumber("5567390326")
+                .email("testautomation@gmail.com")
+                .password("automationPass")
                 .build();
     }
 
     @Test
     @DisplayName("User can be created")
+    @Order(1)
     void validUser_whenCreateUser_returnsCreatedUser() throws Exception {
         // Arrange
         CustomerRequest customerRequest = getValidUserRequest();
 
         CustomerResponse customerResponse = CustomerResponse.builder()
-                .dni("WICR970328OPEBR891")
-                .fullName("Craig Willer")
-                .phoneNumber("5889816789")
+                .dni("TSAU967823OYONE740")
+                .fullName("Test Automation")
+                .phoneNumber("5567390326")
                 .totalFlights(0)
                 .totalLodgings(0)
                 .totalTours(0)
-                .email("craig@gmail.com")
+                .email("testautomation@gmail.com")
                 .build();
 
         when(customerService.create(any(CustomerRequest.class)))
-                .thenReturn(customerResponse);
+            .thenReturn(customerResponse);
+        when(jwtUtils.validateJwtToken(any()))
+            .thenReturn(true);
+        when(jwtUtils.getUserNameFromJwtToken(any()))
+            .thenReturn("testautomation@gmail.com");
+        when(userDetailsService.loadUserByUsername(any()))
+            .thenReturn(
+                    new User(
+                "testautomation@gmail.com",
+                "automationPass",
+                true,
+                true,
+                true,
+                true,
+                Collections.emptyList())
+            );
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post(signUpUrl)
@@ -86,6 +112,7 @@ class CustomerControllerWebLayerTest {
 
     @Test
     @DisplayName("Customer Controller validation requests")
+    @Order(2)
     void invalidCustomerRequests_whenCreateCustomer_returns400AndValidationMessages() throws Exception {
         // Arrange
         CustomerRequest customerRequestDniRequiredValidation = getValidUserRequest();
