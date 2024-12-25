@@ -1,10 +1,12 @@
 package com.omsprog.travel.controller.integration;
 
+import com.omsprog.travel.controller.testutil.JwtTestUtil;
 import com.omsprog.travel.dto.response.FlightResponse;
 import com.omsprog.travel.dto.response.pagination.FlightPage;
 import com.omsprog.travel.util.AeroLine;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -20,8 +22,15 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class FlightControllerIntegrationTest {
 
+    private static String jwtToken;
+
     @Autowired
     private TestRestTemplate testRestTemplate;
+
+    @BeforeAll
+    static void setup(@Autowired JwtTestUtil jwtTestUtil) {
+        jwtToken = jwtTestUtil.generateMockToken();
+    }
 
     @Test
     @DisplayName("Flight can be created")
@@ -41,6 +50,7 @@ class FlightControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        headers.add("Authorization", "Bearer " + jwtToken);
 
         HttpEntity<String> request = new HttpEntity<>(validFlightRequestJson.toString(), headers);
 
@@ -66,6 +76,7 @@ class FlightControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        headers.add("Authorization", "Bearer " + jwtToken);
 
         HttpEntity<Void> request = new HttpEntity<>(headers);
         final int pageSize = 5;

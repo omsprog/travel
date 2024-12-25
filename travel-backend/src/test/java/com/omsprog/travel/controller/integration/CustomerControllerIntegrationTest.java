@@ -1,6 +1,6 @@
 package com.omsprog.travel.controller.integration;
 
-import com.omsprog.travel.dto.request.LoginResponse;
+import com.omsprog.travel.controller.testutil.JwtTestUtil;
 import com.omsprog.travel.dto.response.CustomerResponse;
 import com.omsprog.travel.dto.response.pagination.CustomerPage;
 import com.omsprog.travel.repository.CustomerRepository;
@@ -31,26 +31,8 @@ class CustomerControllerIntegrationTest {
     private CustomerRepository customerRepository;
 
     @BeforeAll
-    static void setup(@Autowired TestRestTemplate restTemplate) throws JSONException {
-        JSONObject loginRequestJson = new JSONObject();
-        loginRequestJson.put("email", "testautomation@gmail.com");
-        loginRequestJson.put("password", "automationPass");
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
-
-        HttpEntity<String> request = new HttpEntity<>(loginRequestJson.toString(), headers);
-
-        ResponseEntity<LoginResponse> loginResponseResponseEntity = restTemplate
-                .postForEntity("/users/signin", request, LoginResponse.class);
-
-        LoginResponse loginResponse = loginResponseResponseEntity.getBody();
-
-        if(loginResponse == null)
-            fail();
-
-        jwtToken = loginResponse.getJwtToken();
+    static void setup(@Autowired JwtTestUtil jwtTestUtil) {
+        jwtToken = jwtTestUtil.generateMockToken();
     }
 
     @Test
