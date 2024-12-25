@@ -4,3 +4,7 @@ ng g c dashboard/layout --inline-style --skip-tests
 ng g c dashboard/home --inline-style --skip-tests
 ng g c dashboard/flights --inline-style --skip-tests
 ng g c dashboard/hotels --inline-style --skip-tests
+ng g m auth --routing
+ng g c auth/layout --inline-style --skip-tests
+ng g c auth/login --inline-style --skip-tests
+ng g c auth/register --inline-style --skip-tests

@@ -46,11 +46,12 @@ class RepositoriesTest {
 
     @Test
     public void createTour() {
-        CustomerEntity customer = this.customerRepository.findById("KEMI771012HMCRG004").get();
+        CustomerEntity customer = this.customerRepository.findById("KEMI771012EUMRG004").get();
 
         TourEntity tourToBeCreated = TourEntity
                 .builder()
                 .customer(customer)
+                .name("Unforgettable Tour")
                 .build();
 
         // 1 ADD RESERVATION TO A TOUR
