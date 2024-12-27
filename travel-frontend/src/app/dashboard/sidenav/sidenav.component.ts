@@ -7,12 +7,17 @@ import {DownloadReportsService} from "../services/download-reports.service";
   styles: []
 })
 export class SidenavComponent {
-  isReportsSectionActive = false;
+  isDataManagementSectionActive = false;
+  isSettingsSectionActive = false;
 
   constructor(private downloadReportsService: DownloadReportsService) { }
 
-  onClickOpenReports() : void {
-    this.isReportsSectionActive = !this.isReportsSectionActive;
+  onOpenDataManagementSection() : void {
+    this.isDataManagementSectionActive = !this.isDataManagementSectionActive;
+  }
+
+  onOpenSettingsSection() : void {
+    this.isSettingsSectionActive = !this.isSettingsSectionActive;
   }
 
   onDownloadSalesSummary() : void {

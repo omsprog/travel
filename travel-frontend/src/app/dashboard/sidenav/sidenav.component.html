@@ -1,15 +1,25 @@
 <div class="logo" routerLink="/dashboard">
   <div>Travel <i class="fas fa-solid fa-plane"></i></div>
 </div>
-<ul>
-  <li routerLink="/dashboard/flights" routerLinkActive="active">Flights</li>
-  <li routerLink="/dashboard/hotels" routerLinkActive="active">Hotels</li>
-  <li routerLink="/dashboard/customers" routerLinkActive="active">Customers</li>
-  <li routerLink="/dashboard/tickets" routerLinkActive="active">Tickets</li>
-  <li routerLink="/dashboard/reservations" routerLinkActive="active">Reservations</li>
-  <li routerLink="/dashboard/tours" routerLinkActive="active">Tours</li>
-  <li (click)="onClickOpenReports()">Reports <i [class]="isReportsSectionActive ? 'fas fa-chevron-down' : 'fas fa-chevron-right'"></i></li>
-  <ul [class.reportOpen]="isReportsSectionActive" class="reportsLinks">
-    <li (click)="onDownloadSalesSummary()">Sales Summary</li>
+<ul class="sidenav">
+  <li class="sidenav-main-section" (click)="onOpenDataManagementSection()">
+    <span><i class="fas fa-floppy-disk"></i> Data</span>
+    <i [class]="isDataManagementSectionActive ? 'fas fa-chevron-down' : 'fas fa-chevron-right'"></i>
+  </li>
+  <ul [class.navSectionIsOpen]="isDataManagementSectionActive" class="navSection">
+    <li routerLink="/dashboard/flights" routerLinkActive="active">Flights</li>
+    <li routerLink="/dashboard/hotels" routerLinkActive="active">Hotels</li>
+    <li routerLink="/dashboard/customers" routerLinkActive="active">Customers</li>
+    <li routerLink="/dashboard/tickets" routerLinkActive="active">Tickets</li>
+    <li routerLink="/dashboard/reservations" routerLinkActive="active">Reservations</li>
+    <li routerLink="/dashboard/tours" routerLinkActive="active">Tours</li>
+    <li (click)="onDownloadSalesSummary()">Sales Summary Report</li>
+  </ul>
+  <li class="sidenav-main-section" (click)="onOpenSettingsSection()">
+    <span><i class="fas fa-gears"></i> Settings</span>
+    <i [class]="isSettingsSectionActive ? 'fas fa-chevron-down' : 'fas fa-chevron-right'"></i>
+  </li>
+  <ul [class.navSectionIsOpen]="isSettingsSectionActive" class="navSection">
+    <li routerLink="/dashboard/profile" routerLinkActive="active">My Profile</li>
   </ul>
 </ul>

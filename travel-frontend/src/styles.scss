@@ -49,19 +49,35 @@ nav {
     cursor: pointer;
   }
 
-  ul li {
-    padding: 20px;
-    margin-bottom: 6px;
-    font-weight: 600;
-    border-left: solid 4px $primary-color;
-    margin-left: 4px;
-    cursor: pointer;
+  ul.sidenav {
+    font-size: 15px;
+    li {
+      padding: 20px;
+      font-weight: 600;
+      border-left: solid 4px $primary-color;
+      margin-left: 4px;
+      cursor: pointer;
+    }
+
+    li.sidenav-main-section, {
+      display: flex;
+      justify-content: space-between;
+
+      i {
+        margin-right: 7px;
+      }
+    }
+
+    li.sidenav-main-section, li.sidenav-main-section:hover {
+      border-left: none;
+      background-color: $selected-item-color;
+      color: $primary-font-color;
+    }
   }
 
-  li:hover, li.active {
+  li.active {
     border-left: solid 4px $secondary-color;
-    color: $secondary-color;
-    background-color: $selected-item-color;
+    background-color: $primary-background-color;
   }
 }
 
@@ -291,17 +307,15 @@ a.back-link {
   background-color: $success-color;
 }
 
-ul.reportsLinks {
+ul.navSection {
   padding: 0;
   list-style: none;
   height: 0;
   overflow: hidden;
-  transition: all 0.3s;
   max-height: 100%;
 }
 
-ul.reportOpen {
-  transition: height 0.3s;
+ul.navSectionIsOpen {
   height: auto;
 }
 
