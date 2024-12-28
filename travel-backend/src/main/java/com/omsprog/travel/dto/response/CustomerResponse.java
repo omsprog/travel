@@ -17,5 +17,4 @@ public class CustomerResponse {
     private Integer totalLodgings;
     private Integer totalTours;
     private String email;
-    private String profilePicturePath;
 }

@@ -1,11 +1,26 @@
 <div class="content">
   <h1 class="title">My Profile</h1>
-  <div *ngIf="loading; else viewProfile">
-    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+
+  <div class="profile-section">
+    <div class="profile-picture">
+      <div *ngIf="isProfilePictureLoading; else viewProfilePicture">
+        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+      </div>
+      <ng-template #viewProfilePicture>
+        <img [src]="imageUrl" alt="profile-picture">
+      </ng-template>
+    </div>
+    <div class="profile-information">
+      <div *ngIf="isProfileInformationLoading; else viewProfile">
+        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+      </div>
+      <ng-template #viewProfile>
+        <div class="profile-information-items">
+          <p>Full Name: {{ profile!.fullName }}</p>
+          <p>Email: {{ profile!.email }}</p>
+          <p>Phone Number: {{ profile!.phoneNumber }}</p>
+        </div>
+      </ng-template>
+    </div>
   </div>
-  <ng-template #viewProfile>
-    <p>Full Name: {{ profile!.fullName }}</p>
-    <p>Email: {{ profile!.email }}</p>
-    <p>Phone Number: {{ profile!.phoneNumber }}</p>
-  </ng-template>
 </div>

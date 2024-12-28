@@ -8,18 +8,26 @@ import {CustomerService} from "../../../services/customer-service.service";
   styles: ``
 })
 export class ProfileViewComponent implements OnInit {
-  public loading = false;
+  public isProfileInformationLoading = false;
+  public isProfilePictureLoading = false;
 
   public profile? : Customer
+  public imageUrl? : string
 
   constructor(private customerService : CustomerService) { }
 
   ngOnInit() : void {
-    this.loading = true;
+    this.isProfilePictureLoading = true;
+    this.isProfileInformationLoading = true;
 
-    this.customerService.getProfile().subscribe(profile => {
+    this.customerService.getProfilePicture().subscribe(blob => {
+      this.imageUrl = URL.createObjectURL(blob);
+    })
+
+    this.customerService.getProfileInformation().subscribe(profile => {
       this.profile = profile;
-      this.loading = false;
+      this.isProfilePictureLoading = false;
+      this.isProfileInformationLoading = false;
       return;
     })
   }

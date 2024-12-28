@@ -18,8 +18,13 @@ export class CustomerService {
     return this.http.get<CustomerPage>(getCustomersUrl);
   }
 
-  getProfile() : Observable<Customer> {
+  getProfileInformation() : Observable<Customer> {
     let getProfileUrl = `${this.customerBaseUrl}/profile`;
     return this.http.get<Customer>(getProfileUrl);
+  }
+
+  getProfilePicture() : Observable<Blob> {
+    let getProfilePictureUrl = `${this.customerBaseUrl}/profile-picture`;
+    return this.http.get(getProfilePictureUrl, {responseType: "blob"});
   }
 }

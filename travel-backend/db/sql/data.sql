@@ -35,18 +35,18 @@ insert into flight (origin_lat, origin_lng, destination_lng, destination_lat, or
                                         (44.4444, 55.555,  11.1111, 22.2222, 'Canada', 'Mexico', 'blue_sky', 16.99),
                                         (11.1111, 22.2222, 54.4444, 55.5555, 'Mexico', 'Canada', 'blue_sky', 14.65);
 
-insert into customer (dni, full_name, password, total_flights, total_lodgings, total_tours, phone_number, email) VALUES
-                                        ('TSAU967823OYONE740', 'Test Automation', '$2a$10$X88KU02yETEg7Qzt2huoHuxeXmlgJbKrXkE6XbSQze5C6QUznvbUW', 0, 0, 0, '5567390326', 'testautomation@gmail.com'),
-                                        ('CHJF982241TXFEV672', 'Chris Jeff', '$2a$10$ZFSPZ5w6unTbZWjC5uk9he1s3Es958oc5VV/Vz45Jwmx/fbKos8bC', 0, 0, 0, '7724124532', 'jeffch@travel.com'),
-                                        ('RLMY932893CAFEV730', 'Riley Thomas', '$2a$10$ZFSPZ5w6unTbZWjC5uk9he1s3Es958oc5VV/Vz45Jwmx/fbKos8bC', 0, 0, 0, '4423565634', 'rileyt@travel.com'),
-                                        ('KEMI771012EUMRG004', 'Kenan Michel', '$2a$10$/R0h29fK1dAlB6Mmlq1A.e7If9Y5zKeTkNxqoO4ovZA2nRP/rcKZG', 2, 1, 0, '3437458433', 'kmichel@gmail.com'),
-                                        ('GUFL781012IRKGR426', 'Gunter Fl', '$2a$10$/R0h29fK1dAlB6Mmlq1A.e7If9Y5zKeTkNxqoO4ovZA2nRP/rcKZG',0, 2, 0, '4355336626', 'gunterfl@gmail.com'),
-                                        ('WAKT771012POLRG472', 'Walt Knut', '$2a$10$/R0h29fK1dAlB6Mmlq1A.e7If9Y5zKeTkNxqoO4ovZA2nRP/rcKZG',1, 1, 0, '5556853173', 'waltk@gmail.com'),
-                                        ('RKKA771012RQCRR118', 'Karen RK', '$2a$10$/R0h29fK1dAlB6Mmlq1A.e7If9Y5zKeTkNxqoO4ovZA2nRP/rcKZG',4, 1, 0, '5527372778', 'rxkaren@gmail.com'),
-                                        ('WIKA771012IIYGR980', 'Kathy Williamson', '$2a$10$/R0h29fK1dAlB6Mmlq1A.e7If9Y5zKeTkNxqoO4ovZA2nRP/rcKZG',0, 2, 0, '8932324414', 'kathyw@gmail.com'),
-                                        ('MASK771012OPWGR426', 'Masada K', '$2a$10$/R0h29fK1dAlB6Mmlq1A.e7If9Y5zKeTkNxqoO4ovZA2nRP/rcKZG',1, 1, 0, '3323929458', 'kmasada@gmail.com'),
-                                        ('KHXH771012BJYGR663', 'Khal Xu', '$2a$10$/R0h29fK1dAlB6Mmlq1A.e7If9Y5zKeTkNxqoO4ovZA2nRP/rcKZG',2, 1, 1, '5547783311', 'khalxu@gmail.com'),
-                                        ('CRMA625312UTSGE531', 'Marcel Craig', '$2a$10$/R0h29fK1dAlB6Mmlq1A.e7If9Y5zKeTkNxqoO4ovZA2nRP/rcKZG',2, 1, 1, '5824788563', 'marcercr@gmail.com');
+insert into customer (dni, full_name, password, total_flights, total_lodgings, total_tours, phone_number, profile_picture_path, email) VALUES
+                                        ('TSAU967823OYONE740', 'Test Automation', '$2a$10$X88KU02yETEg7Qzt2huoHuxeXmlgJbKrXkE6XbSQze5C6QUznvbUW', 0, 0, 0, '5567390326', 'profile-pictures/default-profile.jpg', 'testautomation@gmail.com'),
+                                        ('CHJF982241TXFEV672', 'Chris Jeff', '$2a$10$ZFSPZ5w6unTbZWjC5uk9he1s3Es958oc5VV/Vz45Jwmx/fbKos8bC', 0, 0, 0, '7724124532', 'profile-pictures/default-profile.jpg','jeffch@travel.com'),
+                                        ('RLMY932893CAFEV730', 'Riley Thomas', '$2a$10$ZFSPZ5w6unTbZWjC5uk9he1s3Es958oc5VV/Vz45Jwmx/fbKos8bC', 0, 0, 0, '4423565634', 'profile-pictures/default-profile.jpg','rileyt@travel.com'),
+                                        ('KEMI771012EUMRG004', 'Kenan Michel', '$2a$10$/R0h29fK1dAlB6Mmlq1A.e7If9Y5zKeTkNxqoO4ovZA2nRP/rcKZG', 2, 1, 0, '3437458433', 'profile-pictures/default-profile.jpg','kmichel@gmail.com'),
+                                        ('GUFL781012IRKGR426', 'Gunter Fl', '$2a$10$/R0h29fK1dAlB6Mmlq1A.e7If9Y5zKeTkNxqoO4ovZA2nRP/rcKZG',0, 2, 0, '4355336626', 'profile-pictures/default-profile.jpg','gunterfl@gmail.com'),
+                                        ('WAKT771012POLRG472', 'Walt Knut', '$2a$10$/R0h29fK1dAlB6Mmlq1A.e7If9Y5zKeTkNxqoO4ovZA2nRP/rcKZG',1, 1, 0, '5556853173', 'profile-pictures/default-profile.jpg','waltk@gmail.com'),
+                                        ('RKKA771012RQCRR118', 'Karen RK', '$2a$10$/R0h29fK1dAlB6Mmlq1A.e7If9Y5zKeTkNxqoO4ovZA2nRP/rcKZG',4, 1, 0, '5527372778', 'profile-pictures/default-profile.jpg','rxkaren@gmail.com'),
+                                        ('WIKA771012IIYGR980', 'Kathy Williamson', '$2a$10$/R0h29fK1dAlB6Mmlq1A.e7If9Y5zKeTkNxqoO4ovZA2nRP/rcKZG',0, 2, 0, '8932324414', 'profile-pictures/default-profile.jpg','kathyw@gmail.com'),
+                                        ('MASK771012OPWGR426', 'Masada K', '$2a$10$/R0h29fK1dAlB6Mmlq1A.e7If9Y5zKeTkNxqoO4ovZA2nRP/rcKZG',1, 1, 0, '3323929458', 'profile-pictures/default-profile.jpg','kmasada@gmail.com'),
+                                        ('KHXH771012BJYGR663', 'Khal Xu', '$2a$10$/R0h29fK1dAlB6Mmlq1A.e7If9Y5zKeTkNxqoO4ovZA2nRP/rcKZG',2, 1, 1, '5547783311', 'profile-pictures/default-profile.jpg','khalxu@gmail.com'),
+                                        ('CRMA625312UTSGE531', 'Marcel Craig', '$2a$10$/R0h29fK1dAlB6Mmlq1A.e7If9Y5zKeTkNxqoO4ovZA2nRP/rcKZG',2, 1, 1, '5824788563', 'profile-pictures/default-profile.jpg','marcercr@gmail.com');
 
 insert into reservation (id, date_reservation,  hotel_id, customer_id, date_start, date_end, total_days, price) VALUES
                                         ('12345678-1234-5678-1234-567812345678', now(), 1, 'WIKA771012IIYGR980', '2024-08-01', '2024-09-07', 7, 77.00),
