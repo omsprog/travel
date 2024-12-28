@@ -21,16 +21,3 @@ services:
     ports:
       - "6379:6379"
     command: redis-server --loglevel warning --requirepass oscar
-
-  document-db:
-    image: mongo:6.0.4
-    restart: always
-    container_name: travel_users
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: oscar
-      MONGO_INITDB_ROOT_PASSWORD: oscar
-      MONGO_INITDB_DATABASE: app_users
-    ports:
-      - "27017:27017"
-    volumes:
-      - ./db/mongo/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro

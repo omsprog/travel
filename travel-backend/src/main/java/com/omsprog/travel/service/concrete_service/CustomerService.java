@@ -13,9 +13,13 @@ import com.omsprog.travel.util.SortType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -130,6 +135,13 @@ public class CustomerService implements ICustomerService {
         customerEntity.setProfilePicturePath(targetLocation.toString());
         this.customerRepository.save(customerEntity);
         return fileName;
+    }
+
+    @Override
+    public Resource getProfilePicture(String email) throws MalformedURLException {
+        CustomerEntity customer = this.customerRepository.findByEmail(email).orElseThrow();
+        Path filePath = Paths.get(customer.getProfilePicturePath());
+        return new UrlResource(filePath.toUri());
     }
 
     private CustomerResponse entityToResponse(CustomerEntity entity) {

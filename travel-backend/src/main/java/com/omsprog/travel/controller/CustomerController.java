@@ -4,15 +4,12 @@ import com.omsprog.travel.dto.request.CustomerRequest;
 import com.omsprog.travel.dto.request.LoginRequest;
 import com.omsprog.travel.dto.request.LoginResponse;
 import com.omsprog.travel.dto.response.CustomerResponse;
-import com.omsprog.travel.entity.jpa.CustomerEntity;
-import com.omsprog.travel.repository.CustomerRepository;
 import com.omsprog.travel.service.abstract_service.ICustomerService;
 import com.omsprog.travel.util.SortType;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,8 +19,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Objects;
 
 @RestController
@@ -32,7 +27,6 @@ import java.util.Objects;
 @Tag(name = "users")
 public class CustomerController {
     private final ICustomerService customerService;
-    private final CustomerRepository customerRepository;
 
     @GetMapping
     public ResponseEntity<Page<CustomerResponse>> getAll(
@@ -70,15 +64,10 @@ public class CustomerController {
     }
 
     @GetMapping("/profile-picture")
-    public ResponseEntity<Resource> getAvatar(@AuthenticationPrincipal UserDetails userDetails) {
-        CustomerEntity customer = this.customerRepository.findByEmail(userDetails.getUsername()).orElseThrow();
-        Path filePath = Paths.get(customer.getProfilePicturePath());
-
+    public ResponseEntity<Resource> getProfilePicture(@AuthenticationPrincipal UserDetails userDetails) {
         try {
-            Resource file = new UrlResource(filePath.toUri());
-            return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_JPEG)
-                    .body(file);
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG)
+                    .body(this.customerService.getProfilePicture(userDetails.getUsername()));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
