@@ -59,19 +59,17 @@ nav {
       cursor: pointer;
     }
 
-    li.sidenav-main-section, {
+    li.sidenav-main-section {
       display: flex;
       justify-content: space-between;
+      border-left: none;
+      background-color: $selected-item-color;
+      transition: background-color 0.3s ease;
+      color: $primary-font-color;
 
       i {
         margin-right: 7px;
       }
-    }
-
-    li.sidenav-main-section, li.sidenav-main-section:hover {
-      border-left: none;
-      background-color: $selected-item-color;
-      color: $primary-font-color;
     }
   }
 

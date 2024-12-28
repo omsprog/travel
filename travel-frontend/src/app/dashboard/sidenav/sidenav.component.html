@@ -3,7 +3,7 @@
 </div>
 <ul class="sidenav">
   <!-- Data  Section -->
-  <li class="sidenav-main-section" (click)="onOpenDataManagementSection()">
+  <li [class.active]="isDataManagementSectionActive" class="sidenav-main-section" (click)="onOpenDataManagementSection()">
     <span><i class="fas fa-floppy-disk"></i> Data</span>
     <i [class]="isDataManagementSectionActive ? 'fas fa-chevron-down' : 'fas fa-chevron-right'"></i>
   </li>
@@ -16,7 +16,7 @@
     <li routerLink="/dashboard/tours" routerLinkActive="active">Tours</li>
   </ul>
   <!-- Settings Section -->
-  <li class="sidenav-main-section" (click)="onOpenSettingsSection()">
+  <li [class.active]="isSettingsSectionActive" class="sidenav-main-section" (click)="onOpenSettingsSection()">
     <span><i class="fas fa-gears"></i> Settings</span>
     <i [class]="isSettingsSectionActive ? 'fas fa-chevron-down' : 'fas fa-chevron-right'"></i>
   </li>
@@ -24,7 +24,7 @@
     <li routerLink="/dashboard/profile" routerLinkActive="active">My Profile</li>
   </ul>
   <!-- Reports Section -->
-  <li class="sidenav-main-section" (click)="onOpenReportsSection()">
+  <li [class.active]="isReportsSectionActive" class="sidenav-main-section" (click)="onOpenReportsSection()">
     <span><i class="fas fa-chart-simple"></i> Reports</span>
     <i [class]="isReportsSectionActive ? 'fas fa-chevron-down' : 'fas fa-chevron-right'"></i>
   </li>
