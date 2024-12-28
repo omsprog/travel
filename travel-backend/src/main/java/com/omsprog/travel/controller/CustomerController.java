@@ -4,17 +4,18 @@ import com.omsprog.travel.dto.request.CustomerRequest;
 import com.omsprog.travel.dto.request.LoginRequest;
 import com.omsprog.travel.dto.request.LoginResponse;
 import com.omsprog.travel.dto.response.CustomerResponse;
-import com.omsprog.travel.repository.CustomerRepository;
 import com.omsprog.travel.service.abstract_service.ICustomerService;
 import com.omsprog.travel.util.SortType;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Objects;
 
@@ -24,7 +25,6 @@ import java.util.Objects;
 @Tag(name = "users")
 public class CustomerController {
     private final ICustomerService customerService;
-    private final CustomerRepository customerRepository;
 
     @GetMapping
     public ResponseEntity<Page<CustomerResponse>> getAll(
@@ -50,5 +50,14 @@ public class CustomerController {
     @GetMapping("/profile")
     public ResponseEntity<CustomerResponse> getProfile(@AuthenticationPrincipal UserDetails userDetails) {
         return ResponseEntity.ok(this.customerService.getProfile(userDetails.getUsername()));
+    }
+
+    @PostMapping("/upload-picture")
+    public ResponseEntity<String> uploadPicture(@AuthenticationPrincipal UserDetails userDetails, @RequestParam("file") MultipartFile file) {
+        try {
+            return ResponseEntity.ok(this.customerService.uploadProfilePicture(userDetails.getUsername(), file));
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 }

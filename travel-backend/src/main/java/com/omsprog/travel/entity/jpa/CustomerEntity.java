@@ -23,6 +23,7 @@ public class CustomerEntity {
     private Integer totalTours;
     private String email;
     private String password;
+    private String profilePicturePath;
 
     // RELATIONSHIPS
     @ToString.Exclude

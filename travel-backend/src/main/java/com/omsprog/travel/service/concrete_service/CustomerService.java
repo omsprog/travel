@@ -25,6 +25,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Objects;
+import java.util.UUID;
 
 @Transactional()
 @Service
@@ -36,6 +45,7 @@ public class CustomerService implements ICustomerService {
     private final PasswordEncoder encoder;
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
+    private final Path uploadDir = Paths.get("profile-pictures");
 
     @Override
     public Page<CustomerResponse> readAll(Integer page, Integer size, SortType sortType) {
@@ -92,6 +102,34 @@ public class CustomerService implements ICustomerService {
     public CustomerResponse getProfile(String email) {
         CustomerEntity customerProfileInfo = this.customerRepository.findByEmail(email).orElseThrow();
         return this.entityToResponse(customerProfileInfo);
+    }
+
+    private void validateFile(MultipartFile file) {
+        if(file.isEmpty()) {
+            throw new CustomValidationException("File is empty");
+        }
+
+        if(!Objects.requireNonNull(file.getContentType()).startsWith("image/")) {
+            throw new CustomValidationException("File is not an image");
+        }
+
+        if(file.getSize() > 5 * 1024 * 1024) {
+            throw new CustomValidationException("File is too large. Exceed the 5MB limit");
+        }
+    }
+
+    @Override
+    public String uploadProfilePicture(String email, MultipartFile file) throws IOException {
+        validateFile(file);
+
+        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+        Path targetLocation = uploadDir.resolve(fileName);
+        Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+        CustomerEntity customerEntity = this.customerRepository.findByEmail(email).orElseThrow();
+        customerEntity.setProfilePicturePath(targetLocation.toString());
+        this.customerRepository.save(customerEntity);
+        return fileName;
     }
 
     private CustomerResponse entityToResponse(CustomerEntity entity) {

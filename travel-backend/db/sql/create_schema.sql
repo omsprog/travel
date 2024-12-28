@@ -8,6 +8,7 @@ CREATE TABLE customer
     total_tours     int NOT NULL,
     email           varchar(30) NOT NULL,
     password        varchar(120) NOT NULL,
+    profile_picture_path varchar(360) NULL,
     CONSTRAINT pk_customer PRIMARY KEY ( dni )
 );
 
