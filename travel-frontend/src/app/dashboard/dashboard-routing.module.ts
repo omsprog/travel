@@ -13,6 +13,7 @@ import {CustomerListComponent} from "./pages/customer/customer-list/customer-lis
 import {TicketListComponent} from "./pages/ticket/ticket-list/ticket-list.component";
 import {ReservationListComponent} from "./pages/reservation/reservation-list/reservation-list.component";
 import {TourListComponent} from "./pages/tour/tour-list/tour-list.component";
+import {ProfileViewComponent} from "./pages/profile/profile-view/profile-view.component";
 
 const routes: Routes = [
   {
@@ -66,6 +67,10 @@ const routes: Routes = [
       {
         path: 'tours',
         component: TourListComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileViewComponent
       }
     ]
   }

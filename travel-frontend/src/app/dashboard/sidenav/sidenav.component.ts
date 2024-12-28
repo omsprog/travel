@@ -9,6 +9,7 @@ import {DownloadReportsService} from "../services/download-reports.service";
 export class SidenavComponent {
   isDataManagementSectionActive = false;
   isSettingsSectionActive = false;
+  isReportsSectionActive = false;
 
   constructor(private downloadReportsService: DownloadReportsService) { }
 
@@ -18,6 +19,10 @@ export class SidenavComponent {
 
   onOpenSettingsSection() : void {
     this.isSettingsSectionActive = !this.isSettingsSectionActive;
+  }
+
+  onOpenReportsSection() : void {
+    this.isReportsSectionActive = !this.isReportsSectionActive;
   }
 
   onDownloadSalesSummary() : void {

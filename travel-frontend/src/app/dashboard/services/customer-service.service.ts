@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {CustomerPage} from "../interfaces/customer.interface";
+import {Customer, CustomerPage} from "../interfaces/customer.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +16,10 @@ export class CustomerService {
   getCustomers(currentPage = 0) : Observable<CustomerPage> {
     let getCustomersUrl = `${this.customerBaseUrl}?page=${currentPage}&size=${this.PAGE_SIZE}`;
     return this.http.get<CustomerPage>(getCustomersUrl);
+  }
+
+  getProfile() : Observable<Customer> {
+    let getProfileUrl = `${this.customerBaseUrl}/profile`;
+    return this.http.get<Customer>(getProfileUrl);
   }
 }

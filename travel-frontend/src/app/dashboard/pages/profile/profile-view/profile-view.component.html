@@ -1,0 +1,11 @@
+<div class="content">
+  <h1 class="title">My Profile</h1>
+  <div *ngIf="loading; else viewProfile">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+  <ng-template #viewProfile>
+    <p>Full Name: {{ profile!.fullName }}</p>
+    <p>Email: {{ profile!.email }}</p>
+    <p>Phone Number: {{ profile!.phoneNumber }}</p>
+  </ng-template>
+</div>

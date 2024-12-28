@@ -88,6 +88,12 @@ public class CustomerService implements ICustomerService {
         return new LoginResponse(userDetails.getUsername(), jwtToken);
     }
 
+    @Override
+    public CustomerResponse getProfile(String email) {
+        CustomerEntity customerProfileInfo = this.customerRepository.findByEmail(email).orElseThrow();
+        return this.entityToResponse(customerProfileInfo);
+    }
+
     private CustomerResponse entityToResponse(CustomerEntity entity) {
         CustomerResponse response = new CustomerResponse();
         BeanUtils.copyProperties(entity, response);

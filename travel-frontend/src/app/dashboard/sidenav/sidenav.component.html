@@ -2,6 +2,7 @@
   <div>Travel <i class="fas fa-solid fa-plane"></i></div>
 </div>
 <ul class="sidenav">
+  <!-- Data  Section -->
   <li class="sidenav-main-section" (click)="onOpenDataManagementSection()">
     <span><i class="fas fa-floppy-disk"></i> Data</span>
     <i [class]="isDataManagementSectionActive ? 'fas fa-chevron-down' : 'fas fa-chevron-right'"></i>
@@ -13,13 +14,21 @@
     <li routerLink="/dashboard/tickets" routerLinkActive="active">Tickets</li>
     <li routerLink="/dashboard/reservations" routerLinkActive="active">Reservations</li>
     <li routerLink="/dashboard/tours" routerLinkActive="active">Tours</li>
-    <li (click)="onDownloadSalesSummary()">Sales Summary Report</li>
   </ul>
+  <!-- Settings Section -->
   <li class="sidenav-main-section" (click)="onOpenSettingsSection()">
     <span><i class="fas fa-gears"></i> Settings</span>
     <i [class]="isSettingsSectionActive ? 'fas fa-chevron-down' : 'fas fa-chevron-right'"></i>
   </li>
   <ul [class.navSectionIsOpen]="isSettingsSectionActive" class="navSection">
     <li routerLink="/dashboard/profile" routerLinkActive="active">My Profile</li>
+  </ul>
+  <!-- Reports Section -->
+  <li class="sidenav-main-section" (click)="onOpenReportsSection()">
+    <span><i class="fas fa-chart-simple"></i> Reports</span>
+    <i [class]="isReportsSectionActive ? 'fas fa-chevron-down' : 'fas fa-chevron-right'"></i>
+  </li>
+  <ul [class.navSectionIsOpen]="isReportsSectionActive" class="navSection">
+    <li (click)="onDownloadSalesSummary()">Sales Summary Report</li>
   </ul>
 </ul>

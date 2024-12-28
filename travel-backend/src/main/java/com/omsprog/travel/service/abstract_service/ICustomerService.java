@@ -11,5 +11,6 @@ public interface ICustomerService {
     Page<CustomerResponse> readAll(Integer page, Integer size, SortType sortType);
     CustomerResponse create(CustomerRequest request);
     LoginResponse signIn(LoginRequest loginRequest);
+    CustomerResponse getProfile(String email);
     String FIELD_BY_SORT = "fullName";
 }
