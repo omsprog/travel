@@ -1,7 +1,7 @@
 package com.omsprog.travel.service.concrete_service;
 
-import com.omsprog.travel.entity.jpa.CustomerEntity;
-import com.omsprog.travel.repository.CustomerRepository;
+import com.omsprog.travel.entity.jpa.AppUserEntity;
+import com.omsprog.travel.repository.UserRepository;
 import com.omsprog.travel.service.abstract_service.IReportService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ public class ExcelService implements IReportService {
     private static final String FILE_TYPE= ".xlsx";
     private static final String FILE_NAME= "Sales-%s.xlsx";
 
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
 
     @Override
     public byte[] readFile() {
@@ -78,10 +78,10 @@ public class ExcelService implements IReportService {
         var style = workbook.createCellStyle();
         style.setWrapText(true);
 
-        var customers = this.customerRepository.findAll();
+        var customers = this.userRepository.findAll();
         var rowPos = 1;
 
-        for (CustomerEntity customer: customers) {
+        for (AppUserEntity customer: customers) {
             var row = sheet.createRow(rowPos);
             var cell = row.createCell(0);
             cell.setCellValue(customer.getDni());
@@ -111,7 +111,7 @@ public class ExcelService implements IReportService {
         }
     }
 
-    private static int getTotalPurchase(CustomerEntity customer) {
+    private static int getTotalPurchase(AppUserEntity customer) {
         return customer.getTotalLodgings() + customer.getTotalFlights() + customer.getTotalTours();
     }
 }

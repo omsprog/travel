@@ -35,7 +35,7 @@ insert into flight (origin_lat, origin_lng, destination_lng, destination_lat, or
                                         (44.4444, 55.555,  11.1111, 22.2222, 'Canada', 'Mexico', 'blue_sky', 16.99),
                                         (11.1111, 22.2222, 54.4444, 55.5555, 'Mexico', 'Canada', 'blue_sky', 14.65);
 
-insert into customer (dni, full_name, password, total_flights, total_lodgings, total_tours, phone_number, profile_picture_path, email) VALUES
+insert into app_user (dni, full_name, password, total_flights, total_lodgings, total_tours, phone_number, profile_picture_path, email) VALUES
                                         ('TSAU967823OYONE740', 'Test Automation', '$2a$10$X88KU02yETEg7Qzt2huoHuxeXmlgJbKrXkE6XbSQze5C6QUznvbUW', 0, 0, 0, '5567390326', 'profile-pictures/default-profile.jpg', 'testautomation@gmail.com'),
                                         ('CHJF982241TXFEV672', 'Chris Jeff', '$2a$10$ZFSPZ5w6unTbZWjC5uk9he1s3Es958oc5VV/Vz45Jwmx/fbKos8bC', 0, 0, 0, '7724124532', 'profile-pictures/default-profile.jpg','jeffch@travel.com'),
                                         ('RLMY932893CAFEV730', 'Riley Thomas', '$2a$10$ZFSPZ5w6unTbZWjC5uk9he1s3Es958oc5VV/Vz45Jwmx/fbKos8bC', 0, 0, 0, '4423565634', 'profile-pictures/default-profile.jpg','rileyt@travel.com'),

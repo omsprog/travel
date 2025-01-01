@@ -1,14 +1,14 @@
 package com.omsprog.travel.service.concrete_service;
 
-import com.omsprog.travel.dto.request.CustomerRequest;
+import com.omsprog.travel.dto.request.UserRequest;
 import com.omsprog.travel.dto.request.LoginRequest;
 import com.omsprog.travel.dto.request.LoginResponse;
-import com.omsprog.travel.dto.response.CustomerResponse;
-import com.omsprog.travel.entity.jpa.CustomerEntity;
+import com.omsprog.travel.dto.response.UserResponse;
+import com.omsprog.travel.entity.jpa.AppUserEntity;
 import com.omsprog.travel.exception.CustomValidationException;
-import com.omsprog.travel.repository.CustomerRepository;
+import com.omsprog.travel.repository.UserRepository;
 import com.omsprog.travel.security.jwt.JwtUtils;
-import com.omsprog.travel.service.abstract_service.ICustomerService;
+import com.omsprog.travel.service.abstract_service.IUserService;
 import com.omsprog.travel.util.SortType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +18,6 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -44,16 +42,16 @@ import java.util.UUID;
 @Service
 @Slf4j
 @AllArgsConstructor // Creates the constructor for the dependency injection
-public class CustomerService implements ICustomerService {
+public class UserService implements IUserService {
 
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
     private final PasswordEncoder encoder;
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
     private final Path uploadDir = Paths.get("profile-pictures");
 
     @Override
-    public Page<CustomerResponse> readAll(Integer page, Integer size, SortType sortType) {
+    public Page<UserResponse> readAll(Integer page, Integer size, SortType sortType) {
         PageRequest pageRequest = null;
 
         switch(sortType) {
@@ -62,19 +60,19 @@ public class CustomerService implements ICustomerService {
             case UPPER -> pageRequest = PageRequest.of(page, size, Sort.by(FIELD_BY_SORT).descending());
         }
 
-        return this.customerRepository.findAll(pageRequest).map(this::entityToResponse);
+        return this.userRepository.findAll(pageRequest).map(this::entityToResponse);
     }
 
     @Override
-    public CustomerResponse create(CustomerRequest request) {
-        if(customerRepository.findByDni(request.getDni()).isPresent()) {
+    public UserResponse create(UserRequest request) {
+        if(userRepository.findByDni(request.getDni()).isPresent()) {
             throw new CustomValidationException("Dni is already in use");
         }
 
-        if(customerRepository.findByEmail(request.getEmail()).isPresent())
+        if(userRepository.findByEmail(request.getEmail()).isPresent())
             throw new CustomValidationException("Email already exists");
 
-        CustomerEntity entityToBePersisted = CustomerEntity.builder()
+        AppUserEntity entityToBePersisted = AppUserEntity.builder()
                 .dni(request.getDni())
                 .fullName(request.getFullName())
                 .email(request.getEmail())
@@ -84,7 +82,7 @@ public class CustomerService implements ICustomerService {
                 .totalTours(0)
                 .password(encoder.encode(request.getPassword()))
                 .build();
-        return this.entityToResponse(customerRepository.save(entityToBePersisted));
+        return this.entityToResponse(userRepository.save(entityToBePersisted));
     }
 
     @Override
@@ -104,8 +102,8 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public CustomerResponse getProfile(String email) {
-        CustomerEntity customerProfileInfo = this.customerRepository.findByEmail(email).orElseThrow();
+    public UserResponse getProfile(String email) {
+        AppUserEntity customerProfileInfo = this.userRepository.findByEmail(email).orElseThrow();
         return this.entityToResponse(customerProfileInfo);
     }
 
@@ -131,21 +129,21 @@ public class CustomerService implements ICustomerService {
         Path targetLocation = uploadDir.resolve(fileName);
         Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
-        CustomerEntity customerEntity = this.customerRepository.findByEmail(email).orElseThrow();
-        customerEntity.setProfilePicturePath(targetLocation.toString());
-        this.customerRepository.save(customerEntity);
+        AppUserEntity appUserEntity = this.userRepository.findByEmail(email).orElseThrow();
+        appUserEntity.setProfilePicturePath(targetLocation.toString());
+        this.userRepository.save(appUserEntity);
         return fileName;
     }
 
     @Override
     public Resource getProfilePicture(String email) throws MalformedURLException {
-        CustomerEntity customer = this.customerRepository.findByEmail(email).orElseThrow();
+        AppUserEntity customer = this.userRepository.findByEmail(email).orElseThrow();
         Path filePath = Paths.get(customer.getProfilePicturePath());
         return new UrlResource(filePath.toUri());
     }
 
-    private CustomerResponse entityToResponse(CustomerEntity entity) {
-        CustomerResponse response = new CustomerResponse();
+    private UserResponse entityToResponse(AppUserEntity entity) {
+        UserResponse response = new UserResponse();
         BeanUtils.copyProperties(entity, response);
         return response;
     }

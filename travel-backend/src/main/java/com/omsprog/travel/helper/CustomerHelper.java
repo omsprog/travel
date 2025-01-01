@@ -1,6 +1,6 @@
 package com.omsprog.travel.helper;
 
-import com.omsprog.travel.repository.CustomerRepository;
+import com.omsprog.travel.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,15 +10,15 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class CustomerHelper {
 
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
 
     public void increase(String customerId, Class<?> type) {
-        var customerToUpdate = this.customerRepository.findById(customerId).orElseThrow();
+        var customerToUpdate = this.userRepository.findById(customerId).orElseThrow();
         switch (type.getSimpleName()) {
             case "TourService" -> customerToUpdate.setTotalTours(customerToUpdate.getTotalTours() + 1);
             case "TicketService" -> customerToUpdate.setTotalFlights(customerToUpdate.getTotalFlights() + 1);
             case "ReservationService" -> customerToUpdate.setTotalLodgings(customerToUpdate.getTotalLodgings() + 1);
         }
-        this.customerRepository.save(customerToUpdate);
+        this.userRepository.save(customerToUpdate);
     }
 }

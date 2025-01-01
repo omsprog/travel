@@ -1,7 +1,7 @@
 package com.omsprog.travel.security;
 
-import com.omsprog.travel.entity.jpa.CustomerEntity;
-import com.omsprog.travel.repository.CustomerRepository;
+import com.omsprog.travel.entity.jpa.AppUserEntity;
+import com.omsprog.travel.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,16 +13,16 @@ import java.util.Collections;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    CustomerRepository customerRepository;
+    UserRepository userRepository;
 
-    public UserDetailsServiceImpl(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
+    public UserDetailsServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        CustomerEntity customer = customerRepository.findByEmail(username)
+        AppUserEntity customer = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with email: " + username));
 
         return new org.springframework.security.core.userdetails.User(

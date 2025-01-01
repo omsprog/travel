@@ -22,7 +22,7 @@ class RepositoriesTest {
     @Autowired
     private HotelRepository hotelRepository;
     @Autowired
-    private CustomerRepository customerRepository;
+    private UserRepository userRepository;
     @Autowired
     private TourRepository tourRepository;
 
@@ -43,7 +43,7 @@ class RepositoriesTest {
 
     @Test
     public void createTour() {
-        CustomerEntity customer = this.customerRepository.findById("KEMI771012EUMRG004").get();
+        AppUserEntity customer = this.userRepository.findById("KEMI771012EUMRG004").get();
 
         TourEntity tourToBeCreated = TourEntity
                 .builder()

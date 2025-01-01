@@ -36,5 +36,5 @@ public class ReservationEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
-    private CustomerEntity customer;
+    private AppUserEntity customer;
 }

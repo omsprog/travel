@@ -1,4 +1,4 @@
-CREATE TABLE customer
+CREATE TABLE app_user
 (
     dni             varchar(20) NOT NULL,
     full_name       varchar(50) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE customer
     email           varchar(30) NOT NULL,
     password        varchar(120) NOT NULL,
     profile_picture_path varchar(360) NULL,
-    CONSTRAINT pk_customer PRIMARY KEY ( dni )
+    CONSTRAINT pk_app_user PRIMARY KEY ( dni )
 );
 
 CREATE TABLE flight
@@ -43,7 +43,7 @@ CREATE TABLE tour
     id_customer         varchar(20) NOT NULL,
     name                varchar(20) NOT NULL,
     CONSTRAINT pk_tour PRIMARY KEY ( "id" ),
-    CONSTRAINT fk_customer FOREIGN KEY ( id_customer ) REFERENCES customer ( dni ) ON DELETE NO ACTION
+    CONSTRAINT fk_app_user FOREIGN KEY ( id_customer ) REFERENCES app_user ( dni ) ON DELETE NO ACTION
 );
 
 CREATE TABLE reservation
@@ -58,7 +58,7 @@ CREATE TABLE reservation
     hotel_id         bigint NOT NULL,
     customer_id      varchar(20) NOT NULL,
     CONSTRAINT pk_reservation PRIMARY KEY ( "id" ),
-    CONSTRAINT fk_customer_r FOREIGN KEY ( customer_id ) REFERENCES customer ( dni ) ON DELETE NO ACTION ,
+    CONSTRAINT fk_app_user_r FOREIGN KEY ( customer_id ) REFERENCES app_user ( dni ) ON DELETE NO ACTION ,
     CONSTRAINT fk_hotel_r FOREIGN KEY ( hotel_id ) REFERENCES hotel ( "id" ) ON DELETE NO ACTION ,
     CONSTRAINT fk_tour_r FOREIGN KEY ( tour_id ) REFERENCES tour ( "id" ) ON DELETE CASCADE
 );
@@ -74,7 +74,7 @@ CREATE TABLE ticket
     purchase_date  timestamp NOT NULL,
     tour_id   bigint,
     CONSTRAINT pk_ticket PRIMARY KEY ( "id" ),
-    CONSTRAINT fk_customer_t FOREIGN KEY ( customer_id ) REFERENCES customer ( dni ) ON DELETE NO ACTION,
+    CONSTRAINT fk_app_user_t FOREIGN KEY ( customer_id ) REFERENCES app_user ( dni ) ON DELETE NO ACTION,
     CONSTRAINT fk_flight_t FOREIGN KEY ( flight_id ) REFERENCES flight ( "id" ) ON DELETE NO ACTION,
     CONSTRAINT fk_tour_t FOREIGN KEY ( tour_id ) REFERENCES tour ( "id" ) ON DELETE CASCADE
 );

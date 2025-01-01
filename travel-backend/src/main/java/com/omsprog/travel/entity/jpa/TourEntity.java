@@ -44,7 +44,7 @@ public class TourEntity {
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "id_customer")
-    private CustomerEntity customer;
+    private AppUserEntity customer;
 
     // HELPER METHODS
     public void addTicket(TicketEntity ticket) {

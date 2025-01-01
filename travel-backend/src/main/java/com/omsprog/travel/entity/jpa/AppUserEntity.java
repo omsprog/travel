@@ -5,12 +5,12 @@ import lombok.*;
 
 import java.util.Set;
 
-@Entity(name = "customer")
+@Entity(name = "app_user")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class CustomerEntity {
+public class AppUserEntity {
 
     @Id
     private String dni;

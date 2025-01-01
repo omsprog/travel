@@ -1,13 +1,13 @@
 package com.omsprog.travel.controller.weblayer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.omsprog.travel.controller.CustomerController;
-import com.omsprog.travel.dto.request.CustomerRequest;
-import com.omsprog.travel.dto.response.CustomerResponse;
+import com.omsprog.travel.controller.UserController;
+import com.omsprog.travel.dto.request.UserRequest;
+import com.omsprog.travel.dto.response.UserResponse;
 import com.omsprog.travel.error_handler.ErrorsResponse;
 import com.omsprog.travel.security.UserDetailsServiceImpl;
 import com.omsprog.travel.security.jwt.JwtUtils;
-import com.omsprog.travel.service.concrete_service.CustomerService;
+import com.omsprog.travel.service.concrete_service.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -29,15 +29,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 
-@WebMvcTest(controllers = CustomerController.class)
+@WebMvcTest(controllers = UserController.class)
 @AutoConfigureMockMvc(addFilters = false)
-class CustomerControllerWebLayerTest {
+class UserControllerWebLayerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    CustomerService customerService;
+    UserService customerService;
     @MockBean
     JwtUtils jwtUtils;
     @MockBean
@@ -45,8 +45,8 @@ class CustomerControllerWebLayerTest {
 
     private final static String signUpUrl = "/users/signup";
 
-    static CustomerRequest getValidUserRequest() {
-        return CustomerRequest.builder()
+    static UserRequest getValidUserRequest() {
+        return UserRequest.builder()
                 .dni("TSAU967823OYONE740")
                 .fullName("Test Automation")
                 .phoneNumber("5567390326")
@@ -60,9 +60,9 @@ class CustomerControllerWebLayerTest {
     @Order(1)
     void validUser_whenCreateUser_returnsCreatedUser() throws Exception {
         // Arrange
-        CustomerRequest customerRequest = getValidUserRequest();
+        UserRequest userRequest = getValidUserRequest();
 
-        CustomerResponse customerResponse = CustomerResponse.builder()
+        UserResponse userResponse = UserResponse.builder()
                 .dni("TSAU967823OYONE740")
                 .fullName("Test Automation")
                 .phoneNumber("5567390326")
@@ -72,8 +72,8 @@ class CustomerControllerWebLayerTest {
                 .email("testautomation@gmail.com")
                 .build();
 
-        when(customerService.create(any(CustomerRequest.class)))
-            .thenReturn(customerResponse);
+        when(customerService.create(any(UserRequest.class)))
+            .thenReturn(userResponse);
         when(jwtUtils.validateJwtToken(any()))
             .thenReturn(true);
         when(jwtUtils.getUserNameFromJwtToken(any()))
@@ -94,20 +94,20 @@ class CustomerControllerWebLayerTest {
                 .post(signUpUrl)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(customerRequest));
+                .content(new ObjectMapper().writeValueAsString(userRequest));
 
         // Act
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         String responseBodyAsString = mvcResult.getResponse().getContentAsString();
-        CustomerResponse createdCustomer = new ObjectMapper()
-                .readValue(responseBodyAsString, CustomerResponse.class);
+        UserResponse createdCustomer = new ObjectMapper()
+                .readValue(responseBodyAsString, UserResponse.class);
 
         // Assert
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus(), "Controller returns 200 Status Code");
-        assertEquals(customerRequest.getDni(), createdCustomer.getDni());
-        assertEquals(customerRequest.getFullName(), createdCustomer.getFullName());
-        assertEquals(customerRequest.getPhoneNumber(), createdCustomer.getPhoneNumber());
-        assertEquals(customerRequest.getEmail(), createdCustomer.getEmail());
+        assertEquals(userRequest.getDni(), createdCustomer.getDni());
+        assertEquals(userRequest.getFullName(), createdCustomer.getFullName());
+        assertEquals(userRequest.getPhoneNumber(), createdCustomer.getPhoneNumber());
+        assertEquals(userRequest.getEmail(), createdCustomer.getEmail());
     }
 
     @Test
@@ -115,37 +115,37 @@ class CustomerControllerWebLayerTest {
     @Order(2)
     void invalidCustomerRequests_whenCreateCustomer_returns400AndValidationMessages() throws Exception {
         // Arrange
-        CustomerRequest customerRequestDniRequiredValidation = getValidUserRequest();
-        customerRequestDniRequiredValidation.setDni(null);
-        CustomerRequest customerRequestDniNameLengthValidation = getValidUserRequest();
-        customerRequestDniNameLengthValidation.setDni("WICR9");
+        UserRequest userRequestDniRequiredValidation = getValidUserRequest();
+        userRequestDniRequiredValidation.setDni(null);
+        UserRequest userRequestDniNameLengthValidation = getValidUserRequest();
+        userRequestDniNameLengthValidation.setDni("WICR9");
 
-        CustomerRequest customerRequestFullNameRequiredValidation = getValidUserRequest();
-        customerRequestFullNameRequiredValidation.setFullName(null);
-        CustomerRequest customerRequestFullNameLengthValidation = getValidUserRequest();
-        customerRequestFullNameLengthValidation.setFullName("Wil");
+        UserRequest userRequestFullNameRequiredValidation = getValidUserRequest();
+        userRequestFullNameRequiredValidation.setFullName(null);
+        UserRequest userRequestFullNameLengthValidation = getValidUserRequest();
+        userRequestFullNameLengthValidation.setFullName("Wil");
 
-        CustomerRequest customerRequestEmailRequiredValidation = getValidUserRequest();
-        customerRequestEmailRequiredValidation.setEmail(null);
-        CustomerRequest customerRequestInvalidEmailValidation = getValidUserRequest();
-        customerRequestInvalidEmailValidation.setEmail("yusyu7");
+        UserRequest userRequestEmailRequiredValidation = getValidUserRequest();
+        userRequestEmailRequiredValidation.setEmail(null);
+        UserRequest userRequestInvalidEmailValidation = getValidUserRequest();
+        userRequestInvalidEmailValidation.setEmail("yusyu7");
 
         // Act & Assert
-        validateBadRequest(customerRequestDniRequiredValidation, "DNI is mandatory");
-        validateBadRequest(customerRequestDniNameLengthValidation, "DNI should be 18 characters long");
-        validateBadRequest(customerRequestFullNameRequiredValidation, "Full Name is mandatory");
-        validateBadRequest(customerRequestFullNameLengthValidation, "Full Name should be between 4 an 30 characters");
-        validateBadRequest(customerRequestEmailRequiredValidation, "Email is mandatory");
-        validateBadRequest(customerRequestInvalidEmailValidation, "Not a valid email");
+        validateBadRequest(userRequestDniRequiredValidation, "DNI is mandatory");
+        validateBadRequest(userRequestDniNameLengthValidation, "DNI should be 18 characters long");
+        validateBadRequest(userRequestFullNameRequiredValidation, "Full Name is mandatory");
+        validateBadRequest(userRequestFullNameLengthValidation, "Full Name should be between 4 an 30 characters");
+        validateBadRequest(userRequestEmailRequiredValidation, "Email is mandatory");
+        validateBadRequest(userRequestInvalidEmailValidation, "Not a valid email");
     }
 
-    private void validateBadRequest(CustomerRequest customerRequest, String expectedErrorMessage) throws Exception {
+    private void validateBadRequest(UserRequest userRequest, String expectedErrorMessage) throws Exception {
         // Prepare request
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post(signUpUrl)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(customerRequest));
+                .content(new ObjectMapper().writeValueAsString(userRequest));
 
         // Execute request
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();

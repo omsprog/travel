@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class CustomerRequest {
+public class UserRequest {
     @NotNull(message = "DNI is mandatory")
     @Size(min = 18, max = 18, message = "DNI should be 18 characters long")
     private String dni;

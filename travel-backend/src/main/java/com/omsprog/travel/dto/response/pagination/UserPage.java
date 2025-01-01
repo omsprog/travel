@@ -1,6 +1,6 @@
 package com.omsprog.travel.dto.response.pagination;
 
-import com.omsprog.travel.dto.response.CustomerResponse;
+import com.omsprog.travel.dto.response.UserResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class CustomerPage extends CommonPage {
-    private List<CustomerResponse> content;
+public class UserPage extends CommonPage {
+    private List<UserResponse> content;
 }

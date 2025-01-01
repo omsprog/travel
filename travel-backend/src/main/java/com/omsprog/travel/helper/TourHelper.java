@@ -24,7 +24,7 @@ public class TourHelper {
     private final TicketRepository ticketRepository;
     private final ReservationRepository reservationRepository;
 
-    public Set<TicketEntity> createTickets(Set<FlightEntity> flights, CustomerEntity customer) {
+    public Set<TicketEntity> createTickets(Set<FlightEntity> flights, AppUserEntity customer) {
         var response = new HashSet<TicketEntity>(flights.size());
         flights.forEach(flight -> {
             var ticketToPersist = TicketEntity.builder()
@@ -42,7 +42,7 @@ public class TourHelper {
         return response;
     }
 
-    public Set<ReservationEntity> createReservations(HashMap<HotelEntity, Integer> hotels, CustomerEntity customer) {
+    public Set<ReservationEntity> createReservations(HashMap<HotelEntity, Integer> hotels, AppUserEntity customer) {
         var response = new HashSet<ReservationEntity>(hotels.size());
         hotels.forEach((hotel, totalDays) -> {
             var reservationToPersist = ReservationEntity.builder()
@@ -60,7 +60,7 @@ public class TourHelper {
         return response;
     }
 
-    public TicketEntity createTicket(FlightEntity flight, CustomerEntity customer) {
+    public TicketEntity createTicket(FlightEntity flight, AppUserEntity customer) {
         var ticketToPersist = TicketEntity.builder()
                 .id(UUID.randomUUID())
                 .flight(flight)
@@ -74,7 +74,7 @@ public class TourHelper {
         return  this.ticketRepository.save(ticketToPersist);
     }
 
-    public ReservationEntity createReservation(HotelEntity hotel, CustomerEntity customer, Integer totalDays) {
+    public ReservationEntity createReservation(HotelEntity hotel, AppUserEntity customer, Integer totalDays) {
         var reservationToPersist = ReservationEntity.builder()
                 .id(UUID.randomUUID())
                 .hotel(hotel)

@@ -1,9 +1,9 @@
 package com.omsprog.travel.controller.integration;
 
 import com.omsprog.travel.testutil.JwtTestUtil;
-import com.omsprog.travel.dto.response.CustomerResponse;
-import com.omsprog.travel.dto.response.pagination.CustomerPage;
-import com.omsprog.travel.repository.CustomerRepository;
+import com.omsprog.travel.dto.response.UserResponse;
+import com.omsprog.travel.dto.response.pagination.UserPage;
+import com.omsprog.travel.repository.UserRepository;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,7 +20,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class CustomerControllerIntegrationTest {
+class UserControllerIntegrationTest {
 
     private static String jwtToken;
 
@@ -28,7 +28,7 @@ class CustomerControllerIntegrationTest {
     private TestRestTemplate testRestTemplate;
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private UserRepository userRepository;
 
     @BeforeAll
     static void setup(@Autowired JwtTestUtil jwtTestUtil) {
@@ -54,10 +54,10 @@ class CustomerControllerIntegrationTest {
         HttpEntity<String> request = new HttpEntity<>(validUserRequestJson.toString(), headers);
 
         // Act
-        ResponseEntity<CustomerResponse> createdUserResponseEntity = testRestTemplate
-                .postForEntity("/users/signup", request, CustomerResponse.class);
+        ResponseEntity<UserResponse> createdUserResponseEntity = testRestTemplate
+                .postForEntity("/users/signup", request, UserResponse.class);
 
-        CustomerResponse createdCustomer = createdUserResponseEntity.getBody();
+        UserResponse createdCustomer = createdUserResponseEntity.getBody();
 
         // Assert
         if(createdCustomer == null)
@@ -67,8 +67,8 @@ class CustomerControllerIntegrationTest {
         assertEquals(validUserRequestJson.getString("dni"), createdCustomer.getDni());
 
         // Clean up
-        var customerToBeDeleted = customerRepository.findByDni(createdCustomer.getDni()).get();
-        customerRepository.delete(customerToBeDeleted);
+        var customerToBeDeleted = userRepository.findByDni(createdCustomer.getDni()).get();
+        userRepository.delete(customerToBeDeleted);
     }
 
     @Test
@@ -85,10 +85,10 @@ class CustomerControllerIntegrationTest {
         final int pageSize = 5;
 
         // Act
-        ResponseEntity<CustomerPage> pageOfFlightsResponseEntity = testRestTemplate
-                .exchange(String.format("/users?page=0&size=%s", pageSize), HttpMethod.GET, request, CustomerPage.class);
+        ResponseEntity<UserPage> pageOfFlightsResponseEntity = testRestTemplate
+                .exchange(String.format("/users?page=0&size=%s", pageSize), HttpMethod.GET, request, UserPage.class);
 
-        CustomerPage pageOfCustomers = pageOfFlightsResponseEntity.getBody();
+        UserPage pageOfCustomers = pageOfFlightsResponseEntity.getBody();
 
         // Assert
         if(pageOfCustomers == null)

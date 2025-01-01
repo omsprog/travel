@@ -6,7 +6,7 @@ import com.omsprog.travel.dto.response.ReservationResponse;
 import com.omsprog.travel.entity.jpa.ReservationEntity;
 import com.omsprog.travel.exception.IdNotFoundException;
 import com.omsprog.travel.helper.CustomerHelper;
-import com.omsprog.travel.repository.CustomerRepository;
+import com.omsprog.travel.repository.UserRepository;
 import com.omsprog.travel.repository.HotelRepository;
 import com.omsprog.travel.repository.ReservationRepository;
 import com.omsprog.travel.service.abstract_service.IReservationService;
@@ -28,7 +28,7 @@ import java.util.UUID;
 @Slf4j
 @AllArgsConstructor // Creates the constructor for the dependency injection
 public class ReservationService implements IReservationService {
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
     private final HotelRepository hotelRepository;
     private final ReservationRepository reservationRepository;
     private final CustomerHelper customerHelper;
@@ -44,7 +44,7 @@ public class ReservationService implements IReservationService {
     @Override
     public ReservationResponse create(ReservationRequest request) {
         var hotel = this.hotelRepository.findById(request.getIdHotel()).orElseThrow(() -> new IdNotFoundException("hotel"));
-        var customer = this.customerRepository.findById(request.getIdClient()).orElseThrow(() -> new IdNotFoundException("customer"));
+        var customer = this.userRepository.findById(request.getIdClient()).orElseThrow(() -> new IdNotFoundException("customer"));
 
         var reservationToPersist = ReservationEntity.builder()
                 .id(UUID.randomUUID())

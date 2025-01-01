@@ -1,13 +1,13 @@
 package com.omsprog.travel.service.concrete_service;
 
 import com.omsprog.travel.dto.request.TourRequest;
-import com.omsprog.travel.dto.response.CustomerResponse;
+import com.omsprog.travel.dto.response.UserResponse;
 import com.omsprog.travel.dto.response.TourResponse;
 import com.omsprog.travel.dto.response.TourSummaryResponse;
 import com.omsprog.travel.entity.jpa.*;
 import com.omsprog.travel.helper.CustomerHelper;
 import com.omsprog.travel.helper.TourHelper;
-import com.omsprog.travel.repository.CustomerRepository;
+import com.omsprog.travel.repository.UserRepository;
 import com.omsprog.travel.repository.FlightRepository;
 import com.omsprog.travel.repository.HotelRepository;
 import com.omsprog.travel.repository.TourRepository;
@@ -34,7 +34,7 @@ public class TourService implements ITourService {
     private final TourRepository tourRepository;
     private final FlightRepository flightRepository;
     private final HotelRepository hotelRepository;
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
     private final TourHelper tourHelper;
     private final CustomerHelper customerHelper;
 
@@ -46,7 +46,7 @@ public class TourService implements ITourService {
 
     @Override
     public TourResponse create(TourRequest request) {
-        var customer = customerRepository.findById(request.getCustomerId()).orElseThrow();
+        var customer = userRepository.findById(request.getCustomerId()).orElseThrow();
         var flights = new HashSet<FlightEntity>();
         request.getFlights().forEach(flight ->
                 flights.add(this.flightRepository.findById(flight.getId()).orElseThrow())
@@ -118,9 +118,9 @@ public class TourService implements ITourService {
     private TourResponse entityToResponse(TourEntity entity) {
         TourResponse tourResponse = new TourResponse();
         BeanUtils.copyProperties(entity, tourResponse);
-        CustomerResponse customerResponse = new CustomerResponse();
-        BeanUtils.copyProperties(entity.getCustomer(), customerResponse);
-        tourResponse.setCustomer(customerResponse);
+        UserResponse userResponse = new UserResponse();
+        BeanUtils.copyProperties(entity.getCustomer(), userResponse);
+        tourResponse.setCustomer(userResponse);
         tourResponse.setReservations(entity.getReservations().stream().map(ReservationEntity::getId).collect(Collectors.toSet()));
         tourResponse.setTickets(entity.getTickets().stream().map(TicketEntity::getId).collect(Collectors.toSet()));
         return tourResponse;

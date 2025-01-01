@@ -6,7 +6,7 @@ import com.omsprog.travel.dto.response.TicketResponse;
 import com.omsprog.travel.entity.jpa.TicketEntity;
 import com.omsprog.travel.exception.IdNotFoundException;
 import com.omsprog.travel.helper.CustomerHelper;
-import com.omsprog.travel.repository.CustomerRepository;
+import com.omsprog.travel.repository.UserRepository;
 import com.omsprog.travel.repository.FlightRepository;
 import com.omsprog.travel.repository.TicketRepository;
 import com.omsprog.travel.service.abstract_service.ITicketService;
@@ -29,7 +29,7 @@ import java.util.UUID;
 @AllArgsConstructor // Creates the constructor for the dependency injection
 public class TicketService implements ITicketService {
     private final FlightRepository flightRepository;
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
     private final TicketRepository ticketRepository;
     private final CustomerHelper customerHelper;
 
@@ -44,7 +44,7 @@ public class TicketService implements ITicketService {
     @Override
     public TicketResponse create(TicketRequest request) {
         var flight = flightRepository.findById(request.getIdFlight()).orElseThrow(() -> new IdNotFoundException("flight"));
-        var customer = customerRepository.findById(request.getIdClient()).orElseThrow(() -> new IdNotFoundException("customer"));
+        var customer = userRepository.findById(request.getIdClient()).orElseThrow(() -> new IdNotFoundException("customer"));
 
         var ticketToPersist = TicketEntity.builder()
                 .id(UUID.randomUUID())
