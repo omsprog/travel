@@ -76,7 +76,11 @@ public class TourEntity {
     @PrePersist
     @PreRemove
     public void updateFk() {
-        this.tickets.forEach(ticket -> ticket.setTour(this));
-        this.reservations.forEach(reservation -> reservation.setTour(this));
+        if(Objects.nonNull(this.tickets)) {
+            this.tickets.forEach(ticket -> ticket.setTour(this));
+        }
+        if(Objects.nonNull(this.reservations)) {
+            this.reservations.forEach(reservation -> reservation.setTour(this));
+        }
     }
 }

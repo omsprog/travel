@@ -1,11 +1,7 @@
 package com.omsprog.travel.config;
 
-import com.omsprog.travel.entity.jpa.AppUserEntity;
-import com.omsprog.travel.entity.jpa.FlightEntity;
-import com.omsprog.travel.entity.jpa.HotelEntity;
-import com.omsprog.travel.repository.FlightRepository;
-import com.omsprog.travel.repository.HotelRepository;
-import com.omsprog.travel.repository.UserRepository;
+import com.omsprog.travel.entity.jpa.*;
+import com.omsprog.travel.repository.*;
 import com.omsprog.travel.util.AeroLine;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
@@ -13,7 +9,13 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
+
+import static java.time.LocalDateTime.now;
 
 @Component
 @Profile("testdata")
@@ -22,11 +24,22 @@ public class TestDataLoader {
     private final HotelRepository hotelRepository;
     private final UserRepository userRepository;
     private final FlightRepository flightRepository;
+    private final ReservationRepository reservationRepository;
+    private final TicketRepository ticketRepository;
+    private final TourRepository tourRepository;
 
-    public TestDataLoader(HotelRepository hotelRepository, UserRepository userRepository, FlightRepository flightRepository) {
+    public TestDataLoader(HotelRepository hotelRepository,
+                          UserRepository userRepository,
+                          FlightRepository flightRepository,
+                          ReservationRepository reservationRepository,
+                          TicketRepository ticketRepository,
+                          TourRepository tourRepository) {
         this.hotelRepository = hotelRepository;
         this.userRepository = userRepository;
         this.flightRepository = flightRepository;
+        this.reservationRepository = reservationRepository;
+        this.ticketRepository = ticketRepository;
+        this.tourRepository = tourRepository;
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -122,6 +135,89 @@ public class TestDataLoader {
                         .originLat(20.9133).originLng(-89.9083).destinationLat(13.8790).destinationLng(-10.1096).build()
             );
             flightRepository.saveAll(flights);
+        }
+
+        // Reservations
+        if(reservationRepository.count() == 0) {
+            HotelEntity hotel1InDb = hotelRepository.findByName("Golden").get();
+            HotelEntity hotel2InDb = hotelRepository.findByName("El mirador").get();
+            HotelEntity hotel3InDb = hotelRepository.findByName("La Odisea").get();
+            HotelEntity hotel4InDb = hotelRepository.findByName("Olimpo").get();
+            HotelEntity hotel5InDb = hotelRepository.findByName("Atenea").get();
+
+            AppUserEntity user1InDb = userRepository.findById("WIKA771012IIYGR980").get();
+            AppUserEntity user2InDb = userRepository.findById("MASK771012OPWGR426").get();
+            AppUserEntity user3InDb = userRepository.findById("GUFL781012IRKGR426").get();
+            AppUserEntity user4InDb = userRepository.findById("WAKT771012POLRG472").get();
+            AppUserEntity user5InDb = userRepository.findById("KEMI771012EUMRG004").get();
+
+            List<ReservationEntity> reservations = List.of(
+                ReservationEntity.builder().id(UUID.fromString("12345678-1234-5678-1234-567812345678")).dateTimeReservation(now()).hotel(hotel1InDb)
+                        .customer(user1InDb).dateStart(LocalDate.parse("2024-08-01")).dateEnd(LocalDate.parse("2024-09-07")).totalDays(7).price(BigDecimal.valueOf(77.0)).build(),
+                ReservationEntity.builder().id(UUID.fromString("22345678-1234-5678-1234-567812345678")).dateTimeReservation(now()).hotel(hotel2InDb)
+                        .customer(user1InDb).dateStart(LocalDate.parse("2024-08-01")).dateEnd(LocalDate.parse("2024-09-07")).totalDays(7).price(BigDecimal.valueOf(225.0)).build(),
+                ReservationEntity.builder().id(UUID.fromString("32345678-1234-5678-1234-567812345678")).dateTimeReservation(now()).hotel(hotel3InDb)
+                        .customer(user2InDb).dateStart(LocalDate.parse("2024-08-01")).dateEnd(LocalDate.parse("2024-10-01")).totalDays(4).price(BigDecimal.valueOf(112.00)).build(),
+                ReservationEntity.builder().id(UUID.fromString("42345678-1234-5678-1234-567812345678")).dateTimeReservation(now()).hotel(hotel3InDb)
+                        .customer(user3InDb).dateStart(LocalDate.parse("2024-08-12")).dateEnd(LocalDate.parse("2024-11-14")).totalDays(2).price(BigDecimal.valueOf(74.00)).build(),
+                ReservationEntity.builder().id(UUID.fromString("52345678-1234-5678-1234-567812345678")).dateTimeReservation(now()).hotel(hotel4InDb)
+                        .customer(user3InDb).dateStart(LocalDate.parse("2024-08-01")).dateEnd(LocalDate.parse("2024-10-01")).totalDays(4).price(BigDecimal.valueOf(98.00)).build(),
+                ReservationEntity.builder().id(UUID.fromString("62345678-1234-5678-1234-567812345678")).dateTimeReservation(now()).hotel(hotel5InDb)
+                        .customer(user4InDb).dateStart(LocalDate.parse("2024-08-12")).dateEnd(LocalDate.parse("2024-10-01")).totalDays(2).price(BigDecimal.valueOf(74.00)).build(),
+                ReservationEntity.builder().id(UUID.fromString("72345678-1234-5678-1234-567812345678")).dateTimeReservation(now()).hotel(hotel5InDb)
+                        .customer(user5InDb).dateStart(LocalDate.parse("2024-08-01")).dateEnd(LocalDate.parse("2024-10-01")).totalDays(4).price(BigDecimal.valueOf(98.00)).build()
+            );
+            reservationRepository.saveAll(reservations);
+        }
+
+        // Tickets
+        if(ticketRepository.count() == 0){
+            FlightEntity flight1InDb = flightRepository.findById(1L).get();
+            FlightEntity flight2InDb = flightRepository.findById(2L).get();
+            FlightEntity flight4InDb = flightRepository.findById(4L).get();
+            FlightEntity flight5InDb = flightRepository.findById(5L).get();
+            FlightEntity flight7InDb = flightRepository.findById(7L).get();
+
+            AppUserEntity user1InDb = userRepository.findById("WAKT771012POLRG472").get();
+            AppUserEntity user2InDb = userRepository.findById("KEMI771012EUMRG004").get();
+            AppUserEntity user3InDb = userRepository.findById("MASK771012OPWGR426").get();
+            AppUserEntity user4InDb = userRepository.findById("RKKA771012RQCRR118").get();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+            List<TicketEntity> tickets = List.of(
+                    TicketEntity.builder().id(UUID.fromString("12345678-1234-5678-2236-567812345677")).price(BigDecimal.valueOf(330.05)).flight(flight1InDb).customer(user1InDb)
+                            .departureDate(LocalDateTime.parse("2024-08-01 14:00:00", formatter)).arrivalDate(LocalDateTime.parse("2024-08-01 16:00:00", formatter)).purchaseDate(LocalDate.from(now())).build(),
+                    TicketEntity.builder().id(UUID.fromString("12345678-1234-5678-2236-567812345678")).price(BigDecimal.valueOf(220.33)).flight(flight1InDb).customer(user2InDb)
+                            .departureDate(LocalDateTime.parse("2024-08-01 14:00:00", formatter)).arrivalDate(LocalDateTime.parse("2024-08-01 16:00:00", formatter)).purchaseDate(LocalDate.from(now())).build(),
+                    TicketEntity.builder().id(UUID.fromString("12345678-1234-5678-2236-567812345679")).price(BigDecimal.valueOf(320.00)).flight(flight4InDb).customer(user2InDb)
+                            .departureDate(LocalDateTime.parse("2024-08-01 12:00:00", formatter)).arrivalDate(LocalDateTime.parse("2024-08-01 15:00:00", formatter)).purchaseDate(LocalDate.from(now())).build(),
+                    TicketEntity.builder().id(UUID.fromString("12345678-1234-5678-2236-567812345680")).price(BigDecimal.valueOf(560.77)).flight(flight7InDb).customer(user3InDb)
+                            .departureDate(LocalDateTime.parse("2024-08-12 20:00:00", formatter)).arrivalDate(LocalDateTime.parse("2024-01-14 22:00:00", formatter)).purchaseDate(LocalDate.from(now())).build(),
+                    TicketEntity.builder().id(UUID.fromString("12345678-1234-5678-2236-567812345681")).price(BigDecimal.valueOf(135.50)).flight(flight2InDb).customer(user4InDb)
+                            .departureDate(LocalDateTime.parse("2024-09-13 20:00:00", formatter)).arrivalDate(LocalDateTime.parse("2024-09-14 01:00:00", formatter)).purchaseDate(LocalDate.from(now())).build(),
+                    TicketEntity.builder().id(UUID.fromString("12345678-1234-5678-2236-567812345682")).price(BigDecimal.valueOf(260.24)).flight(flight1InDb).customer(user4InDb)
+                            .departureDate(LocalDateTime.parse("2024-09-14 20:00:00", formatter)).arrivalDate(LocalDateTime.parse("2024-09-14 23:00:00", formatter)).purchaseDate(LocalDate.from(now())).build(),
+                    TicketEntity.builder().id(UUID.fromString("12345678-1234-5678-2236-567812345683")).price(BigDecimal.valueOf(560.79)).flight(flight5InDb).customer(user4InDb)
+                            .departureDate(LocalDateTime.parse("2024-09-15 20:00:00", formatter)).arrivalDate(LocalDateTime.parse("2024-09-15 22:00:00", formatter)).purchaseDate(LocalDate.from(now())).build(),
+                    TicketEntity.builder().id(UUID.fromString("12345678-1234-5678-2236-567812345684")).price(BigDecimal.valueOf(560.95)).flight(flight7InDb).customer(user4InDb)
+                            .departureDate(LocalDateTime.parse("2024-09-16 20:00:00", formatter)).arrivalDate(LocalDateTime.parse("2024-09-17 01:00:00", formatter)).purchaseDate(LocalDate.from(now())).build()
+
+            );
+
+            ticketRepository.saveAll(tickets);
+        }
+
+        // Tours
+        if(tourRepository.count() == 0) {
+            AppUserEntity user1InDb = userRepository.findById("KHXH771012BJYGR663").get();
+            AppUserEntity user2InDb = userRepository.findById("CRMA625312UTSGE531").get();
+
+            List<TourEntity> tours = List.of(
+                TourEntity.builder().customer(user1InDb).name("Honey Moon").build(),
+                TourEntity.builder().customer(user2InDb).name("Magical Tour").build()
+            );
+            tourRepository.saveAll(tours);
         }
 
     }
