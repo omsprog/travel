@@ -6,6 +6,7 @@ import com.omsprog.travel.dto.request.LoginResponse;
 import com.omsprog.travel.dto.response.UserResponse;
 import com.omsprog.travel.entity.jpa.AppUserEntity;
 import com.omsprog.travel.exception.CustomValidationException;
+import com.omsprog.travel.exception.RecordNotFoundException;
 import com.omsprog.travel.repository.UserRepository;
 import com.omsprog.travel.security.jwt.JwtUtils;
 import com.omsprog.travel.service.abstract_service.IUserService;
@@ -103,7 +104,7 @@ public class UserService implements IUserService {
 
     @Override
     public UserResponse getProfile(String email) {
-        AppUserEntity customerProfileInfo = this.userRepository.findByEmail(email).orElseThrow();
+        AppUserEntity customerProfileInfo = this.userRepository.findByEmail(email).orElseThrow(() -> new RecordNotFoundException("user"));
         return this.entityToResponse(customerProfileInfo);
     }
 
@@ -129,7 +130,7 @@ public class UserService implements IUserService {
         Path targetLocation = uploadDir.resolve(fileName);
         Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
-        AppUserEntity appUserEntity = this.userRepository.findByEmail(email).orElseThrow();
+        AppUserEntity appUserEntity = this.userRepository.findByEmail(email).orElseThrow(() -> new RecordNotFoundException("user"));
         appUserEntity.setProfilePicturePath(targetLocation.toString());
         this.userRepository.save(appUserEntity);
         return fileName;
@@ -137,7 +138,7 @@ public class UserService implements IUserService {
 
     @Override
     public Resource getProfilePicture(String email) throws MalformedURLException {
-        AppUserEntity customer = this.userRepository.findByEmail(email).orElseThrow();
+        AppUserEntity customer = this.userRepository.findByEmail(email).orElseThrow(() -> new RecordNotFoundException("user"));
         Path filePath = Paths.get(customer.getProfilePicturePath());
         return new UrlResource(filePath.toUri());
     }

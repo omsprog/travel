@@ -1,4 +1,4 @@
-package com.omsprog.travel.controller;
+package com.omsprog.travel.controller.report;
 
 import com.omsprog.travel.service.abstract_service.IReportService;
 import io.swagger.v3.oas.annotations.tags.Tag;

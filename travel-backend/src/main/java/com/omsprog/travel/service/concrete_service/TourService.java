@@ -5,6 +5,7 @@ import com.omsprog.travel.dto.response.UserResponse;
 import com.omsprog.travel.dto.response.TourResponse;
 import com.omsprog.travel.dto.response.TourSummaryResponse;
 import com.omsprog.travel.entity.jpa.*;
+import com.omsprog.travel.exception.RecordNotFoundException;
 import com.omsprog.travel.helper.CustomerHelper;
 import com.omsprog.travel.helper.TourHelper;
 import com.omsprog.travel.repository.UserRepository;
@@ -46,13 +47,15 @@ public class TourService implements ITourService {
 
     @Override
     public TourResponse create(TourRequest request) {
-        var customer = userRepository.findById(request.getCustomerId()).orElseThrow();
+        var customer = userRepository.findById(request.getCustomerId()).orElseThrow(() -> new RecordNotFoundException("customer"));
         var flights = new HashSet<FlightEntity>();
         request.getFlights().forEach(flight ->
-                flights.add(this.flightRepository.findById(flight.getId()).orElseThrow())
+                flights.add(this.flightRepository.findById(flight.getId()).orElseThrow(() -> new RecordNotFoundException("flight")))
         );
         var hotels = new HashMap<HotelEntity, Integer>();
-        request.getHotels().forEach(hotel -> hotels.put(this.hotelRepository.findById(hotel.getId()).orElseThrow(), hotel.getTotalDays()));
+        request.getHotels().forEach(hotel ->
+                hotels.put(this.hotelRepository.findById(hotel.getId()).orElseThrow(() -> new RecordNotFoundException("hotel")), hotel.getTotalDays())
+        );
 
         var tourToSave = TourEntity.builder()
                 .name(request.getName())
@@ -70,27 +73,27 @@ public class TourService implements ITourService {
 
     @Override
     public TourResponse read(Long id) {
-        var tourFromDb = this.tourRepository.findById(id).orElseThrow();
+        var tourFromDb = this.tourRepository.findById(id).orElseThrow(() -> new RecordNotFoundException("tour"));
         return this.entityToResponse(tourFromDb);
     }
 
     @Override
     public void delete(Long id) {
-        var tourToDelete = this.tourRepository.findById(id).orElseThrow();
+        var tourToDelete = this.tourRepository.findById(id).orElseThrow(() -> new RecordNotFoundException("tour"));
         this.tourRepository.delete(tourToDelete);
     }
 
     @Override
     public void removeTicket(Long tourId, UUID ticketId) {
-        var tourUpdate = this.tourRepository.findById(tourId).orElseThrow();
+        var tourUpdate = this.tourRepository.findById(tourId).orElseThrow(() -> new RecordNotFoundException("tour"));
         tourUpdate.removeTicket(ticketId);
         this.tourRepository.save(tourUpdate);
     }
 
     @Override
     public UUID addTicket(Long flightId, Long tourId) {
-        var tourUpdate = this.tourRepository.findById(tourId).orElseThrow();
-        var flight = this.flightRepository.findById(flightId).orElseThrow();
+        var tourUpdate = this.tourRepository.findById(tourId).orElseThrow(() -> new RecordNotFoundException("tour"));
+        var flight = this.flightRepository.findById(flightId).orElseThrow(() -> new RecordNotFoundException("flight"));
         var ticket = this.tourHelper.createTicket(flight, tourUpdate.getCustomer());
         tourUpdate.addTicket(ticket);
         this.tourRepository.save(tourUpdate);
@@ -100,15 +103,15 @@ public class TourService implements ITourService {
 
     @Override
     public void removeReservation(Long tourId, UUID reservationId) {
-        var tourUpdate = this.tourRepository.findById(tourId).orElseThrow();
+        var tourUpdate = this.tourRepository.findById(tourId).orElseThrow(() -> new RecordNotFoundException("tour"));
         tourUpdate.removeReservation(reservationId);
         this.tourRepository.save(tourUpdate);
     }
 
     @Override
     public UUID addReservation(Long tourId, Long hotelId, Integer totalDays) {
-        var tourUpdate = this.tourRepository.findById(tourId).orElseThrow();
-        var hotel = this.hotelRepository.findById(hotelId).orElseThrow();
+        var tourUpdate = this.tourRepository.findById(tourId).orElseThrow(() -> new RecordNotFoundException("tour"));
+        var hotel = this.hotelRepository.findById(hotelId).orElseThrow(() -> new RecordNotFoundException("hotel"));
         var reservation = this.tourHelper.createReservation(hotel, tourUpdate.getCustomer(), totalDays);
         tourUpdate.addReservation(reservation);
         this.tourRepository.save(tourUpdate);

@@ -4,7 +4,7 @@ import com.omsprog.travel.dto.request.TicketRequest;
 import com.omsprog.travel.dto.response.FlightResponse;
 import com.omsprog.travel.dto.response.TicketResponse;
 import com.omsprog.travel.entity.jpa.TicketEntity;
-import com.omsprog.travel.exception.IdNotFoundException;
+import com.omsprog.travel.exception.RecordNotFoundException;
 import com.omsprog.travel.helper.CustomerHelper;
 import com.omsprog.travel.repository.UserRepository;
 import com.omsprog.travel.repository.FlightRepository;
@@ -43,8 +43,8 @@ public class TicketService implements ITicketService {
 
     @Override
     public TicketResponse create(TicketRequest request) {
-        var flight = flightRepository.findById(request.getIdFlight()).orElseThrow(() -> new IdNotFoundException("flight"));
-        var customer = userRepository.findById(request.getIdClient()).orElseThrow(() -> new IdNotFoundException("customer"));
+        var flight = flightRepository.findById(request.getIdFlight()).orElseThrow(() -> new RecordNotFoundException("flight"));
+        var customer = userRepository.findById(request.getIdClient()).orElseThrow(() -> new RecordNotFoundException("customer"));
 
         var ticketToPersist = TicketEntity.builder()
                 .id(UUID.randomUUID())
@@ -67,14 +67,14 @@ public class TicketService implements ITicketService {
 
     @Override
     public TicketResponse read(UUID uuid) {
-        var ticketFromDB = this.ticketRepository.findById(uuid).orElseThrow(() -> new IdNotFoundException("ticket"));
+        var ticketFromDB = this.ticketRepository.findById(uuid).orElseThrow(() -> new RecordNotFoundException("ticket"));
         return this.entityToResponse(ticketFromDB);
     }
 
     @Override
     public TicketResponse update(TicketRequest request, UUID uuid) {
-        var ticketToUpdate = ticketRepository.findById(uuid).orElseThrow();
-        var flight = flightRepository.findById(request.getIdFlight()).orElseThrow();
+        var ticketToUpdate = ticketRepository.findById(uuid).orElseThrow(() -> new RecordNotFoundException("ticket"));
+        var flight = flightRepository.findById(request.getIdFlight()).orElseThrow(() -> new RecordNotFoundException("flight"));
 
         ticketToUpdate.setFlight(flight);
         ticketToUpdate.setPrice(flight.getPrice().add(flight.getPrice().multiply(charge_price_percentage)));
@@ -90,13 +90,13 @@ public class TicketService implements ITicketService {
 
     @Override
     public void delete(UUID uuid) {
-        var ticketToDelete = ticketRepository.findById(uuid).orElseThrow();
+        var ticketToDelete = ticketRepository.findById(uuid).orElseThrow(() -> new RecordNotFoundException("ticket"));
         this.ticketRepository.delete(ticketToDelete);
     }
 
     @Override
     public BigDecimal findPrice(Long idFlight) {
-        var flight = this.flightRepository.findById(idFlight).orElseThrow();
+        var flight = this.flightRepository.findById(idFlight).orElseThrow(() -> new RecordNotFoundException("flight"));
         return flight.getPrice().add(flight.getPrice().multiply(charge_price_percentage));
     }
 

@@ -1,5 +1,6 @@
 package com.omsprog.travel.helper;
 
+import com.omsprog.travel.exception.RecordNotFoundException;
 import com.omsprog.travel.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,7 +14,7 @@ public class CustomerHelper {
     private final UserRepository userRepository;
 
     public void increase(String customerId, Class<?> type) {
-        var customerToUpdate = this.userRepository.findById(customerId).orElseThrow();
+        var customerToUpdate = this.userRepository.findById(customerId).orElseThrow(() -> new RecordNotFoundException("user"));
         switch (type.getSimpleName()) {
             case "TourService" -> customerToUpdate.setTotalTours(customerToUpdate.getTotalTours() + 1);
             case "TicketService" -> customerToUpdate.setTotalFlights(customerToUpdate.getTotalFlights() + 1);

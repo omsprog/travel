@@ -3,7 +3,7 @@ package com.omsprog.travel.service.concrete_service;
 import com.omsprog.travel.dto.request.FlightRequest;
 import com.omsprog.travel.dto.response.FlightResponse;
 import com.omsprog.travel.entity.jpa.FlightEntity;
-import com.omsprog.travel.exception.IdNotFoundException;
+import com.omsprog.travel.exception.RecordNotFoundException;
 import com.omsprog.travel.repository.FlightRepository;
 import com.omsprog.travel.service.abstract_service.IFlightService;
 import com.omsprog.travel.util.SortType;
@@ -84,12 +84,12 @@ public class FlightService implements IFlightService {
 
     @Override
     public FlightResponse read(Long id) {
-        return this.entityToResponse(this.flightRepository.findById(id).orElse(null));
+        return this.entityToResponse(this.flightRepository.findById(id).orElseThrow(() -> new RecordNotFoundException("flight")));
     }
 
     @Override
     public FlightResponse update(FlightRequest request, Long id) {
-        var flightToUpdate = this.flightRepository.findById(id).orElseThrow(() -> new IdNotFoundException("flight"));
+        var flightToUpdate = this.flightRepository.findById(id).orElseThrow(() -> new RecordNotFoundException("flight"));
 
         flightToUpdate.setOriginLat(request.getOriginLat());
         flightToUpdate.setOriginLng(request.getOriginLng());

@@ -3,15 +3,13 @@ package com.omsprog.travel.service.concrete_service;
 import com.omsprog.travel.dto.request.HotelRequest;
 import com.omsprog.travel.dto.response.HotelResponse;
 import com.omsprog.travel.entity.jpa.HotelEntity;
-import com.omsprog.travel.exception.IdNotFoundException;
+import com.omsprog.travel.exception.RecordNotFoundException;
 import com.omsprog.travel.repository.HotelRepository;
 import com.omsprog.travel.service.abstract_service.IHotelService;
-import com.omsprog.travel.util.CacheConstants;
 import com.omsprog.travel.util.SortType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -66,12 +64,12 @@ public class HotelService implements IHotelService {
 
     @Override
     public HotelResponse read(Long id) {
-        return this.entityToResponse(this.hotelRepository.findById(id).orElse(null));
+        return this.entityToResponse(this.hotelRepository.findById(id).orElseThrow(() -> new RecordNotFoundException("hotel")));
     }
 
     @Override
     public HotelResponse update(HotelRequest request, Long id) {
-        var hotelToUpdate = hotelRepository.findById(id).orElseThrow(() -> new IdNotFoundException("hotel"));
+        var hotelToUpdate = hotelRepository.findById(id).orElseThrow(() -> new RecordNotFoundException("hotel"));
 
         hotelToUpdate.setName(request.getName());
         hotelToUpdate.setAddress(request.getAddress());

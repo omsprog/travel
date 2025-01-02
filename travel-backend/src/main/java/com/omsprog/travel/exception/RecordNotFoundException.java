@@ -1,10 +1,10 @@
 package com.omsprog.travel.exception;
 
-public class IdNotFoundException extends RuntimeException {
+public class RecordNotFoundException extends RuntimeException {
 
     private static final String ERROR_MESSAGE = "Record does not exist in %s";
 
-    public IdNotFoundException(String tableName) {
+    public RecordNotFoundException(String tableName) {
         super(String.format(ERROR_MESSAGE, tableName));
     }
 }

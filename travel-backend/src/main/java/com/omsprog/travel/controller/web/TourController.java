@@ -1,4 +1,4 @@
-package com.omsprog.travel.controller;
+package com.omsprog.travel.controller.web;
 
 import com.omsprog.travel.dto.request.TourRequest;
 import com.omsprog.travel.dto.response.TourResponse;
