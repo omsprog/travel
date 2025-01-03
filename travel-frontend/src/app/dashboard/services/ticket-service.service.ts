@@ -9,7 +9,7 @@ import {TicketPage} from "../interfaces/ticket.interface";
 export class TicketService {
 
   private PAGE_SIZE = 5;
-  private ticketBaseUrl : string = `http://localhost:8080/travel/tickets`;
+  private ticketBaseUrl : string = `http://localhost:8080/api/travel/tickets`;
 
   constructor(private http: HttpClient) { }
 

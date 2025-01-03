@@ -9,7 +9,7 @@ import {ReservationPage} from "../interfaces/reservation.interface";
 export class ReservationService {
 
   private PAGE_SIZE = 5;
-  private reservationBaseUrl : string = `http://localhost:8080/travel/reservations`;
+  private reservationBaseUrl : string = `http://localhost:8080/api/travel/reservations`;
 
   constructor(private http: HttpClient) { }
 

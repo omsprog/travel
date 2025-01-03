@@ -1,14 +1,15 @@
 package com.omsprog.travel.controller.web;
 
-import com.omsprog.travel.dto.request.UserRequest;
 import com.omsprog.travel.dto.request.LoginRequest;
 import com.omsprog.travel.dto.request.LoginResponse;
+import com.omsprog.travel.dto.request.UserRequest;
 import com.omsprog.travel.dto.response.UserResponse;
 import com.omsprog.travel.service.abstract_service.IUserService;
 import com.omsprog.travel.util.SortType;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,12 @@ import java.util.Objects;
 @Tag(name = "users")
 public class UserController {
     private final IUserService userService;
+    private Environment environment;
+
+    @GetMapping("/landing-message")
+    public String getLandingPageMessage() {
+        return environment.getProperty("travel.landing-page-message");
+    }
 
     @GetMapping
     public ResponseEntity<Page<UserResponse>> getAll(

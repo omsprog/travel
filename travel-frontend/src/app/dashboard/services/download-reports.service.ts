@@ -6,7 +6,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class DownloadReportsService {
 
-  private reportsBaseUrl : string = `http://localhost:8080/travel/reports`;
+  private reportsBaseUrl : string = `http://localhost:8080/api/travel/reports`;
 
   constructor(private http: HttpClient) { }
 

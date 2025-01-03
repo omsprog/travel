@@ -9,7 +9,7 @@ import {TourPage} from "../interfaces/tour.interface";
 export class TourService {
 
   private PAGE_SIZE = 5;
-  private tourBaseUrl : string = `http://localhost:8080/travel/tours`;
+  private tourBaseUrl : string = `http://localhost:8080/api/travel/tours`;
 
   constructor(private http: HttpClient) { }
 

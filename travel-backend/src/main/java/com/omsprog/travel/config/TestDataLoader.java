@@ -229,37 +229,33 @@ public class TestDataLoader {
             TicketEntity ticket1 = TicketEntity.builder().id(UUID.fromString("12345678-1234-5678-2236-567812345685")).price(BigDecimal.valueOf(320.24)).flight(flight10InDb).customer(user1InDb)
                     .departureDate(LocalDateTime.parse("2024-06-07 14:00:00", formatter)).arrivalDate(LocalDateTime.parse("2024-06-07 16:00:00", formatter)).purchaseDate(LocalDate.from(now()))
                     .tour(tourToBeCreated1).build();
-
             TicketEntity ticket2 = TicketEntity.builder().id(UUID.fromString("12345678-1234-5678-2236-567812345686")).price(BigDecimal.valueOf(243.64)).flight(flight11InDb).customer(user1InDb)
                     .departureDate(LocalDateTime.parse("2024-06-08 10:00:00", formatter)).arrivalDate(LocalDateTime.parse("2024-06-08 13:00:00", formatter)).purchaseDate(LocalDate.from(now()))
                     .tour(tourToBeCreated1).build();
-
             ReservationEntity reservation1 = ReservationEntity.builder().id(UUID.fromString("12345678-1234-5678-1234-567812345831")).dateTimeReservation(now()).hotel(hotel7InDb)
                     .customer(user1InDb).dateStart(LocalDate.parse("2024-08-10")).dateEnd(LocalDate.parse("2024-08-19")).totalDays(9).price(BigDecimal.valueOf(77.0))
                     .tour(tourToBeCreated1).build();
-
-
-            TicketEntity ticket3 = TicketEntity.builder().id(UUID.fromString("12345678-1234-5678-2236-567812345687")).price(BigDecimal.valueOf(230.80)).flight(flight12InDb).customer(user2InDb)
-                    .departureDate(LocalDateTime.parse("2024-07-11 16:00:00", formatter)).arrivalDate(LocalDateTime.parse("2024-07-11 18:00:00", formatter)).purchaseDate(LocalDate.from(now()))
-                    .tour(tourToBeCreated2).build();
-
-            TicketEntity ticket4 = TicketEntity.builder().id(UUID.fromString("12345678-1234-5678-2236-567812345688")).price(BigDecimal.valueOf(532.35)).flight(flight13InDb).customer(user2InDb)
-                    .departureDate(LocalDateTime.parse("2024-07-14 11:00:00", formatter)).arrivalDate(LocalDateTime.parse("2024-07-14 12:30:00", formatter)).purchaseDate(LocalDate.from(now()))
-                    .tour(tourToBeCreated2).build();
-
-            ReservationEntity reservation2 = ReservationEntity.builder().id(UUID.fromString("12345678-1234-5678-1234-567812345832")).dateTimeReservation(now()).hotel(hotel8InDb)
-                    .customer(user2InDb).dateStart(LocalDate.parse("2024-07-15")).dateEnd(LocalDate.parse("2024-07-26")).totalDays(11).price(BigDecimal.valueOf(345.0))
-                    .tour(tourToBeCreated2).build();
 
             tourToBeCreated1.addTicket(ticket1);
             tourToBeCreated1.addTicket(ticket2);
             tourToBeCreated1.addReservation(reservation1);
 
+            tourRepository.save(tourToBeCreated1);
+
+            TicketEntity ticket3 = TicketEntity.builder().id(UUID.fromString("12345678-1234-5678-2236-567812345687")).price(BigDecimal.valueOf(230.80)).flight(flight12InDb).customer(user2InDb)
+                    .departureDate(LocalDateTime.parse("2024-07-11 16:00:00", formatter)).arrivalDate(LocalDateTime.parse("2024-07-11 18:00:00", formatter)).purchaseDate(LocalDate.from(now()))
+                    .tour(tourToBeCreated2).build();
+            TicketEntity ticket4 = TicketEntity.builder().id(UUID.fromString("12345678-1234-5678-2236-567812345688")).price(BigDecimal.valueOf(532.35)).flight(flight13InDb).customer(user2InDb)
+                    .departureDate(LocalDateTime.parse("2024-07-14 11:00:00", formatter)).arrivalDate(LocalDateTime.parse("2024-07-14 12:30:00", formatter)).purchaseDate(LocalDate.from(now()))
+                    .tour(tourToBeCreated2).build();
+            ReservationEntity reservation2 = ReservationEntity.builder().id(UUID.fromString("12345678-1234-5678-1234-567812345832")).dateTimeReservation(now()).hotel(hotel8InDb)
+                    .customer(user2InDb).dateStart(LocalDate.parse("2024-07-15")).dateEnd(LocalDate.parse("2024-07-26")).totalDays(11).price(BigDecimal.valueOf(345.0))
+                    .tour(tourToBeCreated2).build();
+
             tourToBeCreated2.addTicket(ticket3);
             tourToBeCreated2.addTicket(ticket4);
             tourToBeCreated2.addReservation(reservation2);
 
-            tourRepository.save(tourToBeCreated1);
             tourRepository.save(tourToBeCreated2);
         }
 

@@ -9,7 +9,7 @@ import {Customer, CustomerPage} from "../interfaces/customer.interface";
 export class CustomerService {
 
   private PAGE_SIZE = 5;
-  private customerBaseUrl : string = `http://localhost:8080/travel/users`;
+  private customerBaseUrl : string = `http://localhost:8080/api/travel/users`;
 
   constructor(private http: HttpClient) { }
 

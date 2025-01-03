@@ -8,7 +8,7 @@ import {SignInResponse, SignInRequest} from "../../auth/interfaces/signIn.interf
 })
 export class AuthService {
 
-  private authBaseUrl : string = 'http://localhost:8080/travel/users';
+  private authBaseUrl : string = 'http://localhost:8080/api/travel/users';
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
 
   constructor(private http: HttpClient) { }
