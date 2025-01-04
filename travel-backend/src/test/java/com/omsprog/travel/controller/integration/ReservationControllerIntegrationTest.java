@@ -16,7 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles({"integration", "testdata"})
+@ActiveProfiles("testdata")
 class ReservationControllerIntegrationTest {
 
     private static String jwtToken;

@@ -26,7 +26,6 @@ CREATE TABLE IF NOT EXISTS flight
     CONSTRAINT pk_flight PRIMARY KEY ( "id" )
 );
 
-
 CREATE TABLE IF NOT EXISTS hotel
 (
     "id"      bigserial NOT NULL,

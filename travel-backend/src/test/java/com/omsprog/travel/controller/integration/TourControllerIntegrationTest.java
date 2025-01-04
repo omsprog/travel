@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles({"integration", "testdata"})
+@ActiveProfiles("testdata")
 class TourControllerIntegrationTest {
 
     private static String jwtToken;
