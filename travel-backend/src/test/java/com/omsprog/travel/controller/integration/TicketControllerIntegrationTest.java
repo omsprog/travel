@@ -1,7 +1,7 @@
 package com.omsprog.travel.controller.integration;
 
-import com.omsprog.travel.testutil.JwtTestUtil;
 import com.omsprog.travel.dto.response.pagination.TicketPage;
+import com.omsprog.travel.testutil.JwtTestUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles({"integration", "testdata"})
 class TicketControllerIntegrationTest {
 
     private static String jwtToken;

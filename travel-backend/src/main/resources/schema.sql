@@ -1,4 +1,4 @@
-CREATE TABLE app_user
+CREATE TABLE IF NOT EXISTS app_user
 (
     dni             varchar(20) NOT NULL,
     full_name       varchar(50) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE app_user
     CONSTRAINT pk_app_user PRIMARY KEY ( dni )
 );
 
-CREATE TABLE flight
+CREATE TABLE IF NOT EXISTS flight
 (
     "id"           bigserial NOT NULL,
     origin_lat   decimal NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE flight
 );
 
 
-CREATE TABLE hotel
+CREATE TABLE IF NOT EXISTS hotel
 (
     "id"      bigserial NOT NULL,
     name    varchar(50) NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE hotel
     CONSTRAINT pk_hotel PRIMARY KEY ( "id" )
 );
 
-CREATE TABLE tour
+CREATE TABLE IF NOT EXISTS tour
 (
     "id"                bigserial NOT NULL,
     id_customer         varchar(20) NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE tour
     CONSTRAINT fk_app_user FOREIGN KEY ( id_customer ) REFERENCES app_user ( dni ) ON DELETE NO ACTION
 );
 
-CREATE TABLE reservation
+CREATE TABLE IF NOT EXISTS reservation
 (
     "id"             uuid NOT NULL,
     date_reservation timestamp NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE reservation
     CONSTRAINT fk_tour_r FOREIGN KEY ( tour_id ) REFERENCES tour ( "id" ) ON DELETE CASCADE
 );
 
-CREATE TABLE ticket
+CREATE TABLE IF NOT EXISTS ticket
 (
     "id"           uuid NOT NULL,
     price          double precision NOT NULL,

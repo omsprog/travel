@@ -1,9 +1,6 @@
 package com.omsprog.travel.data;
 
 import com.omsprog.travel.entity.jpa.HotelEntity;
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -13,11 +10,14 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.math.BigDecimal;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ActiveProfiles("integration")
-@Tag("commit-stage")
+@ActiveProfiles({"integration"})
 public class HotelEntityIntegrationTest {
+
     @Autowired
     private TestEntityManager testEntityManager;
 
