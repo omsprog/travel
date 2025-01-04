@@ -23,8 +23,17 @@ jobs:
           java-version: 17
           cache: maven
 
+      - name: Start Docker Compose
+        working-directory: travel-backend
+        run: docker compose up -d
+
       - name: Build, unit tests and integration tests
         working-directory: travel-backend
         run: |
           chmod +x mvnw
           ./mvnw test
+
+      - name: Stop and Clean Up Docker Compose
+        if: always()
+        working-directory: travel-backend
+        run: docker compose down
