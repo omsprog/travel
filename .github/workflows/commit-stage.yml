@@ -56,6 +56,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: travel-backend
-          file: ./Dockerfile
+          file: travel-backend/Dockerfile
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
           push: true
