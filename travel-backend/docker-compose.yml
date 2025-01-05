@@ -2,11 +2,32 @@ services:
 
   sql-db:
     image: postgres:15.2
-    container_name: travel
+    container_name: travel-database
     restart: always
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=travel
       - POSTGRES_USER=oscar
       - POSTGRES_PASSWORD=oscar
     ports:
       - "5432:5432"
+
+  travel-backend:
+    depends_on:
+      - sql-db
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    container_name: travel-backend
+    ports:
+      - "8080:8080"
+    profiles:
+      - integration
+    environment:
+      - SPRING_PROFILES_ACTIVE=testdata
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://travel-database:5432/travel
+      - TRAVEL_LANDING_PAGE_MESSAGE=In Docker container
+
+volumes:
+  postgres-data:

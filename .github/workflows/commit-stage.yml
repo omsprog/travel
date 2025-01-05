@@ -25,7 +25,7 @@ jobs:
 
       - name: Start Docker Compose
         working-directory: travel-backend
-        run: docker compose up -d
+        run: docker compose --profile default up -d
 
       - name: Build, unit tests and integration tests
         working-directory: travel-backend
