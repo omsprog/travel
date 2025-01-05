@@ -38,7 +38,7 @@ jobs:
         working-directory: travel-backend
         run: |
           chmod +x mvnw
-          ./mvnw test
+          ./mvnw clean package
 
       - name: Stop and Clean Up Docker Compose
         if: always()
