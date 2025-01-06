@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: travel-backend
+  labels:
+    app: travel-backend
+spec:
+  selector:
+    matchLabels:
+      app: travel-backend
+  template:
+    metadata:
+      labels:
+        app: travel-backend
+    spec:
+      containers:
+        - name: travel-backend
+          image: travel-backend
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: testdata
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://travel-postgres:5432/travel
+            - name: TRAVEL_LANDING_PAGE_MESSAGE
+              value: In K8s cluster - Dev environment

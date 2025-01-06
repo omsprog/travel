@@ -10,8 +10,21 @@
 `kubectl get nodes`  
 `kubectl config get-contexts`  
 `kubectl config use-context travel`  
+
+Deploying database
+
 `cd k8s/dev`  
-`kubectl apply -f services` deploy database 
+`kubectl apply -f services` 
 `kubectl delete -f services`  undeploy database
 `kubectl get pod`  
 `kubectl logs deployment/travel-postgres`  
+
+Building image for backend and deploying to k8s cluster
+
+`mvn clean package` Optional flag `-DskipTests`  
+`docker build -t travel-backend .`  
+`minikube image load travel-backend --profile travel`
+`kubectl apply -f k8s/dev/deployment.yml`  
+`kubectl get pods`  
+`kubectl get all -l app=travel-backend`  
+`kubectl logs deployment/travel-backend`  
