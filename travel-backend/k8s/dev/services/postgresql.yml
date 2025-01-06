@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: travel-postgres
+  labels:
+    db: travel-postgres
+spec:
+  selector:
+    matchLabels:
+      db: travel-postgres
+  template:
+    metadata:
+      labels:
+        db: travel-postgres
+    spec:
+      containers:
+        - name: travel-postgres
+          image: postgres:15.2
+          env:
+            - name: POSTGRES_USER
+              value: oscar
+            - name: POSTGRES_PASSWORD
+              value: oscar
+            - name: POSTGRES_DB
+              value: travel
+          resources:
+            requests:
+              cpu: 100m
+              memory: 60Mi
+            limits:
+              cpu: 200m
+              memory: 120Mi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: travel-postgres
+  labels:
+    db: travel-postgres
+spec:
+  type: ClusterIP
+  selector:
+    db: travel-postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
