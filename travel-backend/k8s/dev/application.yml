@@ -26,3 +26,20 @@ spec:
               value: jdbc:postgresql://travel-postgres:5432/travel
             - name: TRAVEL_LANDING_PAGE_MESSAGE
               value: In K8s cluster - Dev environment
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: travel-backend
+  labels:
+    app: travel-backend
+spec:
+  type: ClusterIP
+  selector:
+    app: travel-backend
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

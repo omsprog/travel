@@ -24,7 +24,8 @@ Building image for backend and deploying to k8s cluster
 `mvn clean package` Optional flag `-DskipTests`  
 `docker build -t travel-backend .`  
 `minikube image load travel-backend --profile travel`
-`kubectl apply -f k8s/dev/deployment.yml`  
+`kubectl apply -f k8s/dev/application.yml`  
 `kubectl get pods`  
 `kubectl get all -l app=travel-backend`  
 `kubectl logs deployment/travel-backend`  
+`kubectl port-forward service/travel-backend 8080:8080`  
