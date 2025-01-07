@@ -14,8 +14,8 @@
 Deploying database
 
 `cd k8s/dev`  
-`kubectl apply -f services` 
-`kubectl delete -f services`  undeploy database
+`kubectl apply -f k8s/dev/services` 
+`kubectl delete -f k8s/dev/services`  undeploy database
 `kubectl get pod`  
 `kubectl logs deployment/travel-postgres`  
 
@@ -25,6 +25,7 @@ Building image for backend and deploying to k8s cluster
 `docker build -t travel-backend .`  
 `minikube image load travel-backend --profile travel`
 `kubectl apply -f k8s/dev/application.yml`  
+`kubectl delete -f k8s/dev/application.yml` undeploy application   
 `kubectl get pods`  
 `kubectl get all -l app=travel-backend`  
 `kubectl logs deployment/travel-backend`  
