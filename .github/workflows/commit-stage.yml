@@ -31,18 +31,18 @@ jobs:
           cache: maven
 
       - name: Start Docker Compose
-        working-directory: travel-backend
+        working-directory: travel-backend/dashboard-service
         run: docker compose up -d
 
       - name: Build, unit tests and integration tests
-        working-directory: travel-backend
+        working-directory: travel-backend/dashboard-service
         run: |
           chmod +x mvnw
           ./mvnw clean package
 
       - name: Stop and Clean Up Docker Compose
         if: always()
-        working-directory: travel-backend
+        working-directory: travel-backend/dashboard-service
         run: docker compose down
 
       - name: Log in to GitHub Container Registry
