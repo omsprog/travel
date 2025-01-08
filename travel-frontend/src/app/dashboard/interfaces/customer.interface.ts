@@ -23,3 +23,7 @@ export interface Customer {
   totalLodgings: number;
   totalTours:    number;
 }
+
+export interface LandingMessage {
+  message: string;
+}

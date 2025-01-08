@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CustomerPage} from "../../../interfaces/customer.interface";
-import {CustomerService} from "../../../services/customer-service.service";
+import {UserService} from "../../../services/customer-service.service";
 
 @Component({
   selector: 'app-customer-list',
@@ -12,7 +12,7 @@ export class CustomerListComponent implements OnInit {
   public currentPage : number = 0;
   public loading = false;
 
-  constructor(private customerService: CustomerService) { }
+  constructor(private customerService: UserService) { }
 
   ngOnInit(): void {
     this.loading = true;

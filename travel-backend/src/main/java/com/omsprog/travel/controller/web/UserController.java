@@ -20,6 +20,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Collections;
+import java.util.Map;
 import java.util.Objects;
 
 @RestController
@@ -31,8 +33,8 @@ public class UserController {
     private Environment environment;
 
     @GetMapping("/landing-message")
-    public String getLandingPageMessage() {
-        return environment.getProperty("travel.landing-page-message");
+    public Map<String, String> getLandingPageMessage() {
+        return Collections.singletonMap("message", environment.getProperty("travel.landing-page-message"));
     }
 
     @GetMapping

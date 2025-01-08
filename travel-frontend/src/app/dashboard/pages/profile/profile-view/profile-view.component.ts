@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Customer} from "../../../interfaces/customer.interface";
-import {CustomerService} from "../../../services/customer-service.service";
+import {UserService} from "../../../services/customer-service.service";
 
 @Component({
   selector: 'app-profile-view',
@@ -14,7 +14,7 @@ export class ProfileViewComponent implements OnInit {
   public profile? : Customer
   public imageUrl? : string
 
-  constructor(private customerService : CustomerService) { }
+  constructor(private customerService : UserService) { }
 
   ngOnInit() : void {
     this.isProfilePictureLoading = true;

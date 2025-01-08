@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LayoutComponent} from "./layout/layout.component";
-import {HomeComponent} from "./home/home.component";
+import {HomeComponent} from "./pages/home/home.component";
 import {FlightListComponent} from "./pages/flight/flight-list/flight-list.component";
 import {HotelListComponent} from "./pages/hotel/hotel-list/hotel-list.component";
 import {FlightViewComponent} from "./pages/flight/flight-view/flight-view.component";
