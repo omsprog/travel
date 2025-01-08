@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface TourRepository extends JpaRepository<TourEntity, Long> {
-    @Query("SELECT new com.omsprog.travel.dto.response.TourSummaryResponse( " +
+    @Query("SELECT new com.omsprog.dashboard_service.dto.response.TourSummaryResponse( " +
             "tr.id, tr.name, c.fullName, " +
             "COUNT(DISTINCT ti.id), COUNT(DISTINCT r.id)) " +
             "FROM tour tr " +
