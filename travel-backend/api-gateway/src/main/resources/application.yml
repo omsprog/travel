@@ -1,0 +1,47 @@
+spring:
+  application:
+    name:
+      api-gateway
+  lifecycle:
+    timeout-per-shutdown-phase:
+      15s
+  cloud:
+    gateway:
+      httpclient:
+        connect-timeout: 2000
+        response-timeout: 5s
+      routes:
+        - id: dashboard-route
+          uri:  ${DASHBOARD_SERVICE_URL:http://localhost:8080}/dashboard
+          predicates:
+            - Path=/dashboard/**
+          filters:
+            - RewritePath=/dashboard/(?<remaining>.*), /dashboard/${remaining}
+        - id: tour-route
+          uri: ${TOUR_SERVICE_URL:http://localhost:8081}/tour
+          predicates:
+            - Path=/tour/**
+          filters:
+            - RewritePath=/tour/(?<remaining>.*), /tour/${remaining}
+
+server:
+  port:
+    9000
+  netty:
+    connection-timeout:
+      2s
+    idle-timeout:
+      15s
+  shutdown:
+    graceful
+
+
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          DEBUG
+        cloud:
+          gateway:
+            DEBUG
