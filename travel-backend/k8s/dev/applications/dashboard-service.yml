@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashboard-service
+  labels:
+    app: dashboard-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard-service
+  template:
+    metadata:
+      labels:
+        app: dashboard-service
+    spec:
+      containers:
+        - name: dashboard-service
+          image: dashboard-service
+          imagePullPolicy: IfNotPresent
+          lifecycle:
+            preStop:
+              exec:
+                command: ["sh", "-c", "sleep 5"]
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: testdata
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://travel-postgres:5432/travel
+            - name: TRAVEL_LANDING_PAGE_MESSAGE
+              value: In K8s cluster - Dev environment
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: dashboard-service
+  labels:
+    app: dashboard-service
+spec:
+  type: ClusterIP
+  selector:
+    app: dashboard-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
