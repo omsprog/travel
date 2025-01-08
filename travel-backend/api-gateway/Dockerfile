@@ -1,8 +1,8 @@
 FROM eclipse-temurin:17 AS builder
 WORKDIR workspace
 ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} dashboard-service.jar
-RUN java -Djarmode=layertools -jar dashboard-service.jar extract
+COPY ${JAR_FILE} api-gateway.jar
+RUN java -Djarmode=layertools -jar api-gateway.jar extract
 
 FROM eclipse-temurin:17
 RUN useradd spring
